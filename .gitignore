@@ -305,3 +305,4 @@ __pycache__/
 OpenCover/
 proyecto/src/main/obj/Debug/*
 proyecto/src/main/bin/*
+*.suo
