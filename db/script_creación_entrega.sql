@@ -15,16 +15,6 @@ GO
 IF EXISTS ( SELECT *
 			FROM INFORMATION_SCHEMA.TABLES
 			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'roles'
-)
-BEGIN
-	DROP TABLE SQL_86.roles
-END
-GO
-
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
 				AND TABLE_NAME = 'pagos_devoluciones'
 )
 BEGIN
@@ -39,26 +29,6 @@ IF EXISTS ( SELECT *
 )
 BEGIN
 	DROP TABLE SQL_86.pagos_detalles
-END
-GO
-
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'pagos'
-)
-BEGIN
-	DROP TABLE SQL_86.pagos
-END
-GO
-
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'medios_pagos'
-)
-BEGIN
-	DROP TABLE SQL_86.medios_pagos
 END
 GO
 
@@ -85,6 +55,16 @@ GO
 IF EXISTS ( SELECT *
 			FROM INFORMATION_SCHEMA.TABLES
 			WHERE TABLE_SCHEMA = 'SQL_86'
+				AND TABLE_NAME = 'roles'
+)
+BEGIN
+	DROP TABLE SQL_86.roles
+END
+GO
+
+IF EXISTS ( SELECT *
+			FROM INFORMATION_SCHEMA.TABLES
+			WHERE TABLE_SCHEMA = 'SQL_86'
 				AND TABLE_NAME = 'funcionalidades'
 )
 BEGIN
@@ -99,6 +79,26 @@ IF EXISTS ( SELECT *
 )
 BEGIN
 	DROP TABLE SQL_86.facturas
+END
+GO
+
+IF EXISTS ( SELECT *
+			FROM INFORMATION_SCHEMA.TABLES
+			WHERE TABLE_SCHEMA = 'SQL_86'
+				AND TABLE_NAME = 'pagos'
+)
+BEGIN
+	DROP TABLE SQL_86.pagos
+END
+GO
+
+IF EXISTS ( SELECT *
+			FROM INFORMATION_SCHEMA.TABLES
+			WHERE TABLE_SCHEMA = 'SQL_86'
+				AND TABLE_NAME = 'medios_pagos'
+)
+BEGIN
+	DROP TABLE SQL_86.medios_pagos
 END
 GO
 
@@ -182,7 +182,7 @@ GO
 -- Table SQL_86.rubros
 -- -----------------------------------------------------
 CREATE TABLE SQL_86.rubros (
-   id INT PRIMARY KEY,
+   id INT PRIMARY KEY IDENTITY(1,1),
    descripcion VARCHAR(100) NOT NULL
 )
 GO
@@ -231,10 +231,7 @@ CREATE TABLE SQL_86.rendiciones (
   fecha DATETIME NOT NULL,
   id_empresa INT NOT NULL,
   total DECIMAL(20,2) NOT NULL,
-  cantidad_facturas INT NOT NULL,
   importe DECIMAL(20,2) NOT NULL,
-  porcentaje_rendicion DECIMAL(4,2) NOT NULL,
-  estado CHAR(1) NOT NULL
 )
 GO
 
@@ -259,7 +256,8 @@ CREATE TABLE SQL_86.facturas (
   id_cliente INT NOT NULL,
   estado CHAR(1) NOT NULL,
   id_sucursal INT NOT NULL,
-  id_rendicion INT NOT NULL
+  id_rendicion INT,
+  id_pago INT
 )
 GO
 
@@ -284,6 +282,12 @@ GO
 ALTER TABLE SQL_86.facturas CHECK CONSTRAINT FK_id_sucursal_factura
 GO
 
+ALTER TABLE SQL_86.facturas WITH CHECK ADD  CONSTRAINT FK_id_rendicion_factura FOREIGN KEY( id_rendicion )
+REFERENCES SQL_86.rendiciones (id)
+GO
+
+ALTER TABLE SQL_86.facturas CHECK CONSTRAINT FK_id_rendicion_factura
+GO
 
 -- -----------------------------------------------------
 -- Table SQL_86.facturas_items
@@ -322,16 +326,31 @@ CREATE TABLE SQL_86.pagos (
   importe DECIMAL(10,2) NOT NULL,
   fecha DATETIME NOT NULL,
   id_medio INT NOT NULL,
-  estado CHAR(1) NOT NULL
+  id_cliente INT NOT NULL
 )
 GO
   
 
-ALTER TABLE SQL_86.pagos WITH CHECK ADD  CONSTRAINT FK_id_medio_pago FOREIGN KEY( id_medio )
+ALTER TABLE SQL_86.pagos WITH CHECK ADD CONSTRAINT FK_id_medio_pago FOREIGN KEY( id_medio )
 REFERENCES SQL_86.medios_pagos (id)
 GO
 
 ALTER TABLE SQL_86.pagos CHECK CONSTRAINT FK_id_medio_pago
+GO
+
+ALTER TABLE SQL_86.pagos WITH CHECK ADD CONSTRAINT FK_id_cliente_pago FOREIGN KEY( id_cliente )
+REFERENCES SQL_86.clientes (id)
+GO
+
+ALTER TABLE SQL_86.pagos CHECK CONSTRAINT FK_id_cliente_pago
+GO
+
+--Crea FK para la tabla facturas relacionando el id de pago
+ALTER TABLE SQL_86.facturas WITH CHECK ADD CONSTRAINT FK_id_pago_factura FOREIGN KEY( id_pago )
+REFERENCES SQL_86.pagos (id)
+GO
+
+ALTER TABLE SQL_86.facturas CHECK CONSTRAINT FK_id_pago_factura
 GO
 
 
@@ -361,6 +380,13 @@ REFERENCES SQL_86.sucursales (id)
 GO
 
 ALTER TABLE SQL_86.usuarios CHECK CONSTRAINT FK_id_sucursal_usuario
+GO
+
+ALTER TABLE SQL_86.usuarios WITH CHECK ADD  CONSTRAINT FK_id_rol_usuario FOREIGN KEY( id_rol )
+REFERENCES SQL_86.roles (id)
+GO
+
+ALTER TABLE SQL_86.usuarios CHECK CONSTRAINT FK_id_rol_usuario
 GO
 
 
@@ -402,48 +428,53 @@ GO
 -- -----------------------------------------------------
 -- Table SQL_86.pagos_detalles
 -- -----------------------------------------------------
-CREATE TABLE SQL_86.pagos_detalles (
-  id_pago INT NOT NULL,
-  id_factura INT NOT NULL,
-  PRIMARY KEY (id_pago, id_factura)
-)
-GO
+--CREATE TABLE SQL_86.pagos_detalles (
+--  id_pago INT NOT NULL,
+--  id_factura INT NOT NULL,
+--  PRIMARY KEY (id_pago, id_factura)
+--)
+--GO
 
-ALTER TABLE SQL_86.pagos_detalles WITH CHECK ADD  CONSTRAINT FK_id_pago_pago_detalle FOREIGN KEY( id_pago )
-REFERENCES SQL_86.pagos (id)
-GO
+--ALTER TABLE SQL_86.pagos_detalles WITH CHECK ADD  CONSTRAINT FK_id_pago_pago_detalle FOREIGN KEY( id_pago )
+--REFERENCES SQL_86.pagos (id)
+--GO
 
-ALTER TABLE SQL_86.pagos_detalles CHECK CONSTRAINT FK_id_pago_pago_detalle
-GO
+--ALTER TABLE SQL_86.pagos_detalles CHECK CONSTRAINT FK_id_pago_pago_detalle
+--GO
 
-ALTER TABLE SQL_86.pagos_detalles WITH CHECK ADD  CONSTRAINT FK_id_factura_pago_detalle FOREIGN KEY( id_factura )
-REFERENCES SQL_86.facturas (id)
-GO
+--ALTER TABLE SQL_86.pagos_detalles WITH CHECK ADD  CONSTRAINT FK_id_factura_pago_detalle FOREIGN KEY( id_factura )
+--REFERENCES SQL_86.facturas (id)
+--GO
 
-ALTER TABLE SQL_86.pagos_detalles CHECK CONSTRAINT FK_id_factura_pago_detalle
-GO
+--ALTER TABLE SQL_86.pagos_detalles CHECK CONSTRAINT FK_id_factura_pago_detalle
+--GO
 
 
 -- -----------------------------------------------------
 -- Table SQL_86.pagos_devoluciones
 -- -----------------------------------------------------
-CREATE TABLE SQL_86.pagos_devoluciones (
-  id_devolucion INT IDENTITY(1,1) PRIMARY KEY,
-  id_pago INT NOT NULL,
-  fecha DATETIME NOT NULL,
-  descripcion VARCHAR(150) NOT NULL
-)
-GO
+--CREATE TABLE SQL_86.pagos_devoluciones (
+--  id_devolucion INT IDENTITY(1,1) PRIMARY KEY,
+--  id_pago INT NOT NULL,
+--  fecha DATETIME NOT NULL,
+--  descripcion VARCHAR(150) NOT NULL
+--)
+--GO
 
-ALTER TABLE SQL_86.pagos_devoluciones WITH CHECK ADD  CONSTRAINT FK_id_pago_pago_devolucion FOREIGN KEY( id_pago )
-REFERENCES SQL_86.pagos (id)
-GO
+-- ALTER TABLE SQL_86.pagos_devoluciones WITH CHECK ADD  CONSTRAINT FK_id_pago_pago_devolucion FOREIGN KEY( id_pago )
+-- REFERENCES SQL_86.pagos (id)
+-- GO
 
-ALTER TABLE SQL_86.pagos_devoluciones CHECK CONSTRAINT FK_id_pago_pago_devolucion
-GO
+-- ALTER TABLE SQL_86.pagos_devoluciones CHECK CONSTRAINT FK_id_pago_pago_devolucion
+-- GO
 
 /****** fin creacion tablas ******/
 
+
+
+/****** Inicio insercion de datos ******/
+
+--Inserta Datos en latabla clientes.
 INSERT INTO SQL_86.clientes ( dni, apellido, nombre, fecha_nacimiento, mail, direccion, cp )
 SELECT DISTINCT [Cliente-Dni]
 	,[Cliente-Apellido]
@@ -455,13 +486,18 @@ SELECT DISTINCT [Cliente-Dni]
 FROM gd_esquema.Maestra 
 
 
+--Inserta datos en la tabla rubros.
+
+SET IDENTITY_INSERT SQL_86.rubros ON
+
 INSERT INTO SQL_86.rubros ( id, descripcion )
-SELECT DISTINCT Empresa_Rubro
+SELECT DISTINCT Empresa_Rubro 
 	,Rubro_Descripcion
 FROM gd_esquema.Maestra
 
--- Rubros: Agregar IDENTITY despues de importar registros de tabla maestra
+SET IDENTITY_INSERT SQL_86.rubros OFF
 
+--Inserta datos en la tabla empresas.
 INSERT INTO SQL_86.empresas ( nombre, cuit, direccion, id_rubro, estado, porcentaje_rendicion )
 SELECT DISTINCT Empresa_Nombre
 	,Empresa_Cuit
@@ -471,6 +507,8 @@ SELECT DISTINCT Empresa_Nombre
 	,0 
 FROM gd_esquema.Maestra
 
+
+--Inserta datos en la tabla sucursales.
 INSERT INTO SQL_86.sucursales ( nombre, direccion, cp, estado )
 SELECT DISTINCT Sucursal_nombre
 	,Sucursal_Dirección
@@ -480,19 +518,120 @@ FROM gd_esquema.Maestra
 WHERE Sucursal_Nombre IS NOT NULL
 ORDER BY Sucursal_Nombre
 
--- Insertar rendiciones finalizadas
-INSERT INTO SQL_86.rendiciones ( total, fecha, id_empresa, cantidad_facturas, importe, porcentaje_rendicion, estado )
-SELECT DISTINCT (SELECT SUM(total) FROM gd_esquema.Maestra WHERE MONTH(Rendicion_Fecha)=MONTH(r.Rendicion_Fecha)) AS Rendicion_Total,
-		r.Rendicion_Fecha,
-		1 AS id_empresa,
-		(SELECT COUNT(*) FROM gd_esquema.Maestra WHERE MONTH(Rendicion_Fecha)=MONTH(r.Rendicion_Fecha)) AS Rendicion_Cantidad_Facturas,
-		(SELECT SUM(ItemRendicion_Importe) FROM gd_esquema.Maestra WHERE MONTH(Rendicion_Fecha)=MONTH(r.Rendicion_Fecha)) AS Ganancia_PagoAgil,
-		CAST ((ItemRendicion_Importe*100)/Factura_Total AS decimal (4,2)) AS Porcentaje_Ganancia,
-		'F' AS estado
-FROM gd_esquema.Maestra r
-WHERE Rendicion_Nro IS NOT NULL
-GROUP BY Rendicion_Total
-ORDER BY Rendicion_Fecha
+
+-- Inserta datos en la tabla rendciones.
+SET IDENTITY_INSERT SQL_86.rendiciones ON
+
+INSERT INTO SQL_86.rendiciones ( id, fecha, id_empresa, total, importe )
+SELECT [Rendicion_Nro] 
+	,[Rendicion_Fecha]
+	,1
+	,[Factura_Total]
+	,[ItemRendicion_Importe]
+FROM ( SELECT DISTINCT [Nro_Factura]
+	,[Factura_Total]
+	,[Rendicion_Nro]
+    ,[Rendicion_Fecha]
+	,[ItemRendicion_Importe]
+	FROM [GD2C2017].[gd_esquema].[Maestra] 
+	WHERE ItemRendicion_nro IS NOT NULL 
+) r
+ORDER BY [Rendicion_Nro] 
+
+SET IDENTITY_INSERT SQL_86.rendiciones OFF
 
 
--- Insertar rendiciones pendientes
+-- Inserta datos en la tabla medios_pagos.
+INSERT INTO SQL_86.medios_pagos ( nombre )
+SELECT DISTINCT [FormaPagoDescripcion]
+FROM [GD2C2017].[gd_esquema].[Maestra]
+WHERE [FormaPagoDescripcion] IS NOT NULL 
+
+
+-- Inserta datos en la tabla medios_pagos.
+SET IDENTITY_INSERT SQL_86.pagos ON
+GO
+
+INSERT INTO SQL_86.pagos ( id, importe, fecha, id_medio, id_cliente )
+SELECT DISTINCT [Pago_nro] 
+	, [Total]
+	, [Pago_Fecha]
+	, mp.id AS id_medio_pago
+	, c.id AS id_cliente
+FROM ( [GD2C2017].[gd_esquema].[Maestra] m 
+		JOIN SQL_86.clientes c ON c.dni = m.[Cliente-Dni] 
+	) JOIN SQL_86.medios_pagos mp ON mp.nombre = m.FormaPagoDescripcion   
+WHERE [Pago_nro] IS NOT NULL
+ORDER BY [Pago_nro]
+GO
+
+SET IDENTITY_INSERT SQL_86.pagos OFF
+GO
+
+
+-- Inserta facturas rendidas en la tabla facturas.
+SET IDENTITY_INSERT SQL_86.facturas ON
+GO
+
+INSERT INTO SQL_86.facturas (id,numero,fecha,importe,fecha_vencimiento,id_empresa,id_cliente,estado,id_sucursal,id_rendicion,id_pago)
+SELECT DISTINCT m.Nro_Factura AS id
+	,m.Nro_Factura
+	,m.Factura_Fecha
+	,m.Factura_Total
+	,m.Factura_Fecha_Vencimiento
+	,1
+	,c.id as cliente
+	,'F'
+	,1
+	,m.Rendicion_Nro
+	,m.Pago_nro
+FROM ([GD2C2017].[gd_esquema].[Maestra] m JOIN SQL_86.clientes c ON c.dni = m.[Cliente-Dni])
+WHERE m.Pago_nro IS NOT NULL AND Rendicion_Nro IS NOT NULL AND m.Nro_Factura NOT IN (SELECT id FROM SQL_86.facturas)
+GO
+
+-- Inserta facturas pagadas en la tabla facturas.
+INSERT INTO SQL_86.facturas (id,numero,fecha,importe,fecha_vencimiento,id_empresa,id_cliente,estado,id_sucursal,id_rendicion,id_pago)
+SELECT DISTINCT m.Nro_Factura AS id
+	,m.Nro_Factura
+	,m.Factura_Fecha
+	,m.Factura_Total
+	,m.Factura_Fecha_Vencimiento
+	,1
+	,c.id as cliente
+	,'A'
+	,1
+	,NULL
+	,m.Pago_nro
+FROM ([GD2C2017].[gd_esquema].[Maestra] m JOIN SQL_86.clientes c ON c.dni = m.[Cliente-Dni])
+WHERE m.Pago_nro IS NOT NULL AND Rendicion_Nro IS NULL AND m.Nro_Factura NOT IN (SELECT id FROM SQL_86.facturas)
+GO
+
+
+-- Inserta facturas pendientes en la tabla facturas.
+INSERT INTO SQL_86.facturas (id,numero,fecha,importe,fecha_vencimiento,id_empresa,id_cliente,estado,id_sucursal,id_rendicion,id_pago)
+SELECT DISTINCT m.Nro_Factura AS id
+	,m.Nro_Factura
+	,m.Factura_Fecha
+	,m.Factura_Total
+	,m.Factura_Fecha_Vencimiento
+	,1
+	,c.id as cliente
+	,'P'
+	,1
+	,NULL
+	,NULL
+FROM ([GD2C2017].[gd_esquema].[Maestra] m JOIN SQL_86.clientes c ON c.dni = m.[Cliente-Dni])
+WHERE m.Pago_nro IS NULL AND Rendicion_Nro IS NULL AND m.Nro_Factura NOT IN (SELECT id FROM SQL_86.facturas)
+GO
+SET IDENTITY_INSERT SQL_86.facturas OFF
+GO
+
+-- Inserta datos en la tabla facturas_items.
+INSERT INTO SQL_86.facturas_items (id_factura, monto, cantidad)
+SELECT Nro_Factura
+	,ItemFactura_Cantidad
+	,ItemFactura_Monto
+FROM [GD2C2017].[gd_esquema].[Maestra]
+GROUP BY Nro_Factura, ItemFactura_Cantidad,ItemFactura_Monto
+ORDER BY Nro_Factura, ItemFactura_Cantidad,ItemFactura_Monto
+GO
