@@ -1,1 +1,12 @@
 \\VBOXSVR\PagoAgil2C2017\src\PagoAgilFrba\bin\Debug\PagoAgilFrba.exe.config
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\obj\Debug\PagoAgilFrba.csprojResolveAssemblyReference.cache
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\obj\Debug\PagoAgilFrba.Properties.Resources.resources
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\obj\Debug\PagoAgilFrba.csproj.GenerateResource.Cache
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\obj\Debug\PagoAgilFrba.csproj.CoreCompileInputs.cache
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\bin\Debug\PagoAgilFrba.exe.config
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\bin\Debug\PagoAgilFrba.exe
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\bin\Debug\PagoAgilFrba.pdb
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\obj\Debug\PagoAgilFrba.exe
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\obj\Debug\PagoAgilFrba.pdb
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\obj\Debug\PagoAgilFrba.FormInicioSesion.resources
+C:\Users\Ale\Documents\TPgd\gd\proyecto\src\main\obj\Debug\PagoAgilFrba.AbmCliente.Form1.resources

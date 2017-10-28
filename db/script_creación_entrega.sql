@@ -369,7 +369,7 @@ GO
 CREATE TABLE SQL_86.usuarios (
   id INT IDENTITY(1,1) PRIMARY KEY,
   usuario VARCHAR(50) UNIQUE NOT NULL,
-  password VARCHAR(150) NOT NULL,
+  password NVARCHAR(256) NOT NULL,
   id_rol INT NOT NULL,
   id_sucursal INT NOT NULL
 )
@@ -548,7 +548,7 @@ FROM [GD2C2017].[gd_esquema].[Maestra]
 WHERE [FormaPagoDescripcion] IS NOT NULL 
 
 
--- Inserta datos en la tabla medios_pagos.
+-- Inserta datos en la tabla pagos.
 SET IDENTITY_INSERT SQL_86.pagos ON
 GO
 
@@ -634,4 +634,11 @@ SELECT Nro_Factura
 FROM [GD2C2017].[gd_esquema].[Maestra]
 GROUP BY Nro_Factura, ItemFactura_Cantidad,ItemFactura_Monto
 ORDER BY Nro_Factura, ItemFactura_Cantidad,ItemFactura_Monto
+GO
+
+INSERT INTO SQL_86.roles (nombre)VALUES('Administrador'),('Cobrador');
+GO
+
+INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal,id_rol)VALUES('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',1,1)
+INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal,id_rol)VALUES('operador','e257b110509437aaceddbd342bc63d05e74221d6bac056ed279d752ff8d3afcb',1,2)
 GO
