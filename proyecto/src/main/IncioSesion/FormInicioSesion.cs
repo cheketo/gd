@@ -27,7 +27,7 @@ namespace PagoAgilFrba
 
         private void buttonStartSession_Click(object sender, EventArgs e)
         {
-            //byte[] bytes = Encoding.Unicode.GetBytes(textBoxPassword.Text);
+            //byte[] bytes = Encoding.UTF8.GetBytes(textBoxPassword.Text);
             //SHA256Managed hashstring = new SHA256Managed();
 
             /*byte[] hash = hashstring.ComputeHash(bytes);
@@ -38,7 +38,7 @@ namespace PagoAgilFrba
             }*/
             //string passwordHash;
             //SHA256 mySHA256 = SHA256Managed.Create();
-            byte[] byteArray = Encoding.UTF8.GetBytes(textBoxPassword.Text);
+            /*byte[] byteArray = Encoding.UTF8.GetBytes(textBoxPassword.Text);
 
 
             SHA256 mySHA256 = SHA256Managed.Create();
@@ -46,10 +46,10 @@ namespace PagoAgilFrba
             byte[] hashValue = mySHA256.ComputeHash(byteArray);
 
             System.IO.StreamReader reader = new System.IO.StreamReader(hashValue);
-            string text = reader.ReadToEnd();
-
-            MessageBox.Show(textBoxPassword.Text);
-            MessageBox.Show(text);
+            string text = reader.ReadToEnd();*/
+            
+            string hashValue = ConexionDB.getHashSha256(textBoxPassword.Text);
+            MessageBox.Show(hashValue);
             DataSet prueba = ConexionDB.SeleccionRegistros(new DataSet(), "select * from SQL_86.usuarios WHERE usuario = '"+textBoxUser.Text+"' AND password='"+ hashValue + "'");
 
             
