@@ -1,156 +1,72 @@
 USE [GD2C2017]
 GO
 
-
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'rel_roles_funcionalidades'
-)
-BEGIN
-	DROP TABLE SQL_86.rel_roles_funcionalidades
-END
+------------------------------------
+-- ELIMINACION DE TABLAS - INICIO
+-- Si existen, elimina las mismas.
+------------------------------------
+IF OBJECT_ID ( 'SQL_86.rel_roles_funcionalidades', 'U') IS NOT NULL
+DROP TABLE SQL_86.rel_roles_funcionalidades
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'pagos_devoluciones'
-)
-BEGIN
-	DROP TABLE SQL_86.pagos_devoluciones
-END
+IF OBJECT_ID ( 'SQL_86.pagos_devoluciones', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.pagos_devoluciones
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'pagos_detalles'
-)
-BEGIN
-	DROP TABLE SQL_86.pagos_detalles
-END
+IF OBJECT_ID ( 'SQL_86.pagos_detalles', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.pagos_detalles
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'facturas_items'
-)
-BEGIN
-	DROP TABLE SQL_86.facturas_items
-END
+IF OBJECT_ID ( 'SQL_86.facturas_items', 'U') IS NOT NULL
+DROP TABLE SQL_86.facturas_items
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'usuarios'
-)
-BEGIN
-	DROP TABLE SQL_86.usuarios
-END
+IF OBJECT_ID ( 'SQL_86.usuarios', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.usuarios
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'roles'
-)
-BEGIN
-	DROP TABLE SQL_86.roles
-END
+IF OBJECT_ID ( 'SQL_86.roles', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.roles
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'funcionalidades'
-)
-BEGIN
-	DROP TABLE SQL_86.funcionalidades
-END
+IF OBJECT_ID ( 'SQL_86.funcionalidades', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.funcionalidades
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'facturas'
-)
-BEGIN
-	DROP TABLE SQL_86.facturas
-END
+IF OBJECT_ID ( 'SQL_86.facturas', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.facturas
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'pagos'
-)
-BEGIN
-	DROP TABLE SQL_86.pagos
-END
+IF OBJECT_ID ( 'SQL_86.pagos', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.pagos
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'medios_pagos'
-)
-BEGIN
-	DROP TABLE SQL_86.medios_pagos
-END
+IF OBJECT_ID ( 'SQL_86.medios_pagos', 'U') IS NOT NULL
+DROP TABLE SQL_86.medios_pagos
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'sucursales'
-)
-BEGIN
-	DROP TABLE SQL_86.sucursales
-END
+IF OBJECT_ID ( 'SQL_86.sucursales', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.sucursales
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'rendiciones'
-)
-BEGIN
-	DROP TABLE SQL_86.rendiciones
-END
+IF OBJECT_ID ( 'SQL_86.rendiciones', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.rendiciones
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'clientes'
-)
-BEGIN
-	DROP TABLE SQL_86.clientes
-END
+IF OBJECT_ID ( 'SQL_86.clientes', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.clientes
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'empresas'
-)
-BEGIN
-	DROP TABLE SQL_86.empresas
-END
+IF OBJECT_ID ( 'SQL_86.empresas', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.empresas
 GO
 
-IF EXISTS ( SELECT *
-			FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_SCHEMA = 'SQL_86'
-				AND TABLE_NAME = 'rubros'
-)
-BEGIN
-	DROP TABLE SQL_86.rubros
-END
+IF OBJECT_ID ( 'SQL_86.rubros', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.rubros
 GO
+------------------------------------
+-- ELIMINACION DE TABLAS - FIN
+------------------------------------
 
 
 
