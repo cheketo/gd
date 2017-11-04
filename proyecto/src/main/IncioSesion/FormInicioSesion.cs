@@ -27,40 +27,24 @@ namespace PagoAgilFrba
 
         private void buttonStartSession_Click(object sender, EventArgs e)
         {
-            //byte[] bytes = Encoding.UTF8.GetBytes(textBoxPassword.Text);
-            //SHA256Managed hashstring = new SHA256Managed();
-
-            /*byte[] hash = hashstring.ComputeHash(bytes);
-            string passwordHash = string.Empty;
-            foreach (byte x in hash)
+            Usuario usuario = new Usuario();
+            usuario.SetDatosPorUsuario(textBoxUser.Text);
+            string password = ConexionDB.getHashSha256(textBoxPassword.Text);
+            if (usuario.ComprobarPassword(password) && usuario.EstaActivo())
             {
-                passwordHash += String.Format("{0:x2}", x);
-            }*/
-            //string passwordHash;
-            //SHA256 mySHA256 = SHA256Managed.Create();
-            /*byte[] byteArray = Encoding.UTF8.GetBytes(textBoxPassword.Text);
-
-
-            SHA256 mySHA256 = SHA256Managed.Create();
-        
-            byte[] hashValue = mySHA256.ComputeHash(byteArray);
-
-            System.IO.StreamReader reader = new System.IO.StreamReader(hashValue);
-            string text = reader.ReadToEnd();*/
-            
-            string hashValue = ConexionDB.getHashSha256(textBoxPassword.Text);
-            MessageBox.Show(hashValue);
-            DataSet prueba = ConexionDB.SeleccionRegistros(new DataSet(), "select * from SQL_86.usuarios WHERE usuario = '"+textBoxUser.Text+"' AND password='"+ hashValue + "'");
-
-            
-            if (prueba.Tables[0].Rows.Count>0) //amego
-            {
-                MessageBox.Show("Se encontró registros");
+                //Cambia los intentos del usuario a 0
+                usuario.ReiniciarIntentos();
+                //Muestra el Form principal
+                FormPrincipal principal = new FormPrincipal(usuario);
+                principal.Show();
+                this.Hide();
+            }else{
+                //Suma un intento
+                usuario.SumarIntento();
+                //Mensaje de error
+                MessageBox.Show("Usuario o Password incorrectos. Por favor, revise la información e intente nuevamente.");
             }
-            else
-            {
-                MessageBox.Show("0 registros");
-            }
+            
 
         }
     }
