@@ -35,9 +35,17 @@ namespace PagoAgilFrba
             {
                 //Cambia los intentos del usuario a 0
                 usuario.ReiniciarIntentos();
-                //Muestra el Form principal
-                FormPrincipal principal = new FormPrincipal(usuario);
-                principal.Show();
+                if(usuario.CantidadRoles()>1)
+                {
+                    //Muestra el Form de seleccion de roles
+                    FormRoles roles = new FormRoles(usuario);
+                    roles.Show();
+                }
+                else{
+                    //Muestra el Form principal
+                    FormPrincipal principal = new FormPrincipal(usuario);
+                    principal.Show();
+                }
                 this.Hide();
             }else{
                 //Suma un intento

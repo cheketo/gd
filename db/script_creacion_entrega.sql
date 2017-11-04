@@ -304,6 +304,7 @@ GO
 CREATE TABLE SQL_86.roles (
   id INT IDENTITY(1,1) PRIMARY KEY,
   nombre VARCHAR(50) UNIQUE NOT NULL,
+  estado CHAR(1) NOT NULL
 )
 GO
 
@@ -589,7 +590,7 @@ GO
 
 
 -- Inserta datos en la tabla roles.
-INSERT INTO SQL_86.roles (nombre)VALUES('Administrador'),('Cobrador');
+INSERT INTO SQL_86.roles (nombre,estado)VALUES('Administrador','A'),('Cobrador','A');
 GO
 
 -- Inserta usuarios y los relaciona con su rol.
