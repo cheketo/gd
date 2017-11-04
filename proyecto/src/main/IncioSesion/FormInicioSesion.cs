@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using PagoAgilFrba.Core.Helpers;
 
 
 namespace PagoAgilFrba
@@ -42,7 +43,7 @@ namespace PagoAgilFrba
                 //Suma un intento
                 usuario.SumarIntento();
                 //Mensaje de error
-                MessageBox.Show("Usuario o Password incorrectos. Por favor, revise la información e intente nuevamente.");
+                MensajeHelper.MostrarAviso("Usuario o Password incorrectos. Por favor, revise la información e intente nuevamente.", "APP");
             }
             
 
