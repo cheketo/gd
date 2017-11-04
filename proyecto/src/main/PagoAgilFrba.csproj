@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\Form1.cs">
+    <Compile Include="AbmCliente\AltaAbmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmCliente\AltaAbmCliente.Designer.cs">
+      <DependentUpon>AltaAbmCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmEmpresa\Form1.cs">
       <SubType>Form</SubType>
@@ -75,6 +75,9 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ConexionDB\ConexionDB.cs" />
+    <Compile Include="Core\Helpers\ControlHelper.cs" />
+    <Compile Include="Core\Helpers\MensajeHelper.cs" />
+    <Compile Include="Core\Helpers\ValidadorHelper.cs" />
     <Compile Include="Core\Modelo\Usuario.cs" />
     <Compile Include="IncioSesion\FormInicioSesion.cs">
       <SubType>Form</SubType>
@@ -108,8 +111,8 @@
     <Compile Include="Rendicion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AbmCliente\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AbmCliente\AltaAbmCliente.resx">
+      <DependentUpon>AltaAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IncioSesion\FormInicioSesion.resx">
       <DependentUpon>FormInicioSesion.cs</DependentUpon>
