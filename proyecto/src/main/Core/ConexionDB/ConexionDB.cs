@@ -14,26 +14,45 @@ namespace PagoAgilFrba
     class ConexionDB
     {
         const string rutaConexion = "Data Source=.\\SQLSERVER2012;Initial Catalog=GD2C2017;Persist Security Info=True;User ID=gd;Password=gd2017";
-        static SqlConnection conexion = null;
+        static SqlConnection conexion = new SqlConnection(rutaConexion);
 
+        /*
         public static SqlConnection getInstanciaConexionDB()
         {
             if(conexion == null) {
 
                 conexion = new SqlConnection(rutaConexion);
+                conexion.Open();
 
             }
-
             return conexion;
+        }*/
+
+        public static void Open()
+        {
+            conexion.Open();
+        }
+
+        public static void Close()
+        {
+            conexion.Close();
         }
           
-        public static DataSet SeleccionRegistros(DataSet dataSet, string queryString)
+        public static DataTable SeleccionRegistros(DataTable dataSet, string queryString)
         {
             SqlDataAdapter adaptador = new SqlDataAdapter();
-            adaptador.SelectCommand = new SqlCommand(queryString, ConexionDB.getInstanciaConexionDB());
+            adaptador.SelectCommand = new SqlCommand(queryString, conexion);
             adaptador.Fill(dataSet);
             return dataSet;
+        }
 
+        public static void ModificarRegistros(string query)
+        {
+            SqlCommand result = new SqlCommand(query, conexion);
+            conexion.Open();
+            SqlDataReader reader = result.ExecuteReader();
+            reader.Read();
+            conexion.Close();
         }
 
         public static string getHashSha256(string text)

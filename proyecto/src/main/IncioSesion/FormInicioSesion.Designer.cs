@@ -103,7 +103,7 @@
             this.Controls.Add(this.buttonStartSession);
             this.Controls.Add(this.labelTitulo);
             this.Name = "FormInicioSesion";
-            this.Text = "Form1";
+            this.Text = "Inicio de Sesión - Pago Agil";
             this.Load += new System.EventHandler(this.FormInicioSesion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
