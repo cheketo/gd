@@ -555,6 +555,6 @@ GO
 INSERT INTO SQL_86.roles (nombre)VALUES('Administrador'),('Cobrador');
 GO
 
-INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal,id_rol)VALUES('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',1,1)
-INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal,id_rol)VALUES('operador','e257b110509437aaceddbd342bc63d05e74221d6bac056ed279d752ff8d3afcb',1,2)
+INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal,id_rol)VALUES('admin',CONVERT(NVARCHAR(64),HashBytes('SHA2_256', 'w32e'),2),1,1)
+INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal,id_rol)VALUES('operador',CONVERT(NVARCHAR(64),HashBytes('SHA2_256', 'operador'),2),1,2)
 GO
