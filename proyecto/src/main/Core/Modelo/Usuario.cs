@@ -12,11 +12,16 @@ namespace PagoAgilFrba
     public class Usuario
     {
         private int Id { get; set; }
-        string User { get; set; }
-        string Password { get; set; }
-        int Intentos { get; set; }
-        string Estado { get; set; }
-        int IdSucursal { get; set; }
+        public string User { get; set; }
+        public string Password { get; set; }
+        public int Intentos { get; set; }
+        public string Estado { get; set; }
+        public int IdSucursal { get; set; }
+        public int IdRol { get; set; }
+        public string NombreRol { get; set; }
+        public string EstadoRol { get; set; }
+        public DataTable Roles { get; set; }
+        public DataTable Funcionalidades { get; set; }
 
         public Usuario(int id = 0)
         {
@@ -76,6 +81,64 @@ namespace PagoAgilFrba
         public Boolean EstaActivo()
         {
             return this.Estado == "A";
+        }
+
+        public DataTable ObtenerRoles()
+        {
+            if (Roles == null)
+            {
+                string query =
+                "SELECT a.* FROM SQL_86.roles a " +
+                "JOIN SQL_86.rel_roles_usuarios b ON (b.id_rol = a.id)" +
+                "WHERE b.id_usuario = " + Id;
+                Roles = ConexionDB.SeleccionRegistros(query);
+                
+                if(CantidadRoles()==1)
+                {
+                    MessageBox.Show(Roles.Rows[0][0].ToString());
+                    DeterminarRol(Convert.ToInt32(Roles.Rows[0][0]));
+                }
+            }
+            return Roles;
+        }
+
+        public void DeterminarRol(int idrol)
+        {
+            foreach (DataRow row in this.Roles.Rows)
+            {
+                if(idrol == Convert.ToInt32(row[0]))
+                {
+                    this.IdRol = Convert.ToInt32(row[0]);
+                    this.NombreRol = row[1].ToString();
+                    this.EstadoRol = row[2].ToString();
+                    this.ObtenerFuncionalidades();
+                }
+            }
+        }
+
+        public DataTable ObtenerFuncionalidades()
+        {
+            if (this.IdRol > 0)
+            {
+                if (this.Funcionalidades == null)
+                {
+                    string query =
+                    "SELECT * FROM SQL_86.funcionalidades a " +
+                    "JOIN SQL_86.rel_roles_funcionalidades b ON (b.id_funcionalidad = a.id)" +
+                    "WHERE b.id_rol = " + this.IdRol;
+                    this.Funcionalidades = ConexionDB.SeleccionRegistros(query);
+                }
+            }
+            return this.Funcionalidades;
+        }
+
+        public int CantidadRoles()
+        {
+            if(this.Roles==null)
+            {
+                this.ObtenerRoles();
+            }
+            return this.Roles.Rows.Count;
         }
         
     }
