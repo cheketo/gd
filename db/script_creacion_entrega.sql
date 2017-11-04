@@ -313,7 +313,7 @@ GO
 CREATE TABLE SQL_86.usuarios (
   id INT IDENTITY(1,1) PRIMARY KEY,
   usuario VARCHAR(50) UNIQUE NOT NULL,
-  password NVARCHAR(256) NOT NULL,
+  password NVARCHAR(64) NOT NULL,
   id_sucursal INT NOT NULL
 )
 GO
@@ -388,6 +388,7 @@ GO
 -- CREACION DE TABLAS - FIN
 ------------------------------------
 
+
 ------------------------------------
 -- CREACION DE TRIGGER - INICIO
 -- Se crean los trigger de la base de datos
@@ -396,10 +397,10 @@ CREATE TRIGGER SQL_86.tr_claves_usuarios ON SQL_86.usuarios
 AFTER INSERT,UPDATE
 AS
 	DECLARE @id INT;
-	DECLARE @password nvarchar(255);
-	SELECT @password=i.password, @id=i.id FROM inserted i;
-	SET @password = CONVERT(NVARCHAR(64),HashBytes('SHA2_256', @password),2);
-	UPDATE SQL_86.usuarios SET password=@password WHERE id=@id;
+	DECLARE @password NVARCHAR(64);
+	SELECT @password = i.password, @id=i.id FROM inserted i;
+	SELECT @password = CONVERT(NVARCHAR(64),HASHBYTES('SHA2_256', CONVERT(VARCHAR(64),@password)),2);
+	UPDATE SQL_86.usuarios SET password = @password WHERE id=@id;
 	PRINT 'Se ejecuto el trigger tr_claves_usuarios.';
 GO
 ------------------------------------
@@ -580,7 +581,7 @@ INSERT INTO SQL_86.roles (nombre)VALUES('Administrador'),('Cobrador');
 GO
 
 -- Inserta usuarios y los relaciona con su rol.
-INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal)VALUES('admin','w32e',1)
+INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal)VALUES('admin','w23e',1)
 GO
 INSERT INTO SQL_86.rel_roles_usuarios (id_rol,id_usuario)VALUES(1,@@IDENTITY);
 GO

@@ -49,17 +49,17 @@ namespace PagoAgilFrba
             string text = reader.ReadToEnd();*/
             
             string hashValue = ConexionDB.getHashSha256(textBoxPassword.Text);
-            MessageBox.Show(hashValue);
             DataSet prueba = ConexionDB.SeleccionRegistros(new DataSet(), "select * from SQL_86.usuarios WHERE usuario = '"+textBoxUser.Text+"' AND password='"+ hashValue + "'");
-
             
-            if (prueba.Tables[0].Rows.Count>0) //amego
+            if (prueba.Tables[0].Rows.Count>0)
             {
+                //Entrar
                 MessageBox.Show("Se encontró registros");
             }
             else
             {
-                MessageBox.Show("0 registros");
+                //Mensaje de error
+                MessageBox.Show("Usuario o Password incorrectos. Por favor, revise la información e intente nuevamente.");
             }
 
         }

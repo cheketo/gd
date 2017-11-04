@@ -15,9 +15,6 @@ namespace PagoAgilFrba
     {
         const string rutaConexion = "Data Source=.\\SQLSERVER2012;Initial Catalog=GD2C2017;Persist Security Info=True;User ID=gd;Password=gd2017";
         static SqlConnection conexion = null;
-        //SqlCommand cmd = new SqlCommand();
-        //SqlDataReader reader;
-
 
         public static SqlConnection getInstanciaConexionDB()
         {
@@ -29,7 +26,6 @@ namespace PagoAgilFrba
 
             return conexion;
         }
-       
           
         public static DataSet SeleccionRegistros(DataSet dataSet, string queryString)
         {
@@ -52,8 +48,5 @@ namespace PagoAgilFrba
             }
             return hashString;
         }
-
-        //public static ExisteRegistro()
-
     }
 }
