@@ -30,7 +30,7 @@ namespace PagoAgilFrba
             Usuario usuario = new Usuario();
             usuario.SetDatosPorUsuario(textBoxUser.Text);
             string password = ConexionDB.getHashSha256(textBoxPassword.Text);
-            if (usuario.ComprobarPassword(password))
+            if (usuario.ComprobarPassword(password) && usuario.EstaActivo())
             {
                 //Cambia los intentos del usuario a 0
                 usuario.ReiniciarIntentos();
@@ -40,8 +40,7 @@ namespace PagoAgilFrba
                 this.Hide();
             }else{
                 //Suma un intento
-                if(usuario.Existe())
-                    usuario.SumarIntento();
+                usuario.SumarIntento();
                 //Mensaje de error
                 MessageBox.Show("Usuario o Password incorrectos. Por favor, revise la información e intente nuevamente.");
             }

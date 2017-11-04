@@ -38,12 +38,13 @@ namespace PagoAgilFrba
             conexion.Close();
         }
           
-        public static DataTable SeleccionRegistros(DataTable dataSet, string queryString)
+        public static DataTable SeleccionRegistros(string queryString)
         {
             SqlDataAdapter adaptador = new SqlDataAdapter();
             adaptador.SelectCommand = new SqlCommand(queryString, conexion);
-            adaptador.Fill(dataSet);
-            return dataSet;
+            DataTable dataTable = new DataTable();
+            adaptador.Fill(dataTable);
+            return dataTable;
         }
 
         public static void ModificarRegistros(string query)

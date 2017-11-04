@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Windows.Forms;
+
 
 namespace PagoAgilFrba
 {
@@ -23,7 +25,7 @@ namespace PagoAgilFrba
 
         public Boolean ObtenerDatosDB(string query)
         {
-            DataTable data = ConexionDB.SeleccionRegistros(new DataTable(), query);
+            DataTable data = ConexionDB.SeleccionRegistros(query);
             if (data.Rows.Count > 0)
             {
                 this.Id         = Convert.ToInt32(data.Rows[0][0]);
@@ -57,7 +59,8 @@ namespace PagoAgilFrba
 
         public void SumarIntento()
         {
-            ConexionDB.ModificarRegistros("UPDATE SQL_86.usuarios SET intentos = (intentos+1) WHERE id = " + this.Id);
+            if(this.Existe() && this.EstaActivo())
+                ConexionDB.ModificarRegistros("UPDATE SQL_86.usuarios SET intentos = (intentos+1) WHERE id = " + this.Id);
         }
 
         public void ReiniciarIntentos()
@@ -68,6 +71,11 @@ namespace PagoAgilFrba
         public Boolean Existe()
         {
             return this.Id > 0;
+        }
+
+        public Boolean EstaActivo()
+        {
+            return this.Estado == "A";
         }
         
     }
