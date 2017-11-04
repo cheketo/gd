@@ -1,9 +1,31 @@
+------------------------------------
+-- SELECCION DE BASE DE DATOS - INICIO
+-- Se selecciona la base de datos 'GD2C2017'
+------------------------------------
 USE [GD2C2017]
 GO
+------------------------------------
+-- SELECCION DE BASE DE DATOS - FIN
+------------------------------------
+
+------------------------------------
+-- CREACION DEL SCHEMA - INICIO
+-- Se crea si no existe
+------------------------------------
+IF NOT EXISTS (
+SELECT  schema_name
+FROM    information_schema.schemata
+WHERE   schema_name = 'SQL_86' )
+BEGIN
+EXEC sp_executesql N'CREATE SCHEMA SQL_86'
+END
+------------------------------------
+-- CREACION DEL SCHEMA - FIN
+------------------------------------
 
 ------------------------------------
 -- ELIMINACION DE TABLAS - INICIO
--- Si existen, elimina las mismas.
+-- Si existen, elimina las tablas.
 ------------------------------------
 IF OBJECT_ID ( 'SQL_86.rel_roles_funcionalidades', 'U') IS NOT NULL
 DROP TABLE SQL_86.rel_roles_funcionalidades
@@ -19,6 +41,10 @@ GO
 
 IF OBJECT_ID ( 'SQL_86.facturas_items', 'U') IS NOT NULL
 DROP TABLE SQL_86.facturas_items
+GO
+
+IF OBJECT_ID ( 'SQL_86.rel_roles_usuarios', 'U') IS NOT NULL
+DROP TABLE SQL_86.rel_roles_usuarios
 GO
 
 IF OBJECT_ID ( 'SQL_86.usuarios', 'U' ) IS NOT NULL
@@ -69,8 +95,10 @@ GO
 ------------------------------------
 
 
-
-/****** Inicio creacion tablas ******/
+------------------------------------
+-- CREACION DE TABLAS - INICIO
+-- Se crean las tablas de la base de datos.
+------------------------------------
 
 -- -----------------------------------------------------
 -- Table SQL_86.clientes
@@ -286,7 +314,6 @@ CREATE TABLE SQL_86.usuarios (
   id INT IDENTITY(1,1) PRIMARY KEY,
   usuario VARCHAR(50) UNIQUE NOT NULL,
   password NVARCHAR(256) NOT NULL,
-  id_rol INT NOT NULL,
   id_sucursal INT NOT NULL
 )
 GO
@@ -298,11 +325,29 @@ GO
 ALTER TABLE SQL_86.usuarios CHECK CONSTRAINT FK_id_sucursal_usuario
 GO
 
-ALTER TABLE SQL_86.usuarios WITH CHECK ADD  CONSTRAINT FK_id_rol_usuario FOREIGN KEY( id_rol )
+
+-- -----------------------------------------------------
+-- Table SQL_86.rel_roles_usuarios
+-- -----------------------------------------------------
+CREATE TABLE SQL_86.rel_roles_usuarios (
+  id_rol INT NOT NULL,
+  id_usuario INT NOT NULL,
+  PRIMARY KEY (id_rol, id_usuario)
+)
+GO
+
+ALTER TABLE SQL_86.rel_roles_usuarios WITH CHECK ADD  CONSTRAINT FK_id_rol_rol_usuario FOREIGN KEY( id_rol )
 REFERENCES SQL_86.roles (id)
 GO
 
-ALTER TABLE SQL_86.usuarios CHECK CONSTRAINT FK_id_rol_usuario
+ALTER TABLE SQL_86.rel_roles_usuarios CHECK CONSTRAINT FK_id_rol_rol_usuario
+GO
+
+ALTER TABLE SQL_86.rel_roles_usuarios WITH CHECK ADD  CONSTRAINT FK_id_usuario_rol_usuario FOREIGN KEY( id_usuario )
+REFERENCES SQL_86.usuarios (id)
+GO
+
+ALTER TABLE SQL_86.rel_roles_usuarios CHECK CONSTRAINT FK_id_usuario_rol_usuario
 GO
 
 
@@ -339,56 +384,16 @@ GO
 
 ALTER TABLE SQL_86.rel_roles_funcionalidades CHECK CONSTRAINT FK_id_funcionalidad_rol_funcionalidad
 GO
-
-
--- -----------------------------------------------------
--- Table SQL_86.pagos_detalles
--- -----------------------------------------------------
---CREATE TABLE SQL_86.pagos_detalles (
---  id_pago INT NOT NULL,
---  id_factura INT NOT NULL,
---  PRIMARY KEY (id_pago, id_factura)
---)
---GO
-
---ALTER TABLE SQL_86.pagos_detalles WITH CHECK ADD  CONSTRAINT FK_id_pago_pago_detalle FOREIGN KEY( id_pago )
---REFERENCES SQL_86.pagos (id)
---GO
-
---ALTER TABLE SQL_86.pagos_detalles CHECK CONSTRAINT FK_id_pago_pago_detalle
---GO
-
---ALTER TABLE SQL_86.pagos_detalles WITH CHECK ADD  CONSTRAINT FK_id_factura_pago_detalle FOREIGN KEY( id_factura )
---REFERENCES SQL_86.facturas (id)
---GO
-
---ALTER TABLE SQL_86.pagos_detalles CHECK CONSTRAINT FK_id_factura_pago_detalle
---GO
-
-
--- -----------------------------------------------------
--- Table SQL_86.pagos_devoluciones
--- -----------------------------------------------------
---CREATE TABLE SQL_86.pagos_devoluciones (
---  id_devolucion INT IDENTITY(1,1) PRIMARY KEY,
---  id_pago INT NOT NULL,
---  fecha DATETIME NOT NULL,
---  descripcion VARCHAR(150) NOT NULL
---)
---GO
-
--- ALTER TABLE SQL_86.pagos_devoluciones WITH CHECK ADD  CONSTRAINT FK_id_pago_pago_devolucion FOREIGN KEY( id_pago )
--- REFERENCES SQL_86.pagos (id)
--- GO
-
--- ALTER TABLE SQL_86.pagos_devoluciones CHECK CONSTRAINT FK_id_pago_pago_devolucion
--- GO
-
-/****** fin creacion tablas ******/
+------------------------------------
+-- CREACION DE TABLAS - FIN
+------------------------------------
 
 
 
-/****** Inicio insercion de datos ******/
+------------------------------------
+-- INSERCION DE DATOS - INICIO
+-- Se ingresan los datos de
+------------------------------------
 
 --Inserta Datos en latabla clientes.
 INSERT INTO SQL_86.clientes ( dni, apellido, nombre, fecha_nacimiento, mail, direccion, cp )
@@ -552,9 +557,19 @@ GROUP BY Nro_Factura, ItemFactura_Cantidad,ItemFactura_Monto
 ORDER BY Nro_Factura, ItemFactura_Cantidad,ItemFactura_Monto
 GO
 
+
+-- Inserta datos en la tabla roles.
 INSERT INTO SQL_86.roles (nombre)VALUES('Administrador'),('Cobrador');
 GO
 
-INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal,id_rol)VALUES('admin',CONVERT(NVARCHAR(64),HashBytes('SHA2_256', 'w32e'),2),1,1)
-INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal,id_rol)VALUES('operador',CONVERT(NVARCHAR(64),HashBytes('SHA2_256', 'operador'),2),1,2)
+
+-- Inserta usuarios y los relaciona con su rol.
+INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal)VALUES('admin',CONVERT(NVARCHAR(64),HashBytes('SHA2_256', 'w32e'),2),1)
+GO
+INSERT INTO SQL_86.rel_roles_usuarios (id_rol,id_usuario)VALUES(1,@@IDENTITY);
+GO
+
+INSERT INTO SQL_86.usuarios (usuario,password,id_sucursal)VALUES('cobrador',CONVERT(NVARCHAR(64),HashBytes('SHA2_256', 'cobrador'),2),1)
+GO
+INSERT INTO SQL_86.rel_roles_usuarios (id_rol,id_usuario)VALUES(2,@@IDENTITY);
 GO
