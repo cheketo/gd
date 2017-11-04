@@ -95,7 +95,6 @@ namespace PagoAgilFrba
                 
                 if(CantidadRoles()==1)
                 {
-                    MessageBox.Show(Roles.Rows[0][0].ToString());
                     DeterminarRol(Convert.ToInt32(Roles.Rows[0][0]));
                 }
             }
