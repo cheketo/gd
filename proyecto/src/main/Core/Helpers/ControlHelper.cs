@@ -53,7 +53,7 @@ namespace PagoAgilFrba.Core.Helpers
 
         public static void SoloLetrasEvento(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsLetter(e.KeyChar))
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }
