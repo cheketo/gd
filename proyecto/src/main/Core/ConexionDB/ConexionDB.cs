@@ -47,6 +47,15 @@ namespace PagoAgilFrba
             return dataTable;
         }
 
+        /*public static DataGridView SeleccionRegistros2(string queryString)
+        {
+            SqlDataAdapter adaptador = new SqlDataAdapter();
+            adaptador.SelectCommand = new SqlCommand(queryString, conexion);
+            DataGridView dataTable = new DataGridView();
+            adaptador.Fill(dataTable);
+            return dataTable;
+        }*/
+
         public static void ModificarRegistros(string query)
         {
             SqlCommand result = new SqlCommand(query, conexion);

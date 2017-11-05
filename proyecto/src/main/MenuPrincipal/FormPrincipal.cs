@@ -14,8 +14,11 @@ namespace PagoAgilFrba
 {
     public partial class FormPrincipal : Form
     {
-        Usuario usuario;
-        AltaAbmCliente form; 
+        public Usuario usuario;
+        AltaAbmCliente formCliente; 
+        FormEmpresa formEmpresa;
+        AltaEmpresa altaEmpresa;
+
         public FormPrincipal(Usuario usuario)
         {
             InitializeComponent();
@@ -40,12 +43,31 @@ namespace PagoAgilFrba
 
         private void altaClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (form == null)
+            if (formCliente == null)
             {
                 Cliente cliente = new Cliente();
-                form = new AltaAbmCliente();
-                form.MdiParent = this;
-                form.Show();
+                formCliente = new AltaAbmCliente();
+                formCliente.MdiParent = this;
+                formCliente.Show();
+            }
+        }
+
+        private void verEmpresasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(formEmpresa == null)
+            {
+                formEmpresa = new FormEmpresa();
+                formEmpresa.MdiParent = this;
+                formEmpresa.Show();
+            }
+        }
+
+        private void cargarEmpresaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(altaEmpresa == null)
+            {
+                AltaEmpresa altaForm = new AltaEmpresa(formEmpresa);
+                altaForm.Show();
             }
         }
     }

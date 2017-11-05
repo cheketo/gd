@@ -59,12 +59,28 @@ namespace PagoAgilFrba.Core.Helpers
             }
         }
 
-        public static void SetAllCheckBoxRedOnly(Form form, Boolean valor )
+        public static void SetAllCheckBoxRedOnly(Form form, Boolean valor)
         {
             foreach (Control c in form.Controls)
             {
                 if (c is TextBox)
                     ((TextBox)c).ReadOnly = valor;
+            }
+        }
+
+        public static void SoloNumerosDecimalEvento(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+            
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+
             }
         }
     }
