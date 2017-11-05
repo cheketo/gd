@@ -105,7 +105,7 @@ GO
 -- -----------------------------------------------------
 CREATE TABLE SQL_86.clientes (
 	id INT IDENTITY(1,1) PRIMARY KEY,
-	dni CHAR(8) NOT NULL,
+	dni VARCHAR(8) NOT NULL,
 	apellido VARCHAR(50) NOT NULL,
 	nombre VARCHAR(50) NOT NULL,
 	fecha_nacimiento DATETIME NOT NULL,
