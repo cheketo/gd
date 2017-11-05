@@ -115,7 +115,8 @@ CREATE TABLE SQL_86.clientes (
 	piso VARCHAR(4) NULL,
 	depto VARCHAR(4) NULL,
 	telefono VARCHAR(15) NULL,
-	localidad VARCHAR(100) NULL
+	localidad VARCHAR(100) NULL,
+	estado CHAR(1) NOT NULL
 )
 GO
 
@@ -427,7 +428,7 @@ GO
 ------------------------------------
 
 --Inserta Datos en latabla clientes.
-INSERT INTO SQL_86.clientes ( dni, apellido, nombre, fecha_nacimiento, mail, direccion, cp )
+INSERT INTO SQL_86.clientes ( dni, apellido, nombre, fecha_nacimiento, mail, direccion, cp, estado )
 SELECT DISTINCT [Cliente-Dni]
 	,[Cliente-Apellido]
 	,[Cliente-Nombre]
@@ -435,6 +436,7 @@ SELECT DISTINCT [Cliente-Dni]
 	,[Cliente_Mail]
 	,[Cliente_Direccion]
 	,[Cliente_Codigo_Postal]
+	,'A'
 FROM gd_esquema.Maestra 
 
 
