@@ -36,8 +36,8 @@
             this.verEmpresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarEmpresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.altaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.altaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verSucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +94,6 @@
             this.verEmpresasToolStripMenuItem.Name = "verEmpresasToolStripMenuItem";
             this.verEmpresasToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.verEmpresasToolStripMenuItem.Text = "Ver Empresas";
-            this.verEmpresasToolStripMenuItem.Click += new System.EventHandler(this.verEmpresasToolStripMenuItem_Click);
             // 
             // cargarEmpresaToolStripMenuItem
             // 
@@ -112,6 +111,13 @@
             this.clientesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.clientesToolStripMenuItem.Text = "Clientes";
             // 
+            // buscarClienteToolStripMenuItem
+            // 
+            this.buscarClienteToolStripMenuItem.Name = "buscarClienteToolStripMenuItem";
+            this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.buscarClienteToolStripMenuItem.Text = "Ver Clientes";
+            this.buscarClienteToolStripMenuItem.Click += new System.EventHandler(this.buscarClienteToolStripMenuItem_Click);
+            // 
             // altaClienteToolStripMenuItem
             // 
             this.altaClienteToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -119,12 +125,6 @@
             this.altaClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.altaClienteToolStripMenuItem.Text = "Cargar Cliente";
             this.altaClienteToolStripMenuItem.Click += new System.EventHandler(this.altaClienteToolStripMenuItem_Click);
-            // 
-            // buscarClienteToolStripMenuItem
-            // 
-            this.buscarClienteToolStripMenuItem.Name = "buscarClienteToolStripMenuItem";
-            this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.buscarClienteToolStripMenuItem.Text = "Ver Clientes";
             // 
             // sucursalesToolStripMenuItem
             // 

@@ -51,6 +51,12 @@
     <Compile Include="AbmCliente\AltaAbmCliente.Designer.cs">
       <DependentUpon>AltaAbmCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmCliente\VerAbmCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente\VerAbmCliente.Designer.cs">
+      <DependentUpon>VerAbmCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmEmpresa\AltaEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +148,9 @@
     </Compile>
     <EmbeddedResource Include="AbmCliente\AltaAbmCliente.resx">
       <DependentUpon>AltaAbmCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\VerAbmCliente.resx">
+      <DependentUpon>VerAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmEmpresa\AltaEmpresa.resx">
       <DependentUpon>AltaEmpresa.cs</DependentUpon>

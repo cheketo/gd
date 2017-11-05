@@ -18,6 +18,7 @@ namespace PagoAgilFrba
         AltaAbmCliente formCliente; 
         FormEmpresa formEmpresa;
         AltaEmpresa altaEmpresa;
+        VerAbmCliente formVerClientes;
 
         public FormPrincipal(Usuario usuario)
         {
@@ -52,13 +53,13 @@ namespace PagoAgilFrba
             }
         }
 
-        private void verEmpresasToolStripMenuItem_Click(object sender, EventArgs e)
+        private void buscarClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(formEmpresa == null)
+            if (formVerClientes == null )
             {
-                formEmpresa = new FormEmpresa();
-                formEmpresa.MdiParent = this;
-                formEmpresa.Show();
+                formVerClientes = new VerAbmCliente();
+                formVerClientes.MdiParent = this;
+                formVerClientes.Show();
             }
         }
 
@@ -70,5 +71,6 @@ namespace PagoAgilFrba
                 altaForm.Show();
             }
         }
+
     }
 }

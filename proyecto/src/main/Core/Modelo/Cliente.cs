@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using PagoAgilFrba.Core.ConexionDB;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-
+using System.Windows.Forms;
+using System.Data.Linq.SqlClient;
 
 namespace PagoAgilFrba
 {
@@ -37,11 +38,33 @@ namespace PagoAgilFrba
             return cliente;
         }
 
+        public List<Cliente> FindByParametersLike(string dni = null, string apellido = null, string nombre = null)
+        {
+            if(dni != "")
+            {
+                GD2C2017 cDB = GD2C2017.Instancia;
+                var clientes = (from registros in cDB.Clientes
+                                where registros.Nombre.Contains(nombre) &&
+                                    registros.Apellido.Contains(apellido) &&
+                                    registros.Dni == dni
+                                select registros);
+                return clientes.ToList();
+
+            } else
+            {
+                GD2C2017 cDB = GD2C2017.Instancia;
+                var clientes = (from registros in cDB.Clientes
+                                where registros.Nombre.Contains(nombre) &&
+                                    registros.Apellido.Contains(apellido)
+                                select registros);
+                return clientes.ToList();
+            }
+        }
+
         public void Save()
         {
             if(Id == 0)
             {
-                
                 GD2C2017.Instancia.Clientes.InsertOnSubmit(this);
                 GD2C2017.Instancia.SubmitChanges();
             } else {
