@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSucursal));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelEstado = new System.Windows.Forms.Label();
             this.comboBoxEstado = new System.Windows.Forms.ComboBox();
@@ -186,7 +187,9 @@
             this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormSucursal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sucursales - Pago Agil FRBA App";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormSucursal_Load);

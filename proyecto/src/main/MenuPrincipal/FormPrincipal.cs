@@ -36,12 +36,15 @@ namespace PagoAgilFrba
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ControlHelper.CerrarApp();
+            //ControlHelper.CerrarApp();
+            this.Close();
+
         }
 
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ControlHelper.CerrarSesionApp();
+            //ControlHelper.CerrarSesionApp();
+            Application.Restart();
         }
 
         private void altaClienteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -86,7 +89,6 @@ namespace PagoAgilFrba
             if (altaEmpresa == null)
             {
                 AltaEmpresa altaForm = new AltaEmpresa(formEmpresa);
-                altaForm.MdiParent = this;
                 altaForm.Show();
             }
         }
@@ -113,6 +115,18 @@ namespace PagoAgilFrba
                 altaForm.Show();
             }
         }
-        
+
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MensajeHelper.MostrarConfirmacion("¿Desea salir de Pago Agil?", "Pago Agil FRBA App") == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void FormPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

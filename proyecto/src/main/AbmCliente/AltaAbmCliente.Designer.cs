@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaAbmCliente));
             this.labelNombre = new System.Windows.Forms.Label();
             this.tBNombre = new System.Windows.Forms.TextBox();
             this.labelApellido = new System.Windows.Forms.Label();
@@ -488,7 +489,9 @@
             this.Controls.Add(this.labelApellido);
             this.Controls.Add(this.tBNombre);
             this.Controls.Add(this.labelNombre);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaAbmCliente";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

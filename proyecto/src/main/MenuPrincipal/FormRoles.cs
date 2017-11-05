@@ -39,5 +39,10 @@ namespace PagoAgilFrba
             principal.Show();
             this.Hide();
         }
+
+        private void FormRoles_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

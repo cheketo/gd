@@ -624,7 +624,7 @@ GO
 -- Inserta usuarios y los relaciona con su rol.
 INSERT INTO SQL_86.usuarios (usuario,password,intentos,estado,id_sucursal)VALUES('admin','w23e',0,'A',1)
 GO
-INSERT INTO SQL_86.rel_roles_usuarios (id_rol,id_usuario)VALUES(1,@@IDENTITY);
+INSERT INTO SQL_86.rel_roles_usuarios (id_rol,id_usuario)VALUES(1,@@IDENTITY),(2,@@IDENTITY);
 GO
 
 INSERT INTO SQL_86.usuarios (usuario,password,intentos,estado,id_sucursal)VALUES('cobrador','cobrador',0,'A',1)

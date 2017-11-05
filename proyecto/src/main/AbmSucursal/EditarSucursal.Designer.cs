@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditarSucursal));
             this.labelNombre = new System.Windows.Forms.Label();
             this.buttonGuardar = new System.Windows.Forms.Button();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
@@ -128,7 +129,9 @@
             this.Controls.Add(this.textBoxNombre);
             this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.labelNombre);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditarSucursal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editar Sucursal - Pago Agil FRBA App";
             this.Load += new System.EventHandler(this.EditarSucursal_Load);
             this.ResumeLayout(false);

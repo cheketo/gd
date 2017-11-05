@@ -29,7 +29,7 @@ namespace PagoAgilFrba.Core.Helpers
 
         public static void CerrarApp()
         {
-            if (MensajeHelper.MostrarConfirmacion("¿Desea salir de PagoAgil?", "PagoAgil FRBA App") == DialogResult.Yes)
+            if (MensajeHelper.MostrarConfirmacion("¿Desea salir de Pago Agil?", "Pago Agil FRBA App") == DialogResult.Yes)
             {
                 Application.Exit();
             }

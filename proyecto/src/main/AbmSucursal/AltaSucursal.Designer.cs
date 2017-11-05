@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaSucursal));
             this.textBoxDireccion = new System.Windows.Forms.TextBox();
             this.labelDireccion = new System.Windows.Forms.Label();
             this.textBoxCp = new System.Windows.Forms.TextBox();
@@ -128,7 +129,9 @@
             this.Controls.Add(this.textBoxNombre);
             this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.labelNombre);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaSucursal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cargar Sucursal - Pago Agil FRBA App";
             this.Load += new System.EventHandler(this.AltaSucursal_Load);
             this.ResumeLayout(false);

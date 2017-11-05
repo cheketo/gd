@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VerAbmCliente));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tBDNI = new System.Windows.Forms.TextBox();
             this.labelDNI = new System.Windows.Forms.Label();
@@ -163,7 +164,9 @@
             this.Controls.Add(this.buttonBuscar);
             this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VerAbmCliente";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Clientes";
             this.Load += new System.EventHandler(this.VerAbmCliente_Load);
             this.groupBox1.ResumeLayout(false);
