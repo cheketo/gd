@@ -38,6 +38,9 @@
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.altaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verSucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cargarSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +49,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuarioToolStripMenuItem,
             this.empresasToolStripMenuItem,
-            this.clientesToolStripMenuItem});
+            this.clientesToolStripMenuItem,
+            this.sucursalesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(384, 24);
@@ -98,28 +102,50 @@
             this.cargarEmpresaToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.cargarEmpresaToolStripMenuItem.Text = "Cargar Empresa";
             this.cargarEmpresaToolStripMenuItem.Click += new System.EventHandler(this.cargarEmpresaToolStripMenuItem_Click);
-            //
+            // 
             // clientesToolStripMenuItem
             // 
             this.clientesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.altaClienteToolStripMenuItem,
-            this.buscarClienteToolStripMenuItem});
+            this.buscarClienteToolStripMenuItem,
+            this.altaClienteToolStripMenuItem});
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
             this.clientesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.clientesToolStripMenuItem.Text = "Clientes";
             // 
             // altaClienteToolStripMenuItem
             // 
+            this.altaClienteToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.altaClienteToolStripMenuItem.Name = "altaClienteToolStripMenuItem";
             this.altaClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.altaClienteToolStripMenuItem.Text = "Alta Cliente";
+            this.altaClienteToolStripMenuItem.Text = "Cargar Cliente";
             this.altaClienteToolStripMenuItem.Click += new System.EventHandler(this.altaClienteToolStripMenuItem_Click);
             // 
             // buscarClienteToolStripMenuItem
             // 
             this.buscarClienteToolStripMenuItem.Name = "buscarClienteToolStripMenuItem";
             this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.buscarClienteToolStripMenuItem.Text = "Buscar Cliente";
+            this.buscarClienteToolStripMenuItem.Text = "Ver Clientes";
+            // 
+            // sucursalesToolStripMenuItem
+            // 
+            this.sucursalesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verSucursalesToolStripMenuItem,
+            this.cargarSucursalToolStripMenuItem});
+            this.sucursalesToolStripMenuItem.Name = "sucursalesToolStripMenuItem";
+            this.sucursalesToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.sucursalesToolStripMenuItem.Text = "Sucursales";
+            // 
+            // verSucursalesToolStripMenuItem
+            // 
+            this.verSucursalesToolStripMenuItem.Name = "verSucursalesToolStripMenuItem";
+            this.verSucursalesToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.verSucursalesToolStripMenuItem.Text = "Ver Sucursales";
+            // 
+            // cargarSucursalToolStripMenuItem
+            // 
+            this.cargarSucursalToolStripMenuItem.Name = "cargarSucursalToolStripMenuItem";
+            this.cargarSucursalToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.cargarSucursalToolStripMenuItem.Text = "Cargar Sucursal";
             // 
             // FormPrincipal
             // 
@@ -154,5 +180,8 @@
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem altaClienteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buscarClienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sucursalesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verSucursalesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cargarSucursalToolStripMenuItem;
     }
 }
