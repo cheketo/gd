@@ -43,11 +43,28 @@ namespace PagoAgilFrba.Core.Helpers
             }
         }
 
-        public static void SolotNumerosEvento(object sender, KeyPressEventArgs e)
+        public static void SoloNumerosEvento(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        public static void SoloLetrasEvento(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        public static void SetAllCheckBoxRedOnly(Form form, Boolean valor )
+        {
+            foreach (Control c in form.Controls)
+            {
+                if (c is TextBox)
+                    ((TextBox)c).ReadOnly = valor;
             }
         }
     }
