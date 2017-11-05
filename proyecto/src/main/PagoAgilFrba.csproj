@@ -51,6 +51,7 @@
     <Compile Include="AbmCliente\AltaAbmCliente.Designer.cs">
       <DependentUpon>AltaAbmCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmCliente\AltAbmClienteController.cs" />
     <Compile Include="AbmEmpresa\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +83,7 @@
     </Compile>
     <Compile Include="Core\ConexionDB\GD2C2017.cs" />
     <Compile Include="Core\ConexionDB\ConexionDB.cs" />
+    <Compile Include="Core\Helpers\FormatoHelper.cs" />
     <Compile Include="Core\Helpers\ControlHelper.cs" />
     <Compile Include="Core\Helpers\MensajeHelper.cs" />
     <Compile Include="Core\Helpers\ValidadorHelper.cs" />

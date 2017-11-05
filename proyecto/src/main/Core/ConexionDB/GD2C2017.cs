@@ -10,7 +10,23 @@ namespace PagoAgilFrba
 {
     public class GD2C2017 : DataContext
     {
+        const string RUTA_CONEXION = "Data Source=.\\SQLSERVER2012;Initial Catalog=GD2C2017;Persist Security Info=True;User ID=gd;Password=gd2017";
         public Table<Cliente> Clientes;
-        public GD2C2017(string connection) : base(connection) { }
+        private static GD2C2017 instancia;
+
+        private GD2C2017() : base(RUTA_CONEXION) { }
+
+        public static GD2C2017 Instancia
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new GD2C2017();
+                }
+
+                return instancia;
+            }
+        }
     }
 }

@@ -25,5 +25,31 @@ namespace PagoAgilFrba
         [Column] public string Depto { get; set; }
         [Column] public string Telefono { get; set; }
         [Column] public string Localidad { get; set; }
+        [Column] public char Estado { get; set; }
+
+        public Cliente FindOneByID(int id)
+        {
+
+            GD2C2017 cDB = GD2C2017.Instancia;
+            var cliente = (from registros in cDB.Clientes
+                           where registros.Id == id
+                           select registros).FirstOrDefault();
+            return cliente;
+        }
+
+        public void Save()
+        {
+            if(Id == 0)
+            {
+                
+                GD2C2017.Instancia.Clientes.InsertOnSubmit(this);
+                GD2C2017.Instancia.SubmitChanges();
+            } else {
+                GD2C2017.Instancia.SubmitChanges();
+            }
+              
+        }
+
     }
+
 }
