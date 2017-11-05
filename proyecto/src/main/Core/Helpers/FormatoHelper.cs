@@ -38,6 +38,17 @@ namespace PagoAgilFrba.Core.Helpers
             }
         }
 
+        public static string getEstadoFormatterView(string estado)
+        {
+            if (estado.Contains('A') )
+            {
+                return "Habilitado";
+            } else
+            {
+                return "Deshabilitado";
+            }
+        }
+
         public static Boolean setCheckedFromEstado(Char estado)
         {
             if (estado == 'A')

@@ -117,6 +117,7 @@
             this.buscarClienteToolStripMenuItem.Name = "buscarClienteToolStripMenuItem";
             this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.buscarClienteToolStripMenuItem.Text = "Ver Clientes";
+            this.buscarClienteToolStripMenuItem.Click += new System.EventHandler(this.buscarClienteToolStripMenuItem_Click);
             // 
             // altaClienteToolStripMenuItem
             // 
@@ -175,7 +176,6 @@
         private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesiónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-
         private System.Windows.Forms.ToolStripMenuItem empresasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verEmpresasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cargarEmpresaToolStripMenuItem;
