@@ -27,40 +27,27 @@ namespace PagoAgilFrba.AbmCliente
            
             if (cliente != null )
             {
-                tBNombre.Text = cliente.Nombre;
-                tBDni.Text = cliente.Dni;
-                tBApellido.Text = cliente.Apellido;
-                dTPFechaNacimiento.Text = cliente.FechaNacimiento.ToString();
-                tBMail.Text = cliente.Mail;
-                tbDireccion.Text = cliente.Direccion;
-                tBCP.Text = cliente.CP;
-                tBPiso.Text = cliente.CP;
-                tBDepartamento.Text = cliente.Depto;
-                tBTelefono.Text = cliente.Telefono;
-                tBLocalidad.Text = cliente.Localidad;
-                cBHabilitado.Checked = FormatoHelper.setCheckedFromEstado(cliente.Estado);
-
-                buttonGuardar.Visible = false;
-                buttonCancelar.Visible = false;
-                ControlHelper.SetAllCheckBoxRedOnly(this, true);
-                cBHabilitado.Enabled = false;
+                CargarDatosFormulario();
+                setEdicionFormulario(false);
+                this.Text = "Cliente";
             } else
             {
                 cliente = new Cliente();
                 buttonCancelar.Visible = false;
                 lLEditar.Visible = false;
+                this.Text = "Cliente - Alta";
             }
             
         }
 
-        private void buttonCancelar_Click(object sender, EventArgs e)
+        private void lLEditar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ControlHelper.SetAllCheckBoxRedOnly(this, true);
-            lLEditar.Visible = true;
-            buttonCancelar.Visible = false;
-            buttonCancelar.Visible = false;
+            setEdicionFormulario(true);
+            ControlHelper.SetAllCheckBoxRedOnly(this, false);
+            this.Text = "Cliente - Modificacion";
 
         }
+
 
         private void tBDni_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -98,19 +85,60 @@ namespace PagoAgilFrba.AbmCliente
             cliente.Localidad = tBLocalidad.Text;
             cliente.Estado = FormatoHelper.getEstadoFormatter(cBHabilitado);
 
-            cliente.Save();
+            if (ValidadorHelper.ValidarAllCampos(this))
+            {
+                cliente.Save();
+                this.Close();
+            } else
+            {
+                MensajeHelper.MostrarError("Verifique los campos ingresados", "Error");
+            }
 
-            this.Close();
+            
         }
 
-        private void lLEditar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void buttonCancelar_Click(object sender, EventArgs e)
         {
-            ControlHelper.SetAllCheckBoxRedOnly(this, false);
-            buttonGuardar.Visible = true;
-            buttonCancelar.Visible = true;
-            lLEditar.Visible = false;
-            cBHabilitado.Enabled = true;
+            CargarDatosFormulario();
+            setEdicionFormulario(false);
 
         }
+
+        private void CargarDatosFormulario()
+        {
+            tBNombre.Text = cliente.Nombre;
+            tBDni.Text = cliente.Dni;
+            tBApellido.Text = cliente.Apellido;
+            dTPFechaNacimiento.Text = cliente.FechaNacimiento.ToString();
+            tBMail.Text = cliente.Mail;
+            tbDireccion.Text = cliente.Direccion;
+            tBCP.Text = cliente.CP;
+            tBPiso.Text = cliente.CP;
+            tBDepartamento.Text = cliente.Depto;
+            tBTelefono.Text = cliente.Telefono;
+            tBLocalidad.Text = cliente.Localidad;
+            cBHabilitado.Checked = FormatoHelper.setCheckedFromEstado(cliente.Estado);
+        }
+
+        private void setEdicionFormulario(Boolean editable)
+        {
+            if(editable)
+            {
+                buttonGuardar.Visible = true;
+                buttonCancelar.Visible = true;
+                lLEditar.Visible = false;
+                cBHabilitado.Enabled = true;
+                dTPFechaNacimiento.Enabled = true;
+            } else
+            {
+                buttonGuardar.Visible = false;
+                buttonCancelar.Visible = false;
+                ControlHelper.SetAllCheckBoxRedOnly(this, true);
+                cBHabilitado.Enabled = false;
+                dTPFechaNacimiento.Enabled = false;
+                lLEditar.Visible = true;
+            }
+        }
+
     }
 }

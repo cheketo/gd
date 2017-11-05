@@ -51,7 +51,6 @@
     <Compile Include="AbmCliente\AltaAbmCliente.Designer.cs">
       <DependentUpon>AltaAbmCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCliente\AltAbmClienteController.cs" />
     <Compile Include="AbmEmpresa\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
