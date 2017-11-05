@@ -36,8 +36,8 @@
             this.verEmpresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarEmpresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.altaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.altaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verSucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,19 +112,19 @@
             this.clientesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.clientesToolStripMenuItem.Text = "Clientes";
             // 
+            // buscarClienteToolStripMenuItem
+            // 
+            this.buscarClienteToolStripMenuItem.Name = "buscarClienteToolStripMenuItem";
+            this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.buscarClienteToolStripMenuItem.Text = "Ver Clientes";
+            // 
             // altaClienteToolStripMenuItem
             // 
             this.altaClienteToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.altaClienteToolStripMenuItem.Name = "altaClienteToolStripMenuItem";
-            this.altaClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.altaClienteToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.altaClienteToolStripMenuItem.Text = "Cargar Cliente";
             this.altaClienteToolStripMenuItem.Click += new System.EventHandler(this.altaClienteToolStripMenuItem_Click);
-            // 
-            // buscarClienteToolStripMenuItem
-            // 
-            this.buscarClienteToolStripMenuItem.Name = "buscarClienteToolStripMenuItem";
-            this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.buscarClienteToolStripMenuItem.Text = "Ver Clientes";
             // 
             // sucursalesToolStripMenuItem
             // 
@@ -140,12 +140,14 @@
             this.verSucursalesToolStripMenuItem.Name = "verSucursalesToolStripMenuItem";
             this.verSucursalesToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.verSucursalesToolStripMenuItem.Text = "Ver Sucursales";
+            this.verSucursalesToolStripMenuItem.Click += new System.EventHandler(this.verSucursalesToolStripMenuItem_Click);
             // 
             // cargarSucursalToolStripMenuItem
             // 
             this.cargarSucursalToolStripMenuItem.Name = "cargarSucursalToolStripMenuItem";
             this.cargarSucursalToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.cargarSucursalToolStripMenuItem.Text = "Cargar Sucursal";
+            this.cargarSucursalToolStripMenuItem.Click += new System.EventHandler(this.cargarSucursalToolStripMenuItem_Click);
             // 
             // FormPrincipal
             // 

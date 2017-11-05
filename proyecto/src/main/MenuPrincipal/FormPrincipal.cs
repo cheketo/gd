@@ -15,9 +15,11 @@ namespace PagoAgilFrba
     public partial class FormPrincipal : Form
     {
         public Usuario usuario;
-        AltaAbmCliente formCliente; 
-        FormEmpresa formEmpresa;
-        AltaEmpresa altaEmpresa;
+        public AltaAbmCliente formCliente; 
+        public FormEmpresa formEmpresa;
+        public AltaEmpresa altaEmpresa;
+        public FormSucursal formSucursal;
+        public AltaSucursal altaSucursal;
 
         public FormPrincipal(Usuario usuario)
         {
@@ -54,19 +56,46 @@ namespace PagoAgilFrba
 
         private void verEmpresasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(formEmpresa == null)
+            if (this.formEmpresa == null || this.formEmpresa.IsDisposed)
             {
-                formEmpresa = new FormEmpresa();
+                FormEmpresa formEmpresa = new FormEmpresa();
                 formEmpresa.MdiParent = this;
                 formEmpresa.Show();
+                this.formEmpresa = formEmpresa;
             }
+            else
+                formEmpresa.Activate();
         }
 
         private void cargarEmpresaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(altaEmpresa == null)
+            if (altaEmpresa == null)
             {
                 AltaEmpresa altaForm = new AltaEmpresa(formEmpresa);
+                altaForm.MdiParent = this;
+                altaForm.Show();
+            }
+        }
+
+        private void verSucursalesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.formSucursal == null || this.formSucursal.IsDisposed)
+            {
+                FormSucursal formSucursal = new FormSucursal();
+                formSucursal.MdiParent = this;
+                formSucursal.Show();
+                this.formSucursal = formSucursal;
+            }
+            else
+                formSucursal.Activate();
+
+        }
+
+        private void cargarSucursalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (altaSucursal == null)
+            {
+                AltaSucursal altaForm = new AltaSucursal(formSucursal);
                 altaForm.Show();
             }
         }

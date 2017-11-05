@@ -81,11 +81,23 @@
     <Compile Include="AbmRol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmSucursal\Form1.cs">
+    <Compile Include="AbmSucursal\AltaSucursal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmSucursal\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmSucursal\AltaSucursal.Designer.cs">
+      <DependentUpon>AltaSucursal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmSucursal\EditarSucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmSucursal\EditarSucursal.Designer.cs">
+      <DependentUpon>EditarSucursal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmSucursal\FormSucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmSucursal\FormSucursal.Designer.cs">
+      <DependentUpon>FormSucursal.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ConexionDB\DataClasses1.designer.cs">
       <AutoGen>True</AutoGen>
@@ -99,6 +111,7 @@
     <Compile Include="Core\Helpers\MensajeHelper.cs" />
     <Compile Include="Core\Helpers\ValidadorHelper.cs" />
     <Compile Include="Core\Modelo\Cliente.cs" />
+    <Compile Include="Core\Modelo\Sucursal.cs" />
     <Compile Include="Core\Modelo\Empresa.cs" />
     <Compile Include="Core\Modelo\Rubro.cs" />
     <Compile Include="Core\Modelo\Usuario.cs" />
@@ -151,6 +164,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmEmpresa\FormEmpresa.resx">
       <DependentUpon>FormEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\AltaSucursal.resx">
+      <DependentUpon>AltaSucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\EditarSucursal.resx">
+      <DependentUpon>EditarSucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\FormSucursal.resx">
+      <DependentUpon>FormSucursal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IncioSesion\FormInicioSesion.resx">
       <DependentUpon>FormInicioSesion.cs</DependentUpon>

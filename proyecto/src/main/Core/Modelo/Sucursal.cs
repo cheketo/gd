@@ -8,18 +8,15 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba
 {
-    public class Empresa
+    public class Sucursal
     {
         public int Id { set; get; }
         public string Nombre { set; get; }
-        public string Cuit { set; get; }
         public string Direccion { set; get; }
-        public int IdRubro { set; get; }
         public string Estado { set; get; }
-        //public string Rubro { set; get; }
-        public decimal Porcentaje { set; get; }
+        public string Cp { set; get; }
 
-        public Empresa(int id = 0)
+        public Sucursal(int id = 0)
         {
             SetId(id);
             if (id>0)
@@ -35,7 +32,7 @@ namespace PagoAgilFrba
 
         public Boolean SetDatos()
         {
-            return this.ObtenerDatosDB("SELECT * FROM SQL_86.empresas WHERE id = " + this.Id);
+            return this.ObtenerDatosDB("SELECT * FROM SQL_86.sucursales WHERE id = " + this.Id);
         }
 
         public Boolean ObtenerDatosDB(string query)
@@ -44,13 +41,10 @@ namespace PagoAgilFrba
             if (data.Rows.Count > 0)
             {
                 this.Id = Convert.ToInt32(data.Rows[0][0].ToString());
-                this.Nombre = data.Rows[0][1].ToString();
-                this.Cuit = data.Rows[0][2].ToString();
+                this.Estado = data.Rows[0][1].ToString();
+                this.Nombre = data.Rows[0][2].ToString();
                 this.Direccion = data.Rows[0][3].ToString();
-                //this.Rubro = data.Rows[0][6].ToString();
-                this.IdRubro = Convert.ToInt32(data.Rows[0][4].ToString());
-                this.Estado = data.Rows[0][5].ToString();
-                this.Porcentaje = Convert.ToDecimal(data.Rows[0][6].ToString());
+                this.Cp = data.Rows[0][4].ToString();
                 return true;
             }
             else
@@ -72,7 +66,7 @@ namespace PagoAgilFrba
                     buttons.Tag = Id;
                     buttons.UseColumnTextForButtonValue = true;
                     buttons.AutoSizeMode =
-                        DataGridViewAutoSizeColumnMode.AllCells;
+                    DataGridViewAutoSizeColumnMode.AllCells;
                     buttons.FlatStyle = FlatStyle.Standard;
                     buttons.DisplayIndex = result.ColumnCount;
                 }
@@ -84,57 +78,65 @@ namespace PagoAgilFrba
                 DataGridViewButtonColumn buttons = new DataGridViewButtonColumn();
                 {
                     buttons.HeaderText = "";
-                    buttons.Text = "Eliminar";
+                    buttons.Text = "Inactivar";
                     buttons.UseColumnTextForButtonValue = true;
                     buttons.AutoSizeMode =
-                        DataGridViewAutoSizeColumnMode.AllCells;
+                    DataGridViewAutoSizeColumnMode.AllCells;
                     buttons.FlatStyle = FlatStyle.Standard;
                     buttons.DisplayIndex = result.ColumnCount;
                 }
                 result.Columns.Add(buttons);
             }
-            string query = "SELECT "+campos+" FROM SQL_86.vw_listado_empresas WHERE 1=1 "+where;
+            string query = "SELECT "+campos+ " FROM SQL_86.vw_listado_sucursales WHERE 1=1 " + where;
+            
             result.DataSource = ConexionDB.SeleccionRegistros(query);
         }
 
         public void Inhabilitar()
         {
-            ConexionDB.ModificarRegistros("UPDATE SQL_86.empresas SET estado='I' WHERE id="+Id);
+            ConexionDB.ModificarRegistros("UPDATE SQL_86.sucursales SET estado='I' WHERE id="+Id);
         }
 
         public void Modificar()
         {
-            ConexionDB.ModificarRegistros("UPDATE SQL_86.empresas SET " +
+            ConexionDB.ModificarRegistros("UPDATE SQL_86.sucursales SET " +
                 "nombre='"+Nombre+"'" +
-                ",cuit='"+Cuit+"'" +
                 ",direccion='"+Direccion+"'" +
-                ",id_rubro=" + IdRubro +
-                ",porcentaje_rendicion=" + Porcentaje +
+                ",cp='" + Cp +"'"+
+                ",estado='" + Estado + "'" +
                 " WHERE id=" + Id);
         }
 
         public void Guardar()
         {
-            ConexionDB.ModificarRegistros("INSERT INTO SQL_86.empresas " +
-                "(nombre,cuit,direccion,id_rubro,estado,porcentaje_rendicion)VALUES(" +
+            ConexionDB.ModificarRegistros("INSERT INTO SQL_86.sucursales " +
+                "(nombre,direccion,cp,estado)VALUES(" +
                 "'" + Nombre + "'" +
-                ",'" + Cuit + "'" +
                 ",'" + Direccion + "'" +
-                "," + IdRubro +",'A',0)");
+                ",'" + Cp + "'" +
+                ",'" + Estado + "')");
         }
 
-        
-
-        public bool ValidarEmpresa(string nombre,string cuit)
+        public bool Validar(string cp, int id =0 )
         {
             Boolean result = true;
-            if (nombre != "" && cuit != "")
+            if (cp != "")
             {
-                DataTable data = ConexionDB.SeleccionRegistros("SELECT TOP 1 * FROM SQL_86.empresas WHERE nombre='" + nombre + "' OR cuit ='" + cuit + "'");
+                DataTable data = ConexionDB.SeleccionRegistros("SELECT * FROM SQL_86.sucursales WHERE cp='" + cp + "' AND id!="+id);
                 if (data.Rows.Count > 0)
                     return false;
             }
             return result;
+        }
+
+        public static void CargarComboEstado(ComboBox comboBox)
+        {
+            Dictionary<int, string> valoresCombo = new Dictionary<int, string>();
+            valoresCombo.Add(1, "Activo");
+            valoresCombo.Add(2, "Inactivo");
+            comboBox.DisplayMember = "Value";
+            comboBox.ValueMember = "Key";
+            comboBox.DataSource = valoresCombo.ToArray();
         }
 
     }

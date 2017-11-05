@@ -38,9 +38,10 @@ namespace PagoAgilFrba
             if(comboBoxRubro.SelectedValue!=null)
             {
                 rubro = Convert.ToInt32(comboBoxRubro.SelectedValue.ToString());
-                if(rubro>0)
+                
+                if (rubro>0)
                 {
-                    where = "AND id_rubro=" + rubro;
+                    where = "AND rubro = '" + comboBoxRubro.Text+"'";
                 }
             }
 
@@ -93,6 +94,7 @@ namespace PagoAgilFrba
         private void buttonCargar_Click(object sender, EventArgs e)
         {
             AltaEmpresa nuevo = new AltaEmpresa(this);
+            nuevo.MdiParent = this.MdiParent;
             nuevo.Show();
         }
 

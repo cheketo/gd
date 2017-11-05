@@ -27,6 +27,16 @@ END
 -- ELIMINACION DE TABLAS - INICIO
 -- Si existen, elimina las tablas.
 ------------------------------------
+
+
+IF OBJECT_ID ( 'SQL_86.vw_listado_empresas', 'V') IS NOT NULL
+DROP VIEW SQL_86.vw_listado_empresas
+GO
+
+IF OBJECT_ID ( 'SQL_86.vw_listado_sucursales', 'V') IS NOT NULL
+DROP VIEW SQL_86.vw_listado_sucursales
+GO
+
 IF OBJECT_ID ( 'SQL_86.rel_roles_funcionalidades', 'U') IS NOT NULL
 DROP TABLE SQL_86.rel_roles_funcionalidades
 GO
@@ -394,7 +404,7 @@ GO
 
 
 ------------------------------------
--- CREACION DE TRIGGER - INICIO
+-- CREACION DE TRIGGERS - INICIO
 -- Se crean los trigger de la base de datos
 ------------------------------------
 CREATE TRIGGER SQL_86.tr_claves_usuarios ON SQL_86.usuarios 
@@ -418,7 +428,23 @@ AS
 	PRINT 'Se ejecuto el trigger tr_claves_usuarios.';
 GO
 ------------------------------------
--- CREACION DE TRIGGER - FIN
+-- CREACION DE TRIGGERS - FIN
+------------------------------------
+
+------------------------------------
+-- CREACION DE VISTAS - INICIO
+-- Se crean las vistas de la base de datos
+------------------------------------
+CREATE VIEW SQL_86.vw_listado_empresas AS
+SELECT a.id,a.nombre,a.cuit,a.direccion,b.descripcion as rubro,a.estado,a.porcentaje_rendicion FROM SQL_86.empresas a
+JOIN SQL_86.rubros b ON (b.id=a.id_rubro)
+GO
+
+CREATE VIEW SQL_86.vw_listado_sucursales AS
+SELECT id,(CASE WHEN estado = 'A' THEN 'Activo' ELSE 'Inactivo' END) AS estado,nombre,direccion,cp as Codigo_Postal FROM SQL_86.sucursales
+GO
+------------------------------------
+-- CREACION DE VISTAS - FIN
 ------------------------------------
 
 
