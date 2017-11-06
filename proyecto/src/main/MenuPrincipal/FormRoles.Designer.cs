@@ -48,6 +48,7 @@
             this.comboBoxRoles.Name = "comboBoxRoles";
             this.comboBoxRoles.Size = new System.Drawing.Size(170, 24);
             this.comboBoxRoles.TabIndex = 0;
+            this.comboBoxRoles.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBoxRoles_KeyPress);
             // 
             // labelSeleccionar
             // 

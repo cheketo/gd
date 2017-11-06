@@ -56,5 +56,13 @@ namespace PagoAgilFrba
             
 
         }
+
+        private void textBoxPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                buttonStartSession.PerformClick();
+            }
+        }
     }
 }

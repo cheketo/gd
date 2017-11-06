@@ -44,5 +44,13 @@ namespace PagoAgilFrba
         {
             Application.Exit();
         }
+
+        private void comboBoxRoles_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                buttonAceptar.PerformClick();
+            }
+        }
     }
 }

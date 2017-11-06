@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,12 +28,13 @@ namespace PagoAgilFrba.Core.Helpers
             }
         }
 
-        public static void CerrarApp()
+        public static bool CerrarApp()
         {
             if (MensajeHelper.MostrarConfirmacion("¿Desea salir de Pago Agil?", "Pago Agil FRBA App") == DialogResult.Yes)
             {
                 Application.Exit();
             }
+            return true;
         }
 
         public static void CerrarSesionApp()
