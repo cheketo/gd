@@ -19,18 +19,20 @@ namespace PagoAgilFrba
         {
             InitializeComponent();
             sucursal = new Sucursal();
-
-            CaragarView();
             
         }
 
         private void FormSucursal_Load(object sender, EventArgs e)
         {
             Sucursal.CargarComboEstado(comboBoxEstado);
+            CaragarView();
         }
 
         public void CaragarView()
         {
+            bool edit = true;
+            bool delete = true;
+            bool activate = false;
             string where="";
             string nombre = textBoxNombre.Text;
             string direccion = textBoxDireccion.Text;
@@ -40,12 +42,18 @@ namespace PagoAgilFrba
             {
                 estado = Convert.ToInt32(comboBoxEstado.SelectedValue.ToString());
             }
-                
-            //MessageBox.Show("Estado: " + estado);
-            if (estado!=2)
+            if (estado != 2)
+            {
                 where += "AND estado = 'Activo'";
+                delete = true;
+                activate = false;
+            }
             else
+            {
                 where += "AND estado = 'Inactivo'";
+                delete = false;
+                activate = true;
+            }
 
 
             if (nombre!=null && nombre !="")
@@ -63,25 +71,35 @@ namespace PagoAgilFrba
                 where += "AND Codigo_Postal LIKE '%" + cp.Trim() + "%'";
             }
 
-            sucursal.ObtenerListado(dataGridView,where);
+            sucursal.ObtenerListado(dataGridView,where,"*",edit,delete,activate);
             
         }
         
         public void dataGridView_CellClick(object sender,DataGridViewCellEventArgs e)
         {
-            int id = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[2].Value);
-            Sucursal editar = new Sucursal(id);
-            if (e.ColumnIndex==0)
-            { 
-                EditarSucursal formEditar = new EditarSucursal(editar, this);
-                formEditar.Show();
-            }
-
-            if (e.ColumnIndex == 1)
+            MessageBox.Show(e.ColumnIndex.ToString());
+            int id = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString());
+            Sucursal obj = new Sucursal(id);
+            switch (e.ColumnIndex)
             {
-                if(MensajeHelper.MostrarConfirmacion("¿Desea inhabilitar la sucursal " + dataGridView.Rows[e.RowIndex].Cells[3].Value + "?", "Confirmación - Pago Agil FRBA App") == DialogResult.Yes)
-                    editar.Inhabilitar();
-                    CaragarView();
+                case 0:
+                    if (MensajeHelper.MostrarConfirmacion("¿Desea inhabilitar la sucursal " + dataGridView.Rows[e.RowIndex].Cells[4].Value + "?", "Confirmación - Pago Agil FRBA App") == DialogResult.Yes)
+                    {
+                        obj.CambiarEstado("I");
+                        CaragarView();
+                    }
+                    break;
+                case 1:
+                    if (MensajeHelper.MostrarConfirmacion("¿Desea activar la sucursal " + dataGridView.Rows[e.RowIndex].Cells[4].Value + "?", "Confirmación - Pago Agil FRBA App") == DialogResult.Yes)
+                    {
+                        obj.CambiarEstado("A");
+                        CaragarView();
+                    }
+                    break;
+                case 2:
+                    EditarSucursal formEditar = new EditarSucursal(obj, this);
+                    formEditar.Show();
+                    break;
             }
         }
 

@@ -54,47 +54,61 @@ namespace PagoAgilFrba
         }
 
 
-        public void ObtenerListado(DataGridView result ,string where = "",string campos = "*",bool edit = true,bool delete=true)
+        public void ObtenerListado(DataGridView result ,string where = "",string campos = "*",bool edit = true,bool delete=true,bool activate=false)
         {
-            result.Columns.Clear();
-            if (edit)
+            //result.Columns.Clear();
+            result.DataSource = null;
+            result.ColumnCount = 0;
+            //Columna Boton Inactivar
+            DataGridViewButtonColumn colBorrar = new DataGridViewButtonColumn();
             {
-                DataGridViewButtonColumn buttons = new DataGridViewButtonColumn();
-                {
-                    buttons.HeaderText = "";
-                    buttons.Text = "Editar";
-                    buttons.Tag = Id;
-                    buttons.UseColumnTextForButtonValue = true;
-                    buttons.AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.AllCells;
-                    buttons.FlatStyle = FlatStyle.Standard;
-                    buttons.DisplayIndex = result.ColumnCount;
-                }
-                result.Columns.Add(buttons);
+                colBorrar.HeaderText = "";
+                colBorrar.Text = "Inactivar";
+                colBorrar.UseColumnTextForButtonValue = true;
+                colBorrar.AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+                colBorrar.FlatStyle = FlatStyle.Standard;
+                colBorrar.DisplayIndex = result.ColumnCount;
+                colBorrar.Visible = delete;
             }
+            result.Columns.Add(colBorrar);
 
-            if (delete)
+            //Columna Boton Activar
+            DataGridViewButtonColumn colActivar = new DataGridViewButtonColumn();
             {
-                DataGridViewButtonColumn buttons = new DataGridViewButtonColumn();
-                {
-                    buttons.HeaderText = "";
-                    buttons.Text = "Inactivar";
-                    buttons.UseColumnTextForButtonValue = true;
-                    buttons.AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.AllCells;
-                    buttons.FlatStyle = FlatStyle.Standard;
-                    buttons.DisplayIndex = result.ColumnCount;
-                }
-                result.Columns.Add(buttons);
+                colActivar.HeaderText = "";
+                colActivar.Text = "Activar";
+                colActivar.UseColumnTextForButtonValue = true;
+                colActivar.AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+                colActivar.FlatStyle = FlatStyle.Standard;
+                colActivar.DisplayIndex = result.ColumnCount;
+                colActivar.Visible = activate;
             }
-            string query = "SELECT "+campos+ " FROM SQL_86.vw_listado_sucursales WHERE 1=1 " + where;
-            
+            result.Columns.Add(colActivar);
+
+            //Columna Boton Editar
+            DataGridViewButtonColumn colEditar = new DataGridViewButtonColumn();
+            {
+                colEditar.HeaderText = "";
+                colEditar.Text = "Editar";
+                colEditar.Tag = Id;
+                colEditar.UseColumnTextForButtonValue = true;
+                colEditar.AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+                colEditar.FlatStyle = FlatStyle.Standard;
+                colEditar.DisplayIndex = result.ColumnCount;
+                colEditar.Visible = edit;
+            }
+            result.Columns.Add(colEditar);
+
+            string query = "SELECT " + campos + " FROM SQL_86.vw_listado_sucursales WHERE 1=1 " + where;
             result.DataSource = ConexionDB.SeleccionRegistros(query);
         }
 
-        public void Inhabilitar()
+        public void CambiarEstado(string estado)
         {
-            ConexionDB.ModificarRegistros("UPDATE SQL_86.sucursales SET estado='I' WHERE id="+Id);
+            ConexionDB.ModificarRegistros("UPDATE SQL_86.sucursales SET estado='"+estado+"' WHERE id="+Id);
         }
 
         public void Modificar()

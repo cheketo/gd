@@ -77,6 +77,7 @@
             // labelRubro
             // 
             this.labelRubro.AutoSize = true;
+            this.labelRubro.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.labelRubro.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRubro.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.labelRubro.Location = new System.Drawing.Point(463, 25);
@@ -99,6 +100,7 @@
             // labelCuit
             // 
             this.labelCuit.AutoSize = true;
+            this.labelCuit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.labelCuit.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCuit.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.labelCuit.Location = new System.Drawing.Point(257, 25);
@@ -121,6 +123,7 @@
             // labelNombre
             // 
             this.labelNombre.AutoSize = true;
+            this.labelNombre.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.labelNombre.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelNombre.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.labelNombre.Location = new System.Drawing.Point(30, 25);
@@ -134,6 +137,9 @@
             this.dataGridViewEmpresa.AllowUserToAddRows = false;
             this.dataGridViewEmpresa.AllowUserToDeleteRows = false;
             this.dataGridViewEmpresa.AllowUserToOrderColumns = true;
+            this.dataGridViewEmpresa.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dataGridViewEmpresa.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridViewEmpresa.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridViewEmpresa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEmpresa.Location = new System.Drawing.Point(12, 152);
             this.dataGridViewEmpresa.Name = "dataGridViewEmpresa";
@@ -146,11 +152,11 @@
             // 
             this.buttonLimpiar.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLimpiar.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.buttonLimpiar.Location = new System.Drawing.Point(497, 91);
+            this.buttonLimpiar.Location = new System.Drawing.Point(512, 89);
             this.buttonLimpiar.Name = "buttonLimpiar";
-            this.buttonLimpiar.Size = new System.Drawing.Size(82, 42);
+            this.buttonLimpiar.Size = new System.Drawing.Size(82, 44);
             this.buttonLimpiar.TabIndex = 3;
             this.buttonLimpiar.Tag = "Limpiar";
             this.buttonLimpiar.Text = "Limpiar";
@@ -161,7 +167,7 @@
             // 
             this.buttonBuscar.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBuscar.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.buttonBuscar.Location = new System.Drawing.Point(618, 91);
             this.buttonBuscar.Name = "buttonBuscar";
@@ -176,11 +182,11 @@
             // 
             this.buttonCargar.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonCargar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonCargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCargar.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.buttonCargar.Location = new System.Drawing.Point(12, 91);
+            this.buttonCargar.Location = new System.Drawing.Point(12, 89);
             this.buttonCargar.Name = "buttonCargar";
-            this.buttonCargar.Size = new System.Drawing.Size(157, 40);
+            this.buttonCargar.Size = new System.Drawing.Size(157, 44);
             this.buttonCargar.TabIndex = 5;
             this.buttonCargar.Tag = "Cargar";
             this.buttonCargar.Text = "Cargar Empresa";
@@ -191,6 +197,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(712, 417);
             this.Controls.Add(this.buttonCargar);
             this.Controls.Add(this.buttonBuscar);
