@@ -33,25 +33,34 @@ namespace PagoAgilFrba
             string password = ConexionDB.getHashSha256(textBoxPassword.Text);
             if (usuario.ComprobarPassword(password) && usuario.EstaActivo())
             {
-                //Cambia los intentos del usuario a 0
-                usuario.ReiniciarIntentos();
-                if(usuario.CantidadRoles()>1)
+                if (usuario.ValidarRol())
                 {
-                    //Muestra el Form de seleccion de roles
-                    FormRoles roles = new FormRoles(usuario);
-                    roles.Show();
+                    //Cambia los intentos del usuario a 0
+                    usuario.ReiniciarIntentos();
+                    if (usuario.CantidadRoles() > 1)
+                    {
+                        //Muestra el Form de seleccion de roles
+                        FormRoles roles = new FormRoles(usuario);
+                        roles.Show();
+                    }
+                    else
+                    {
+                        //Muestra el Form principal
+                        FormPrincipal principal = new FormPrincipal(usuario);
+                        principal.Show();
+                    }
+                    this.Hide();
                 }
-                else{
-                    //Muestra el Form principal
-                    FormPrincipal principal = new FormPrincipal(usuario);
-                    principal.Show();
+                else
+                {
+                    MensajeHelper.MostrarAviso("El usuario puede operar en el sistema debido a que no tiene un rol asociado.", "Pago Agil FRBA App");
                 }
-                this.Hide();
+
             }else{
                 //Suma un intento
                 usuario.SumarIntento();
                 //Mensaje de error
-                MensajeHelper.MostrarAviso("Usuario o Password incorrectos. Por favor, revise la información e intente nuevamente.", "APP");
+                MensajeHelper.MostrarAviso("Usuario o Password incorrectos. Por favor, revise la información e intente nuevamente.", "Pago Agil FRBA App");
             }
             
 

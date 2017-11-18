@@ -90,7 +90,7 @@ namespace PagoAgilFrba
                 string query =
                 "SELECT a.* FROM SQL_86.roles a " +
                 "JOIN SQL_86.rel_roles_usuarios b ON (b.id_rol = a.id)" +
-                "WHERE b.id_usuario = " + Id;
+                "WHERE a.estado = 'A' AND b.id_usuario = " + Id;
                 Roles = ConexionDB.SeleccionRegistros(query);
                 
                 if(CantidadRoles()==1)
@@ -115,6 +115,11 @@ namespace PagoAgilFrba
             }
         }
 
+        public bool ValidarRol()
+        {
+            return CantidadRoles()>0;
+        }
+
         public DataTable ObtenerFuncionalidades()
         {
             if (this.IdRol > 0)
@@ -129,6 +134,42 @@ namespace PagoAgilFrba
                 }
             }
             return this.Funcionalidades;
+        }
+
+        public bool ChequearPermiso( string funcionalidad)
+        {
+            bool permiso = false;
+
+            foreach(DataRow row in this.Funcionalidades.Rows)
+            {
+                if (row["nombre"].ToString().ToLower() == funcionalidad.ToLower())
+                    permiso = true;
+            }
+            return permiso;
+        }
+
+        public void ChequearPermisos(FormPrincipal form)
+        {            
+            // Comprobar permisos para Empresas
+            if (!this.ChequearPermiso("Empresas"))
+            {
+                form.empresasToolStripMenuItem.Dispose();
+            }
+            // Comprobar permisos para Clientes
+            if (!this.ChequearPermiso("Clientes"))
+            {
+                form.clientesToolStripMenuItem.Dispose();
+            }
+            // Comprobar permisos para Sucursales
+            if (!this.ChequearPermiso("Sucursales"))
+            {
+                form.sucursalesToolStripMenuItem.Dispose();
+            }
+            // Comprobar permisos para Roles
+            if (!this.ChequearPermiso("Roles"))
+            {
+                form.rolesToolStripMenuItem.Dispose();
+            }
         }
 
         public int CantidadRoles()

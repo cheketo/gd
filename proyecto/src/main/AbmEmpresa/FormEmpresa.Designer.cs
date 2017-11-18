@@ -137,7 +137,7 @@
             this.dataGridViewEmpresa.AllowUserToAddRows = false;
             this.dataGridViewEmpresa.AllowUserToDeleteRows = false;
             this.dataGridViewEmpresa.AllowUserToOrderColumns = true;
-            this.dataGridViewEmpresa.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dataGridViewEmpresa.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewEmpresa.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewEmpresa.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridViewEmpresa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

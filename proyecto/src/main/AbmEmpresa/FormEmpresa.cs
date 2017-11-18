@@ -61,19 +61,22 @@ namespace PagoAgilFrba
         
         public void dataGridViewEmpresa_CellClick(object sender,DataGridViewCellEventArgs e)
         {
-            int idEmpresa = Convert.ToInt32(dataGridViewEmpresa.Rows[e.RowIndex].Cells[2].Value);
-            Empresa editarEmpresa = new Empresa(idEmpresa);
-            if (e.ColumnIndex==0)
-            { 
-                EditarEmpresa formEditar = new EditarEmpresa(editarEmpresa, this);
-                formEditar.Show();
-            }
-
-            if (e.ColumnIndex == 1)
+            if (e.RowIndex > -1)
             {
-                if(MensajeHelper.MostrarConfirmacion("¿Desea eliminar la empresa " + dataGridViewEmpresa.Rows[e.RowIndex].Cells[3].Value + "?", "Confirmación - Pago Agil FRBA App") == DialogResult.Yes)
-                    editarEmpresa.Inhabilitar();
+                int idEmpresa = Convert.ToInt32(dataGridViewEmpresa.Rows[e.RowIndex].Cells[2].Value);
+                Empresa editarEmpresa = new Empresa(idEmpresa);
+                if (e.ColumnIndex == 0)
+                {
+                    EditarEmpresa formEditar = new EditarEmpresa(editarEmpresa, this);
+                    formEditar.Show();
+                }
+
+                if (e.ColumnIndex == 1)
+                {
+                    if (MensajeHelper.MostrarConfirmacion("¿Desea eliminar la empresa " + dataGridViewEmpresa.Rows[e.RowIndex].Cells[3].Value + "?", "Confirmación - Pago Agil FRBA App") == DialogResult.Yes)
+                        editarEmpresa.Inhabilitar();
                     CaragarView();
+                }
             }
         }
 
