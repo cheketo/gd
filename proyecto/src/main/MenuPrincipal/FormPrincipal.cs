@@ -21,12 +21,17 @@ namespace PagoAgilFrba
         public AltaEmpresa altaEmpresa;
         public FormSucursal formSucursal;
         public AltaSucursal altaSucursal;
+        public FormRol formRol;
+        public AltaRol altaRol;
 
         public FormPrincipal(Usuario usuario)
         {
-            InitializeComponent();
+            
             this.usuario = usuario;
             //MessageBox.Show("Usuario: " + usuario.User + " - Rol: " + usuario.NombreRol);
+            InitializeComponent();
+            //Chequeo de Permisos
+            usuario.ChequearPermisos(this);
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
@@ -117,6 +122,28 @@ namespace PagoAgilFrba
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ControlHelper.CerrarSesionApp();
+        }
+
+        private void verRolesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.formRol == null || this.formRol.IsDisposed)
+            {
+                FormRol formRol = new FormRol();
+                formRol.MdiParent = this;
+                formRol.Show();
+                this.formRol = formRol;
+            }
+            else
+                formRol.Activate();
+        }
+
+        private void cargarRolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (altaRol == null)
+            {
+                AltaRol altaForm = new AltaRol(formRol);
+                altaForm.Show();
+            }
         }
     }
 }

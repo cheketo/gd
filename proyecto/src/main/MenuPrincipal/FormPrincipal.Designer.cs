@@ -42,6 +42,9 @@
             this.sucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verSucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cargarRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +55,8 @@
             this.usuarioToolStripMenuItem,
             this.empresasToolStripMenuItem,
             this.clientesToolStripMenuItem,
-            this.sucursalesToolStripMenuItem});
+            this.sucursalesToolStripMenuItem,
+            this.rolesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(384, 24);
@@ -117,7 +121,7 @@
             // buscarClienteToolStripMenuItem
             // 
             this.buscarClienteToolStripMenuItem.Name = "buscarClienteToolStripMenuItem";
-            this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.buscarClienteToolStripMenuItem.Text = "Ver Clientes";
             this.buscarClienteToolStripMenuItem.Click += new System.EventHandler(this.buscarClienteToolStripMenuItem_Click);
             // 
@@ -125,7 +129,7 @@
             // 
             this.altaClienteToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.altaClienteToolStripMenuItem.Name = "altaClienteToolStripMenuItem";
-            this.altaClienteToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.altaClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.altaClienteToolStripMenuItem.Text = "Cargar Cliente";
             this.altaClienteToolStripMenuItem.Click += new System.EventHandler(this.altaClienteToolStripMenuItem_Click);
             // 
@@ -151,6 +155,29 @@
             this.cargarSucursalToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.cargarSucursalToolStripMenuItem.Text = "Cargar Sucursal";
             this.cargarSucursalToolStripMenuItem.Click += new System.EventHandler(this.cargarSucursalToolStripMenuItem_Click);
+            // 
+            // rolesToolStripMenuItem
+            // 
+            this.rolesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verRolesToolStripMenuItem,
+            this.cargarRolToolStripMenuItem});
+            this.rolesToolStripMenuItem.Name = "rolesToolStripMenuItem";
+            this.rolesToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.rolesToolStripMenuItem.Text = "Roles";
+            // 
+            // verRolesToolStripMenuItem
+            // 
+            this.verRolesToolStripMenuItem.Name = "verRolesToolStripMenuItem";
+            this.verRolesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.verRolesToolStripMenuItem.Text = "Ver Roles";
+            this.verRolesToolStripMenuItem.Click += new System.EventHandler(this.verRolesToolStripMenuItem_Click);
+            // 
+            // cargarRolToolStripMenuItem
+            // 
+            this.cargarRolToolStripMenuItem.Name = "cargarRolToolStripMenuItem";
+            this.cargarRolToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cargarRolToolStripMenuItem.Text = "Cargar Rol";
+            this.cargarRolToolStripMenuItem.Click += new System.EventHandler(this.cargarRolToolStripMenuItem_Click);
             // 
             // FormPrincipal
             // 
@@ -180,18 +207,21 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cerrarSesiónToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem empresasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem verEmpresasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cargarEmpresaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem altaClienteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem buscarClienteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sucursalesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem verSucursalesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cargarSucursalToolStripMenuItem;
+        public System.Windows.Forms.MenuStrip menuStrip1;
+        public System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem cerrarSesiónToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem empresasToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem verEmpresasToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem cargarEmpresaToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem altaClienteToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem buscarClienteToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem sucursalesToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem verSucursalesToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem cargarSucursalToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem rolesToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem verRolesToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem cargarRolToolStripMenuItem;
     }
 }

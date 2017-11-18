@@ -37,6 +37,10 @@ IF OBJECT_ID ( 'SQL_86.vw_listado_sucursales', 'V') IS NOT NULL
 DROP VIEW SQL_86.vw_listado_sucursales
 GO
 
+IF OBJECT_ID ( 'SQL_86.vw_listado_roles', 'V') IS NOT NULL
+DROP VIEW SQL_86.vw_listado_roles
+GO
+
 IF OBJECT_ID ( 'SQL_86.rel_roles_funcionalidades', 'U') IS NOT NULL
 DROP TABLE SQL_86.rel_roles_funcionalidades
 GO
@@ -443,6 +447,10 @@ GO
 CREATE VIEW SQL_86.vw_listado_sucursales AS
 SELECT id,(CASE WHEN estado = 'A' THEN 'Activo' ELSE 'Inactivo' END) AS estado,nombre,direccion,cp as Codigo_Postal FROM SQL_86.sucursales
 GO
+
+CREATE VIEW SQL_86.vw_listado_roles AS
+SELECT id,(CASE WHEN estado = 'A' THEN 'Activo' ELSE 'Inactivo' END) AS estado,nombre FROM SQL_86.roles
+GO
 ------------------------------------
 -- CREACION DE VISTAS - FIN
 ------------------------------------
@@ -489,6 +497,8 @@ FROM gd_esquema.Maestra
 
 
 --Inserta datos en la tabla sucursales.
+INSERT INTO SQL_86.sucursales ( nombre, direccion, cp, estado ) VALUES ( 'casa central', 'casa central', '0', 'A')
+
 INSERT INTO SQL_86.sucursales ( nombre, direccion, cp, estado )
 SELECT DISTINCT Sucursal_nombre
 	,Sucursal_Dirección
@@ -618,17 +628,96 @@ GO
 
 
 -- Inserta datos en la tabla roles.
-INSERT INTO SQL_86.roles (nombre,estado)VALUES('Administrador','A'),('Cobrador','A');
+INSERT INTO SQL_86.roles (nombre,estado)VALUES
+	('Administrador','A'),
+	('Cobrador','A')
 GO
 
--- Inserta usuarios y los relaciona con su rol.
+-- Inserta funcionalidades y las relaciona con los roles
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Clientes')
+GO
+
+INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
+	(1,@@IDENTITY),
+	(2,@@IDENTITY)
+GO
+
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Empresas')
+GO
+
+INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad)VALUES
+	(1,@@IDENTITY),
+	(2,@@IDENTITY)
+GO
+
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Facturas')
+GO
+
+INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES
+	(1,@@IDENTITY),
+	(2,@@IDENTITY)
+GO
+
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Sucursales')
+GO
+
+INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
+	(1,@@IDENTITY),
+	(2,@@IDENTITY)
+GO
+
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Roles')
+GO
+
+INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
+	(1,@@IDENTITY)
+GO
+
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Pagos')
+GO
+
+INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
+	(1,@@IDENTITY),
+	(2,@@IDENTITY)
+GO
+
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Devoluciones')
+GO
+
+INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
+	(1,@@IDENTITY),
+	(2,@@IDENTITY)
+GO
+
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Rendiciones')
+GO
+
+INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
+	(1,@@IDENTITY)
+GO
+
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Reportes')
+GO
+
+INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
+	(1,@@IDENTITY)
+GO
+
+------------------------------------
+-- INSERCION USUARIOS - INICIO
+------------------------------------
+
+-- Admin
 INSERT INTO SQL_86.usuarios (usuario,password,intentos,estado,id_sucursal)VALUES('admin','w23e',0,'A',1)
 GO
+
 INSERT INTO SQL_86.rel_roles_usuarios (id_rol,id_usuario)VALUES(1,@@IDENTITY),(2,@@IDENTITY);
 GO
 
-INSERT INTO SQL_86.usuarios (usuario,password,intentos,estado,id_sucursal)VALUES('cobrador','cobrador',0,'A',1)
+-- Cobrador
+INSERT INTO SQL_86.usuarios (usuario,password,intentos,estado,id_sucursal)VALUES('cobrador','cobrador',0,'A',2)
 GO
+
 INSERT INTO SQL_86.rel_roles_usuarios (id_rol,id_usuario)VALUES(2,@@IDENTITY);
 GO
 
