@@ -32,8 +32,8 @@ END
 
 
 -----------------------------------------------
--- ELIMINACION DE TABLAS - INICIO
--- Elimina las tablas si existen.
+-- ELIMINACION DE VISTAS - INICIO
+-- Elimina las vistas si existen.
 -----------------------------------------------
 
 IF OBJECT_ID ( 'SQL_86.vw_listado_empresas', 'V') IS NOT NULL
@@ -47,6 +47,17 @@ GO
 IF OBJECT_ID ( 'SQL_86.vw_listado_roles', 'V') IS NOT NULL
 DROP VIEW SQL_86.vw_listado_roles
 GO
+
+-----------------------------------------------
+-- ELIMINACION DE VISTAS - FIN
+-----------------------------------------------
+
+
+
+-----------------------------------------------
+-- ELIMINACION DE TABLAS - INICIO
+-- Elimina las tablas si existen.
+-----------------------------------------------
 
 IF OBJECT_ID ( 'SQL_86.rel_roles_funcionalidades', 'U') IS NOT NULL
 DROP TABLE SQL_86.rel_roles_funcionalidades
@@ -391,9 +402,9 @@ GO
 
 -----------------------------------------------
 -- CREACION DE TRIGGERS - INICIO
--- Crea los trigger de la base de datos.
 -----------------------------------------------
 
+-- Trigger SQL_86.tr_claves_usuarios
 CREATE TRIGGER SQL_86.tr_claves_usuarios ON SQL_86.usuarios 
 AFTER INSERT,UPDATE
 AS
@@ -423,7 +434,6 @@ GO
 
 -----------------------------------------------
 -- CREACION DE VISTAS - INICIO
--- Crean las vistas de la base de datos.
 -----------------------------------------------
 
 -- Vista SQL_86.vw_listado_empresas
