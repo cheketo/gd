@@ -547,12 +547,13 @@ WHERE [FormaPagoDescripcion] IS NOT NULL
 SET IDENTITY_INSERT SQL_86.pagos ON
 GO
 
-INSERT INTO SQL_86.pagos ( id, importe, fecha, id_medio, id_cliente )
+INSERT INTO SQL_86.pagos ( id, importe, fecha, id_medio, id_cliente, estado )
 SELECT DISTINCT [Pago_nro] 
 	, [Total]
 	, [Pago_Fecha]
 	, mp.id AS id_medio_pago
 	, c.id AS id_cliente
+	, 'A' AS estado
 FROM ( [GD2C2017].[gd_esquema].[Maestra] m 
 		JOIN SQL_86.clientes c ON c.dni = m.[Cliente-Dni] 
 	) JOIN SQL_86.medios_pagos mp ON mp.nombre = m.FormaPagoDescripcion   
