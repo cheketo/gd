@@ -1,17 +1,22 @@
-------------------------------------
+-----------------------------------------------
 -- SELECCION DE BASE DE DATOS - INICIO
--- Se selecciona la base de datos 'GD2C2017'
-------------------------------------
+-- Se selecciona la base de datos 'GD2C2017'.
+-----------------------------------------------
+
 USE [GD2C2017]
 GO
-------------------------------------
--- SELECCION DE BASE DE DATOS - FIN
-------------------------------------
 
-------------------------------------
+-----------------------------------------------
+-- SELECCION DE BASE DE DATOS - FIN
+-----------------------------------------------
+
+
+
+-----------------------------------------------
 -- CREACION DEL SCHEMA - INICIO
--- Se crea si no existe
-------------------------------------
+-- Crea el schema si no existe.
+-----------------------------------------------
+
 IF NOT EXISTS (
 SELECT  schema_name
 FROM    information_schema.schemata
@@ -19,15 +24,17 @@ WHERE   schema_name = 'SQL_86' )
 BEGIN
 EXEC sp_executesql N'CREATE SCHEMA SQL_86'
 END
-------------------------------------
+
+-----------------------------------------------
 -- CREACION DEL SCHEMA - FIN
-------------------------------------
+-----------------------------------------------
 
-------------------------------------
--- ELIMINACION DE TABLAS - INICIO
--- Si existen, elimina las tablas.
-------------------------------------
 
+
+-----------------------------------------------
+-- ELIMINACION DE VISTAS - INICIO
+-- Elimina las vistas si existen.
+-----------------------------------------------
 
 IF OBJECT_ID ( 'SQL_86.vw_listado_empresas', 'V') IS NOT NULL
 DROP VIEW SQL_86.vw_listado_empresas
@@ -40,6 +47,17 @@ GO
 IF OBJECT_ID ( 'SQL_86.vw_listado_roles', 'V') IS NOT NULL
 DROP VIEW SQL_86.vw_listado_roles
 GO
+
+-----------------------------------------------
+-- ELIMINACION DE VISTAS - FIN
+-----------------------------------------------
+
+
+
+-----------------------------------------------
+-- ELIMINACION DE TABLAS - INICIO
+-- Elimina las tablas si existen.
+-----------------------------------------------
 
 IF OBJECT_ID ( 'SQL_86.rel_roles_funcionalidades', 'U') IS NOT NULL
 DROP TABLE SQL_86.rel_roles_funcionalidades
@@ -104,22 +122,22 @@ GO
 IF OBJECT_ID ( 'SQL_86.rubros', 'U' ) IS NOT NULL
 DROP TABLE SQL_86.rubros
 GO
-------------------------------------
+
+-----------------------------------------------
 -- ELIMINACION DE TABLAS - FIN
-------------------------------------
+-----------------------------------------------
 
 
-------------------------------------
+
+-----------------------------------------------
 -- CREACION DE TABLAS - INICIO
--- Se crean las tablas de la base de datos.
-------------------------------------
+-- Crean las tablas de la base de datos.
+-----------------------------------------------
 
--- -----------------------------------------------------
 -- Table SQL_86.clientes
--- -----------------------------------------------------
 CREATE TABLE SQL_86.clientes (
 	id INT IDENTITY(1,1) PRIMARY KEY,
-	dni VARCHAR(8) NOT NULL,
+	dni VARCHAR(8) UNIQUE NOT NULL,
 	apellido VARCHAR(50) NOT NULL,
 	nombre VARCHAR(50) NOT NULL,
 	fecha_nacimiento DATETIME NOT NULL,
@@ -134,12 +152,8 @@ CREATE TABLE SQL_86.clientes (
 )
 GO
 
--- Volver los campos a nulos despues.
 
-
--- -----------------------------------------------------
 -- Table SQL_86.rubros
--- -----------------------------------------------------
 CREATE TABLE SQL_86.rubros (
    id INT PRIMARY KEY IDENTITY(1,1),
    descripcion VARCHAR(100) NOT NULL
@@ -147,9 +161,7 @@ CREATE TABLE SQL_86.rubros (
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.empresas
--- -----------------------------------------------------
 CREATE TABLE SQL_86.empresas (
   id INT IDENTITY(1,1) PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
@@ -161,7 +173,7 @@ CREATE TABLE SQL_86.empresas (
 )
 GO
 
-ALTER TABLE SQL_86.empresas WITH CHECK ADD  CONSTRAINT FK_id_rubro_empresa FOREIGN KEY( id_rubro )
+ALTER TABLE SQL_86.empresas WITH CHECK ADD CONSTRAINT FK_id_rubro_empresa FOREIGN KEY( id_rubro )
 REFERENCES SQL_86.rubros (id)
 GO
 
@@ -169,9 +181,7 @@ ALTER TABLE SQL_86.empresas CHECK CONSTRAINT FK_id_rubro_empresa
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.sucursales
--- -----------------------------------------------------
 CREATE TABLE SQL_86.sucursales (
   id INT IDENTITY(1,1) PRIMARY KEY,
   estado CHAR(1) NOT NULL,
@@ -182,9 +192,7 @@ CREATE TABLE SQL_86.sucursales (
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.rendiciones
--- -----------------------------------------------------
 CREATE TABLE SQL_86.rendiciones (
   id INT IDENTITY(1,1) PRIMARY KEY,
   fecha DATETIME NOT NULL,
@@ -194,7 +202,7 @@ CREATE TABLE SQL_86.rendiciones (
 )
 GO
 
-ALTER TABLE SQL_86.rendiciones WITH CHECK ADD  CONSTRAINT FK_id_empresa_rendicion FOREIGN KEY( id_empresa )
+ALTER TABLE SQL_86.rendiciones WITH CHECK ADD CONSTRAINT FK_id_empresa_rendicion FOREIGN KEY( id_empresa )
 REFERENCES SQL_86.empresas (id)
 GO
 
@@ -202,9 +210,7 @@ ALTER TABLE SQL_86.rendiciones CHECK CONSTRAINT FK_id_empresa_rendicion
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.facturas
--- -----------------------------------------------------
 CREATE TABLE SQL_86.facturas (
   id INT IDENTITY(1,1) PRIMARY KEY,
   numero INT NOT NULL,
@@ -220,37 +226,36 @@ CREATE TABLE SQL_86.facturas (
 )
 GO
 
-ALTER TABLE SQL_86.facturas WITH CHECK ADD  CONSTRAINT FK_id_empresa_factura FOREIGN KEY( id_empresa )
+ALTER TABLE SQL_86.facturas WITH CHECK ADD CONSTRAINT FK_id_empresa_factura FOREIGN KEY( id_empresa )
 REFERENCES SQL_86.empresas (id)
 GO
 
 ALTER TABLE SQL_86.facturas CHECK CONSTRAINT FK_id_empresa_factura
 GO
 
-ALTER TABLE SQL_86.facturas WITH CHECK ADD  CONSTRAINT FK_id_cliente_factura FOREIGN KEY( id_cliente )
+ALTER TABLE SQL_86.facturas WITH CHECK ADD CONSTRAINT FK_id_cliente_factura FOREIGN KEY( id_cliente )
 REFERENCES SQL_86.clientes (id)
 GO
 
 ALTER TABLE SQL_86.facturas CHECK CONSTRAINT FK_id_cliente_factura
 GO
 
-ALTER TABLE SQL_86.facturas WITH CHECK ADD  CONSTRAINT FK_id_sucursal_factura FOREIGN KEY( id_sucursal )
+ALTER TABLE SQL_86.facturas WITH CHECK ADD CONSTRAINT FK_id_sucursal_factura FOREIGN KEY( id_sucursal )
 REFERENCES SQL_86.sucursales (id)
 GO
 
 ALTER TABLE SQL_86.facturas CHECK CONSTRAINT FK_id_sucursal_factura
 GO
 
-ALTER TABLE SQL_86.facturas WITH CHECK ADD  CONSTRAINT FK_id_rendicion_factura FOREIGN KEY( id_rendicion )
+ALTER TABLE SQL_86.facturas WITH CHECK ADD CONSTRAINT FK_id_rendicion_factura FOREIGN KEY( id_rendicion )
 REFERENCES SQL_86.rendiciones (id)
 GO
 
 ALTER TABLE SQL_86.facturas CHECK CONSTRAINT FK_id_rendicion_factura
 GO
 
--- -----------------------------------------------------
+
 -- Table SQL_86.facturas_items
--- -----------------------------------------------------
 CREATE TABLE SQL_86.facturas_items (
   id INT IDENTITY(1,1) PRIMARY KEY,
   id_factura INT NOT NULL,
@@ -259,7 +264,7 @@ CREATE TABLE SQL_86.facturas_items (
 )
 GO
 
-ALTER TABLE SQL_86.facturas_items WITH CHECK ADD  CONSTRAINT FK_id_factura_factura_item FOREIGN KEY( id_factura )
+ALTER TABLE SQL_86.facturas_items WITH CHECK ADD CONSTRAINT FK_id_factura_factura_item FOREIGN KEY( id_factura )
 REFERENCES SQL_86.facturas (id)
 GO
 
@@ -267,9 +272,7 @@ ALTER TABLE SQL_86.facturas_items CHECK CONSTRAINT FK_id_factura_factura_item
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.medios_pagos
--- -----------------------------------------------------
 CREATE TABLE SQL_86.medios_pagos (
   id INT IDENTITY(1,1) PRIMARY KEY,
   nombre VARCHAR(50) UNIQUE NOT NULL
@@ -277,9 +280,7 @@ CREATE TABLE SQL_86.medios_pagos (
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.pagos
--- -----------------------------------------------------
 CREATE TABLE SQL_86.pagos (
   id INT IDENTITY(1,1) PRIMARY KEY,
   importe DECIMAL(10,2) NOT NULL,
@@ -290,7 +291,6 @@ CREATE TABLE SQL_86.pagos (
   id_cliente INT NOT NULL
 )
 GO
-  
 
 ALTER TABLE SQL_86.pagos WITH CHECK ADD CONSTRAINT FK_id_medio_pago FOREIGN KEY( id_medio )
 REFERENCES SQL_86.medios_pagos (id)
@@ -315,9 +315,7 @@ ALTER TABLE SQL_86.facturas CHECK CONSTRAINT FK_id_pago_factura
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.roles
--- -----------------------------------------------------
 CREATE TABLE SQL_86.roles (
   id INT IDENTITY(1,1) PRIMARY KEY,
   nombre VARCHAR(50) UNIQUE NOT NULL,
@@ -325,9 +323,8 @@ CREATE TABLE SQL_86.roles (
 )
 GO
 
--- -----------------------------------------------------
+
 -- Table SQL_86.usuarios
--- -----------------------------------------------------
 CREATE TABLE SQL_86.usuarios (
   id INT IDENTITY(1,1) PRIMARY KEY,
   usuario VARCHAR(50) UNIQUE NOT NULL,
@@ -338,7 +335,7 @@ CREATE TABLE SQL_86.usuarios (
 )
 GO
 
-ALTER TABLE SQL_86.usuarios WITH CHECK ADD  CONSTRAINT FK_id_sucursal_usuario FOREIGN KEY( id_sucursal )
+ALTER TABLE SQL_86.usuarios WITH CHECK ADD CONSTRAINT FK_id_sucursal_usuario FOREIGN KEY( id_sucursal )
 REFERENCES SQL_86.sucursales (id)
 GO
 
@@ -346,9 +343,7 @@ ALTER TABLE SQL_86.usuarios CHECK CONSTRAINT FK_id_sucursal_usuario
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.rel_roles_usuarios
--- -----------------------------------------------------
 CREATE TABLE SQL_86.rel_roles_usuarios (
   id_rol INT NOT NULL,
   id_usuario INT NOT NULL,
@@ -356,14 +351,14 @@ CREATE TABLE SQL_86.rel_roles_usuarios (
 )
 GO
 
-ALTER TABLE SQL_86.rel_roles_usuarios WITH CHECK ADD  CONSTRAINT FK_id_rol_rol_usuario FOREIGN KEY( id_rol )
+ALTER TABLE SQL_86.rel_roles_usuarios WITH CHECK ADD CONSTRAINT FK_id_rol_rol_usuario FOREIGN KEY( id_rol )
 REFERENCES SQL_86.roles (id)
 GO
 
 ALTER TABLE SQL_86.rel_roles_usuarios CHECK CONSTRAINT FK_id_rol_rol_usuario
 GO
 
-ALTER TABLE SQL_86.rel_roles_usuarios WITH CHECK ADD  CONSTRAINT FK_id_usuario_rol_usuario FOREIGN KEY( id_usuario )
+ALTER TABLE SQL_86.rel_roles_usuarios WITH CHECK ADD CONSTRAINT FK_id_usuario_rol_usuario FOREIGN KEY( id_usuario )
 REFERENCES SQL_86.usuarios (id)
 GO
 
@@ -371,9 +366,7 @@ ALTER TABLE SQL_86.rel_roles_usuarios CHECK CONSTRAINT FK_id_usuario_rol_usuario
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.funcionalidades
--- -----------------------------------------------------
 CREATE TABLE SQL_86.funcionalidades (
   id INT IDENTITY(1,1) PRIMARY KEY,
   nombre VARCHAR(50) UNIQUE NOT NULL
@@ -381,9 +374,7 @@ CREATE TABLE SQL_86.funcionalidades (
 GO
 
 
--- -----------------------------------------------------
 -- Table SQL_86.rel_roles_funcionalidades
--- -----------------------------------------------------
 CREATE TABLE SQL_86.rel_roles_funcionalidades (
   id_rol INT NOT NULL,
   id_funcionalidad INT NOT NULL,
@@ -391,28 +382,31 @@ CREATE TABLE SQL_86.rel_roles_funcionalidades (
 )
 GO
  
-ALTER TABLE SQL_86.rel_roles_funcionalidades WITH CHECK ADD  CONSTRAINT FK_id_rol_rol_funcionalidad FOREIGN KEY( id_rol )
+ALTER TABLE SQL_86.rel_roles_funcionalidades WITH CHECK ADD CONSTRAINT FK_id_rol_rol_funcionalidad FOREIGN KEY( id_rol )
 REFERENCES SQL_86.roles (id)
 GO
 
 ALTER TABLE SQL_86.rel_roles_funcionalidades CHECK CONSTRAINT FK_id_rol_rol_funcionalidad
 GO
 
-ALTER TABLE SQL_86.rel_roles_funcionalidades WITH CHECK ADD  CONSTRAINT FK_id_funcionalidad_rol_funcionalidad FOREIGN KEY( id_funcionalidad )
+ALTER TABLE SQL_86.rel_roles_funcionalidades WITH CHECK ADD CONSTRAINT FK_id_funcionalidad_rol_funcionalidad FOREIGN KEY( id_funcionalidad )
 REFERENCES SQL_86.funcionalidades (id)
 GO
 
 ALTER TABLE SQL_86.rel_roles_funcionalidades CHECK CONSTRAINT FK_id_funcionalidad_rol_funcionalidad
 GO
-------------------------------------
+
+-----------------------------------------------
 -- CREACION DE TABLAS - FIN
-------------------------------------
+-----------------------------------------------
 
 
-------------------------------------
+
+-----------------------------------------------
 -- CREACION DE TRIGGERS - INICIO
--- Se crean los trigger de la base de datos
-------------------------------------
+-----------------------------------------------
+
+-- Trigger SQL_86.tr_claves_usuarios
 CREATE TRIGGER SQL_86.tr_claves_usuarios ON SQL_86.usuarios 
 AFTER INSERT,UPDATE
 AS
@@ -433,37 +427,46 @@ AS
 	UPDATE SQL_86.usuarios SET password = @password, estado=@estado WHERE id=@id;
 	PRINT 'Se ejecuto el trigger tr_claves_usuarios.';
 GO
-------------------------------------
--- CREACION DE TRIGGERS - FIN
-------------------------------------
 
-------------------------------------
+-----------------------------------------------
+-- CREACION DE TRIGGERS - FIN
+-----------------------------------------------
+
+
+
+-----------------------------------------------
 -- CREACION DE VISTAS - INICIO
--- Se crean las vistas de la base de datos
-------------------------------------
+-----------------------------------------------
+
+-- Vista SQL_86.vw_listado_empresas
 CREATE VIEW SQL_86.vw_listado_empresas AS
 SELECT a.id,a.nombre,a.cuit,a.direccion,b.descripcion as rubro,a.estado,a.porcentaje_rendicion FROM SQL_86.empresas a
 JOIN SQL_86.rubros b ON (b.id=a.id_rubro)
 GO
 
+
+-- Vista SQL_86.vw_listado_sucursales
 CREATE VIEW SQL_86.vw_listado_sucursales AS
 SELECT id,(CASE WHEN estado = 'A' THEN 'Activo' ELSE 'Inactivo' END) AS estado,nombre,direccion,cp as Codigo_Postal FROM SQL_86.sucursales
 GO
 
+-- Vista SQL_86.vw_listado_roles
 CREATE VIEW SQL_86.vw_listado_roles AS
 SELECT id,(CASE WHEN estado = 'A' THEN 'Activo' ELSE 'Inactivo' END) AS estado,nombre FROM SQL_86.roles
 GO
-------------------------------------
+
+-----------------------------------------------
 -- CREACION DE VISTAS - FIN
-------------------------------------
+-----------------------------------------------
 
 
-------------------------------------
+-----------------------------------------------
 -- INSERCION DE DATOS - INICIO
--- Se ingresan los datos de las tablas
-------------------------------------
+-- Inserta los datos de la tabla master
+-- a las diferentes tablas
+-----------------------------------------------
 
---Inserta Datos en latabla clientes.
+--Inserta Datos en la tabla clientes.
 INSERT INTO SQL_86.clientes ( dni, apellido, nombre, fecha_nacimiento, mail, direccion, cp, estado )
 SELECT DISTINCT [Cliente-Dni]
 	,[Cliente-Apellido]
@@ -477,7 +480,6 @@ FROM gd_esquema.Maestra
 
 
 --Inserta datos en la tabla rubros.
-
 SET IDENTITY_INSERT SQL_86.rubros ON
 
 INSERT INTO SQL_86.rubros ( id, descripcion )
@@ -486,6 +488,7 @@ SELECT DISTINCT Empresa_Rubro
 FROM gd_esquema.Maestra
 
 SET IDENTITY_INSERT SQL_86.rubros OFF
+
 
 --Inserta datos en la tabla empresas.
 INSERT INTO SQL_86.empresas ( nombre, cuit, direccion, id_rubro, estado, porcentaje_rendicion )
@@ -581,6 +584,7 @@ FROM ([GD2C2017].[gd_esquema].[Maestra] m JOIN SQL_86.clientes c ON c.dni = m.[C
 WHERE m.Pago_nro IS NOT NULL AND Rendicion_Nro IS NOT NULL AND m.Nro_Factura NOT IN (SELECT id FROM SQL_86.facturas)
 GO
 
+
 -- Inserta facturas pagadas en la tabla facturas.
 INSERT INTO SQL_86.facturas (id,numero,fecha,importe,fecha_vencimiento,id_empresa,id_cliente,estado,id_sucursal,id_rendicion,id_pago)
 SELECT DISTINCT m.Nro_Factura AS id
@@ -617,6 +621,7 @@ WHERE m.Pago_nro IS NULL AND Rendicion_Nro IS NULL AND m.Nro_Factura NOT IN (SEL
 GO
 SET IDENTITY_INSERT SQL_86.facturas OFF
 GO
+
 
 -- Inserta datos en la tabla facturas_items.
 INSERT INTO SQL_86.facturas_items (id_factura, monto, cantidad)
@@ -671,6 +676,8 @@ GO
 INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Roles')
 GO
 
+
+-- Inserta usuarios y los relaciona con su rol.
 INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
 	(1,@@IDENTITY)
 GO
