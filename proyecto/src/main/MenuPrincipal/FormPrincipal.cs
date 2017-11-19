@@ -23,6 +23,7 @@ namespace PagoAgilFrba
         public AltaSucursal altaSucursal;
         public FormRol formRol;
         public AltaRol altaRol;
+        public AltaFactura altaFactura;
 
         public FormPrincipal(Usuario usuario)
         {
@@ -142,6 +143,15 @@ namespace PagoAgilFrba
             if (altaRol == null)
             {
                 AltaRol altaForm = new AltaRol(formRol);
+                altaForm.Show();
+            }
+        }
+
+        private void cargarFacturaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (altaFactura == null)
+            {
+                AltaFactura altaForm = new AltaFactura(usuario);
                 altaForm.Show();
             }
         }

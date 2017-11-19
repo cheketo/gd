@@ -137,5 +137,18 @@ namespace PagoAgilFrba
             return result;
         }
 
+        public static void LlenarComboBox(ComboBox comboBox)
+        {
+            Dictionary<int, string> valoresCombo = new Dictionary<int, string>();
+            DataTable empresas = ConexionDB.SeleccionRegistros("SELECT id,nombre FROM SQL_86.empresas ORDER BY nombre");
+            foreach (DataRow empresa in empresas.Rows)
+            {
+                valoresCombo.Add(Convert.ToInt32(empresa["id"].ToString()), empresa["nombre"].ToString());
+            }
+            comboBox.DisplayMember = "Value";
+            comboBox.ValueMember = "Key";
+            comboBox.DataSource = valoresCombo.ToArray();
+        }
+
     }
 }

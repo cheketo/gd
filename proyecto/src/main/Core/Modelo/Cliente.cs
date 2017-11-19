@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PagoAgilFrba.Core.ConexionDB;
+using System.Data;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Windows.Forms;
@@ -71,6 +72,19 @@ namespace PagoAgilFrba
                 GD2C2017.Instancia.SubmitChanges();
             }
               
+        }
+
+        public static void LlenarComboBox(ComboBox comboBox)
+        {
+            Dictionary<int, string> valoresCombo = new Dictionary<int, string>();
+            DataTable clientes = ConexionDB.SeleccionRegistros("SELECT id,CONCAT(apellido,', ',nombre) as nombre FROM SQL_86.clientes ORDER BY apellido,nombre");
+            foreach (DataRow cliente in clientes.Rows)
+            {
+                valoresCombo.Add(Convert.ToInt32(cliente["id"].ToString()), cliente["nombre"].ToString());
+            }
+            comboBox.DisplayMember = "Value";
+            comboBox.ValueMember = "Key";
+            comboBox.DataSource = valoresCombo.ToArray();
         }
 
     }

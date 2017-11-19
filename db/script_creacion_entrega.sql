@@ -284,6 +284,8 @@ CREATE TABLE SQL_86.pagos (
   id INT IDENTITY(1,1) PRIMARY KEY,
   importe DECIMAL(10,2) NOT NULL,
   fecha DATETIME NOT NULL,
+  estado CHAR(1) NOT NULL,
+  motivo NVARCHAR(255),
   id_medio INT NOT NULL,
   id_cliente INT NOT NULL
 )
@@ -681,13 +683,13 @@ INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES
 	(2,@@IDENTITY)
 GO
 
-INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Devoluciones')
+/*INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Devoluciones')
 GO
 
 INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
 	(1,@@IDENTITY),
 	(2,@@IDENTITY)
-GO
+GO*/
 
 INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Rendiciones')
 GO

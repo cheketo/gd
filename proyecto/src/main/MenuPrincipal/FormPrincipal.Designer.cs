@@ -45,6 +45,10 @@
             this.rolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pagosYFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cargarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pagarFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.devolverPagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,10 +60,11 @@
             this.empresasToolStripMenuItem,
             this.clientesToolStripMenuItem,
             this.sucursalesToolStripMenuItem,
-            this.rolesToolStripMenuItem});
+            this.rolesToolStripMenuItem,
+            this.pagosYFacturasToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(384, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(685, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -75,14 +80,14 @@
             // cerrarSesiónToolStripMenuItem
             // 
             this.cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.cerrarSesiónToolStripMenuItem.Text = "Cerrar Sesión";
             this.cerrarSesiónToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesiónToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
@@ -121,7 +126,7 @@
             // buscarClienteToolStripMenuItem
             // 
             this.buscarClienteToolStripMenuItem.Name = "buscarClienteToolStripMenuItem";
-            this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.buscarClienteToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.buscarClienteToolStripMenuItem.Text = "Ver Clientes";
             this.buscarClienteToolStripMenuItem.Click += new System.EventHandler(this.buscarClienteToolStripMenuItem_Click);
             // 
@@ -129,7 +134,7 @@
             // 
             this.altaClienteToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.altaClienteToolStripMenuItem.Name = "altaClienteToolStripMenuItem";
-            this.altaClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.altaClienteToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.altaClienteToolStripMenuItem.Text = "Cargar Cliente";
             this.altaClienteToolStripMenuItem.Click += new System.EventHandler(this.altaClienteToolStripMenuItem_Click);
             // 
@@ -179,13 +184,42 @@
             this.cargarRolToolStripMenuItem.Text = "Cargar Rol";
             this.cargarRolToolStripMenuItem.Click += new System.EventHandler(this.cargarRolToolStripMenuItem_Click);
             // 
+            // pagosYFacturasToolStripMenuItem
+            // 
+            this.pagosYFacturasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cargarFacturaToolStripMenuItem,
+            this.pagarFacturasToolStripMenuItem,
+            this.devolverPagoToolStripMenuItem});
+            this.pagosYFacturasToolStripMenuItem.Name = "pagosYFacturasToolStripMenuItem";
+            this.pagosYFacturasToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.pagosYFacturasToolStripMenuItem.Text = "Facturas";
+            // 
+            // cargarFacturaToolStripMenuItem
+            // 
+            this.cargarFacturaToolStripMenuItem.Name = "cargarFacturaToolStripMenuItem";
+            this.cargarFacturaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cargarFacturaToolStripMenuItem.Text = "Cargar Factura";
+            this.cargarFacturaToolStripMenuItem.Click += new System.EventHandler(this.cargarFacturaToolStripMenuItem_Click);
+            // 
+            // pagarFacturasToolStripMenuItem
+            // 
+            this.pagarFacturasToolStripMenuItem.Name = "pagarFacturasToolStripMenuItem";
+            this.pagarFacturasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pagarFacturasToolStripMenuItem.Text = "Pagar Facturas";
+            // 
+            // devolverPagoToolStripMenuItem
+            // 
+            this.devolverPagoToolStripMenuItem.Name = "devolverPagoToolStripMenuItem";
+            this.devolverPagoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.devolverPagoToolStripMenuItem.Text = "Devolver Pago";
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(384, 262);
+            this.ClientSize = new System.Drawing.Size(685, 262);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -223,5 +257,9 @@
         public System.Windows.Forms.ToolStripMenuItem rolesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem verRolesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem cargarRolToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pagosYFacturasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cargarFacturaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pagarFacturasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem devolverPagoToolStripMenuItem;
     }
 }

@@ -52,7 +52,7 @@ namespace PagoAgilFrba
                 }
                 else
                 {
-                    MensajeHelper.MostrarError("Ya existes un rol con el nombre '"+ textBoxNombre.Text +"' .", "Error");
+                    MensajeHelper.MostrarError("Ya existe un rol con el nombre '"+ textBoxNombre.Text +"'.", "Error");
                 }
             }else{
                 MensajeHelper.MostrarWarning("Complete todos los campos.", "Error");

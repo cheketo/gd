@@ -58,7 +58,7 @@ namespace PagoAgilFrba
                 }
                 else
                 {
-                    MensajeHelper.MostrarError("El código postal del rol ya se encuentra cargado en la base de datos.", "Error");
+                    MensajeHelper.MostrarError("Ya existe un rol con el nombre '" + textBoxNombre.Text + "'.", "Error");
                 }
             }
             else
