@@ -22,6 +22,7 @@ namespace PagoAgilFrba
         public string EstadoRol { get; set; }
         public DataTable Roles { get; set; }
         public DataTable Funcionalidades { get; set; }
+        public int TempId { get; set; }
 
         public Usuario(int id = 0)
         {

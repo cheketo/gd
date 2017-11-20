@@ -15,14 +15,18 @@ namespace PagoAgilFrba
     {
         public Factura obj;
         public Usuario usuario;
+        public FormPrincipal padre;
 
-        public AltaFactura(Usuario usuario)
+        public AltaFactura(FormPrincipal principal)
         {
-            this.usuario = usuario;
+            this.usuario = principal.usuario;
+            this.padre = principal;
             obj = new Factura();
             InitializeComponent();
             Cliente.LlenarComboBox(comboBoxCliente);
             Empresa.LlenarComboBox(comboBoxEmpresa);
+            if (usuario.TempId>0)
+                comboBoxCliente.SelectedValue = usuario.TempId;
             dateTimePickerAlta.MaxDate = DateTime.Today;
             dateTimePickerVencimiento.MinDate = DateTime.Today;
         }
@@ -35,13 +39,24 @@ namespace PagoAgilFrba
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
+            GuardarFactura();
+            padre.MostrarCargarFactura();
+        }
+
+        private void buttonPagar_Click(object sender, EventArgs e)
+        {
+            GuardarFactura();
+            padre.MostrarCargarPago();
+        }
+
+        private void GuardarFactura()
+        {
             Boolean validaciones =
             ValidadorHelper.ValidarTextBox(textBoxNumero);
-            
-            
             if (validaciones)
             {
-                if (obj.Validar(dataGridViewItems))
+                Decimal importe = Convert.ToDecimal(labelImporte.Text);
+                if (obj.Validar(dataGridViewItems, importe))
                 {
                     if (MensajeHelper.MostrarConfirmacion("¿Desea cargar la factura?", "Confirmación - Pago Agil FRBA App") == DialogResult.Yes)
                     {
@@ -51,21 +66,22 @@ namespace PagoAgilFrba
                         obj.Fecha = dateTimePickerAlta.Text;
                         obj.FechaVencimiento = dateTimePickerVencimiento.Text;
                         obj.IdSucursal = usuario.IdSucursal;
-                        obj.Importe = Convert.ToDecimal(labelImporte.Text);
+                        obj.Importe = importe;
                         obj.ItemsNuevos = dataGridViewItems;
-                        
+                        padre.usuario.TempId = obj.IdCliente;
                         obj.Guardar();
                         this.Dispose();
                     }
                 }
                 else
                 {
-                    MensajeHelper.MostrarError("Ingrese al menos un item de factura.", "Error");
+                    MensajeHelper.MostrarError("La factura debe tener un importe mayor a $0.", "Error");
                 }
-            }else{
+            }
+            else
+            {
                 MensajeHelper.MostrarWarning("Complete todos los campos.", "Error");
             }
-
         }
 
         private void dataGridViewItems_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)

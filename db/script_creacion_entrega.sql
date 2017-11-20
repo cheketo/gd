@@ -48,6 +48,10 @@ IF OBJECT_ID ( 'SQL_86.vw_listado_roles', 'V') IS NOT NULL
 DROP VIEW SQL_86.vw_listado_roles
 GO
 
+IF OBJECT_ID ( 'SQL_86.vw_listado_facturas', 'V') IS NOT NULL
+DROP VIEW SQL_86.vw_listado_facturas
+GO
+
 -----------------------------------------------
 -- ELIMINACION DE VISTAS - FIN
 -----------------------------------------------
@@ -444,7 +448,6 @@ SELECT a.id,a.nombre,a.cuit,a.direccion,b.descripcion as rubro,a.estado,a.porcen
 JOIN SQL_86.rubros b ON (b.id=a.id_rubro)
 GO
 
-
 -- Vista SQL_86.vw_listado_sucursales
 CREATE VIEW SQL_86.vw_listado_sucursales AS
 SELECT id,(CASE WHEN estado = 'A' THEN 'Activo' ELSE 'Inactivo' END) AS estado,nombre,direccion,cp as Codigo_Postal FROM SQL_86.sucursales
@@ -453,6 +456,20 @@ GO
 -- Vista SQL_86.vw_listado_roles
 CREATE VIEW SQL_86.vw_listado_roles AS
 SELECT id,(CASE WHEN estado = 'A' THEN 'Activo' ELSE 'Inactivo' END) AS estado,nombre FROM SQL_86.roles
+GO
+
+-- Vista SQL_86.vw_listado_facturas
+CREATE VIEW SQL_86.vw_listado_facturas AS
+SELECT a.*,(CASE
+			WHEN a.estado = 'F' THEN 'Rendida'
+			WHEN a.estado = 'D' THEN 'Devuelta'
+			WHEN a.estado = 'P' THEN 'Pendiente'
+			WHEN a.estado = 'A' THEN 'Pagada'
+			ELSE 'Inactiva'
+		END) AS texto_estado,b.nombre AS empresa,CONCAT(c.nombre,', ',c.apellido) AS cliente
+FROM SQL_86.facturas a
+JOIN SQL_86.empresas b ON (b.id=a.id_empresa)
+JOIN SQL_86.clientes c ON (c.id=a.id_cliente)
 GO
 
 -----------------------------------------------

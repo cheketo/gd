@@ -173,14 +173,14 @@
             // verRolesToolStripMenuItem
             // 
             this.verRolesToolStripMenuItem.Name = "verRolesToolStripMenuItem";
-            this.verRolesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.verRolesToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.verRolesToolStripMenuItem.Text = "Ver Roles";
             this.verRolesToolStripMenuItem.Click += new System.EventHandler(this.verRolesToolStripMenuItem_Click);
             // 
             // cargarRolToolStripMenuItem
             // 
             this.cargarRolToolStripMenuItem.Name = "cargarRolToolStripMenuItem";
-            this.cargarRolToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cargarRolToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.cargarRolToolStripMenuItem.Text = "Cargar Rol";
             this.cargarRolToolStripMenuItem.Click += new System.EventHandler(this.cargarRolToolStripMenuItem_Click);
             // 
@@ -206,6 +206,7 @@
             this.pagarFacturasToolStripMenuItem.Name = "pagarFacturasToolStripMenuItem";
             this.pagarFacturasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pagarFacturasToolStripMenuItem.Text = "Pagar Facturas";
+            this.pagarFacturasToolStripMenuItem.Click += new System.EventHandler(this.pagarFacturasToolStripMenuItem_Click);
             // 
             // devolverPagoToolStripMenuItem
             // 

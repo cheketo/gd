@@ -24,6 +24,7 @@ namespace PagoAgilFrba
         public FormRol formRol;
         public AltaRol altaRol;
         public AltaFactura altaFactura;
+        public AltaPago altaPago;
 
         public FormPrincipal(Usuario usuario)
         {
@@ -149,9 +150,28 @@ namespace PagoAgilFrba
 
         private void cargarFacturaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MostrarCargarFactura();
+        }
+
+        private void pagarFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarCargarPago();
+        }
+
+        public void MostrarCargarPago()
+        {
+            if (altaPago == null)
+            {
+                AltaPago altaForm = new AltaPago(usuario);
+                altaForm.Show();
+            }
+        }
+
+        public void MostrarCargarFactura()
+        {
             if (altaFactura == null)
             {
-                AltaFactura altaForm = new AltaFactura(usuario);
+                AltaFactura altaForm = new AltaFactura(this);
                 altaForm.Show();
             }
         }

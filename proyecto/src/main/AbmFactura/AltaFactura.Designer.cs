@@ -52,6 +52,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.labelSigno = new System.Windows.Forms.Label();
             this.labelImporte = new System.Windows.Forms.Label();
+            this.buttonPagar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,12 +74,12 @@
             this.buttonGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonGuardar.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonGuardar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.buttonGuardar.Location = new System.Drawing.Point(138, 530);
+            this.buttonGuardar.Location = new System.Drawing.Point(47, 534);
             this.buttonGuardar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonGuardar.Name = "buttonGuardar";
             this.buttonGuardar.Size = new System.Drawing.Size(160, 49);
             this.buttonGuardar.TabIndex = 12;
-            this.buttonGuardar.Text = "Guardar";
+            this.buttonGuardar.Text = "Guardar y cargar otra factura";
             this.buttonGuardar.UseVisualStyleBackColor = false;
             this.buttonGuardar.Click += new System.EventHandler(this.buttonGuardar_Click);
             // 
@@ -320,12 +321,28 @@
             this.labelImporte.TabIndex = 30;
             this.labelImporte.Text = "0";
             // 
+            // buttonPagar
+            // 
+            this.buttonPagar.BackColor = System.Drawing.Color.AliceBlue;
+            this.buttonPagar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonPagar.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPagar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.buttonPagar.Location = new System.Drawing.Point(230, 534);
+            this.buttonPagar.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonPagar.Name = "buttonPagar";
+            this.buttonPagar.Size = new System.Drawing.Size(160, 49);
+            this.buttonPagar.TabIndex = 31;
+            this.buttonPagar.Text = "Guardar y pagar";
+            this.buttonPagar.UseVisualStyleBackColor = false;
+            this.buttonPagar.Click += new System.EventHandler(this.buttonPagar_Click);
+            // 
             // AltaFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(439, 614);
+            this.Controls.Add(this.buttonPagar);
             this.Controls.Add(this.labelImporte);
             this.Controls.Add(this.labelSigno);
             this.Controls.Add(this.label5);
@@ -379,5 +396,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label labelSigno;
         private System.Windows.Forms.Label labelImporte;
+        private System.Windows.Forms.Button buttonPagar;
     }
 }
