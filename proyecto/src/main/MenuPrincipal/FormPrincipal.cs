@@ -26,6 +26,7 @@ namespace PagoAgilFrba
         public AltaFactura altaFactura;
         public AltaPago altaPago;
         public BajaPago bajaPago;
+        public AltaRendicion formRendicion;
 
         public FormPrincipal(Usuario usuario)
         {
@@ -164,6 +165,11 @@ namespace PagoAgilFrba
             MostrarDevolverFacturas();
         }
 
+        private void rendirFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarRendirFacturas();
+        }
+
         public void MostrarCargarPago()
         {
             if (altaPago == null)
@@ -191,6 +197,17 @@ namespace PagoAgilFrba
             }
         }
 
-
+        public void MostrarRendirFacturas()
+        {
+            if (this.formRendicion == null || this.formRendicion.IsDisposed)
+            {
+                AltaRendicion formRendicion = new AltaRendicion(this.usuario);
+                formRendicion.MdiParent = this;
+                formRendicion.Show();
+                this.formRendicion = formRendicion;
+            }
+            else
+                formRendicion.Activate();
+        }
     }
 }

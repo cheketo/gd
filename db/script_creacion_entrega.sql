@@ -173,7 +173,8 @@ CREATE TABLE SQL_86.empresas (
   direccion NVARCHAR(255) NOT NULL,
   id_rubro INT NOT NULL,
   estado CHAR(1) NOT NULL,
-  porcentaje_rendicion DECIMAL(4,2) NOT NULL
+  porcentaje_rendicion DECIMAL(4,2) NOT NULL,
+  dia_rendicion INT NOT NULL
 )
 GO
 
@@ -521,6 +522,45 @@ GO
 -----------------------------------------------
 
 
+-----------------------------------------------
+-- CREACION DE PROCEDIMIENTOS - INICIO
+-----------------------------------------------
+
+-- Procedimiento SQL_86.pr_rendiciones_pasadas
+/*CREATE PROCEDURE SQL_86.pr_rendiciones_pasadas (@idEmpresa INT) AS
+BEGIN
+	DECLARE @dia INT,@mes INT, @anio INT,@hoy DATETIME,@fecha DATETIME;
+	SET @hoy=GETDATE();
+	SELECT @dia=dia_rendicion FROM SQL_86.empresas WHERE id = @idEmpresa;
+	SELECT @mes = DATEPART(mm,fecha)+1,@anio=DATEPART(yyyy,fecha) FROM SQL_86.rendiciones WHERE id_empresa = @idEmpresa ORDER BY fecha DESC;
+
+	
+	
+	SET @fecha = CONVERT(varchar(30),@dia+'/'+@mes+'/'+@anio,103);
+	--CAST(@dia+'/7/2011' AS DATETIME)
+	WHILE  @fecha<= @hoy
+		
+		INSERT INTO SQL_86.rendiciones (fecha,id_empresa,total,importe)VALUES()
+
+		SET @mes = @mes +1;
+		IF @mes = 13
+		BEGIN
+			SET @mes =1;
+			SET @anio = @anio+1;
+		END
+		SET @fecha = CONVERT(varchar(30),@dia+'/'+@mes+'/'+@anio,103);
+	BEGIN 
+		
+		
+		FETCH NEXT FROM CR into @idFactura
+	END
+
+END
+GO*/
+-----------------------------------------------
+-- CREACION DE PROCEDIMIENTOS - FIN
+-----------------------------------------------
+
 
 -----------------------------------------------
 -- CREACION DE VISTAS - INICIO
@@ -528,7 +568,7 @@ GO
 
 -- Vista SQL_86.vw_listado_empresas
 CREATE VIEW SQL_86.vw_listado_empresas AS
-SELECT a.id,a.nombre,a.cuit,a.direccion,b.descripcion as rubro,a.estado,a.porcentaje_rendicion FROM SQL_86.empresas a
+SELECT a.id,a.nombre,a.cuit,a.direccion,b.descripcion as rubro,a.estado,a.porcentaje_rendicion,a.dia_rendicion FROM SQL_86.empresas a
 JOIN SQL_86.rubros b ON (b.id=a.id_rubro)
 GO
 
@@ -592,13 +632,14 @@ SET IDENTITY_INSERT SQL_86.rubros OFF
 
 
 --Inserta datos en la tabla empresas.
-INSERT INTO SQL_86.empresas ( nombre, cuit, direccion, id_rubro, estado, porcentaje_rendicion )
+INSERT INTO SQL_86.empresas ( nombre, cuit, direccion, id_rubro, estado, porcentaje_rendicion, dia_rendicion )
 SELECT DISTINCT Empresa_Nombre
 	,Empresa_Cuit
 	,Empresa_Direccion
 	,Empresa_Rubro
 	,'A'
-	,0 
+	,(SELECT TOP 1 (([ItemRendicion_Importe]*100)/[Factura_Total]) AS porcentaje FROM gd_esquema.Maestra WHERE [ItemRendicion_Importe]>0 ORDER BY Rendicion_Fecha DESC)
+	,(SELECT TOP 1 DATEPART(dd,Rendicion_Fecha) AS dia FROM gd_esquema.Maestra WHERE [ItemRendicion_Importe]>0 ORDER BY Rendicion_Fecha DESC)
 FROM gd_esquema.Maestra
 
 

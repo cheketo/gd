@@ -131,6 +131,7 @@
     <Compile Include="Core\Modelo\MedioPago.cs" />
     <Compile Include="Core\Modelo\Cliente.cs" />
     <Compile Include="Core\Modelo\Devolucion.cs" />
+    <Compile Include="Core\Modelo\Rendicion.cs" />
     <Compile Include="Core\Modelo\Pago.cs" />
     <Compile Include="Core\Modelo\Factura.cs" />
     <Compile Include="Core\Modelo\Rol.cs" />
@@ -176,11 +177,11 @@
     <Compile Include="RegistroPago\AltaPago.Designer.cs">
       <DependentUpon>AltaPago.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rendicion\Form1.cs">
+    <Compile Include="Rendicion\AltaRendicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rendicion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Rendicion\AltaRendicion.Designer.cs">
+      <DependentUpon>AltaRendicion.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AbmCliente\AltaAbmCliente.resx">
       <DependentUpon>AltaAbmCliente.cs</DependentUpon>
@@ -241,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegistroPago\AltaPago.resx">
       <DependentUpon>AltaPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion\AltaRendicion.resx">
+      <DependentUpon>AltaRendicion.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Core\ConexionDB\DataClasses1.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>

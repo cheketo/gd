@@ -49,6 +49,7 @@
             this.cargarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pagarFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devolverPagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rendirFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,7 +190,8 @@
             this.pagosYFacturasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cargarFacturaToolStripMenuItem,
             this.pagarFacturasToolStripMenuItem,
-            this.devolverPagoToolStripMenuItem});
+            this.devolverPagoToolStripMenuItem,
+            this.rendirFacturasToolStripMenuItem});
             this.pagosYFacturasToolStripMenuItem.Name = "pagosYFacturasToolStripMenuItem";
             this.pagosYFacturasToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.pagosYFacturasToolStripMenuItem.Text = "Facturas";
@@ -214,6 +216,13 @@
             this.devolverPagoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.devolverPagoToolStripMenuItem.Text = "Devolver Facturas";
             this.devolverPagoToolStripMenuItem.Click += new System.EventHandler(this.devolverPagoToolStripMenuItem_Click);
+            // 
+            // rendirFacturasToolStripMenuItem
+            // 
+            this.rendirFacturasToolStripMenuItem.Name = "rendirFacturasToolStripMenuItem";
+            this.rendirFacturasToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.rendirFacturasToolStripMenuItem.Text = "Rendir Facturas";
+            this.rendirFacturasToolStripMenuItem.Click += new System.EventHandler(this.rendirFacturasToolStripMenuItem_Click);
             // 
             // FormPrincipal
             // 
@@ -263,5 +272,6 @@
         private System.Windows.Forms.ToolStripMenuItem cargarFacturaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pagarFacturasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem devolverPagoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rendirFacturasToolStripMenuItem;
     }
 }
