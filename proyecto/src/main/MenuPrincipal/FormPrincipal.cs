@@ -25,6 +25,7 @@ namespace PagoAgilFrba
         public AltaRol altaRol;
         public AltaFactura altaFactura;
         public AltaPago altaPago;
+        public BajaPago bajaPago;
 
         public FormPrincipal(Usuario usuario)
         {
@@ -158,6 +159,11 @@ namespace PagoAgilFrba
             MostrarCargarPago();
         }
 
+        private void devolverPagoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarDevolverFacturas();
+        }
+
         public void MostrarCargarPago()
         {
             if (altaPago == null)
@@ -175,5 +181,16 @@ namespace PagoAgilFrba
                 altaForm.Show();
             }
         }
+
+        public void MostrarDevolverFacturas()
+        {
+            if (bajaPago == null)
+            {
+                BajaPago altaForm = new BajaPago();
+                altaForm.Show();
+            }
+        }
+
+
     }
 }

@@ -197,22 +197,23 @@
             // cargarFacturaToolStripMenuItem
             // 
             this.cargarFacturaToolStripMenuItem.Name = "cargarFacturaToolStripMenuItem";
-            this.cargarFacturaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cargarFacturaToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.cargarFacturaToolStripMenuItem.Text = "Cargar Factura";
             this.cargarFacturaToolStripMenuItem.Click += new System.EventHandler(this.cargarFacturaToolStripMenuItem_Click);
             // 
             // pagarFacturasToolStripMenuItem
             // 
             this.pagarFacturasToolStripMenuItem.Name = "pagarFacturasToolStripMenuItem";
-            this.pagarFacturasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pagarFacturasToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.pagarFacturasToolStripMenuItem.Text = "Pagar Facturas";
             this.pagarFacturasToolStripMenuItem.Click += new System.EventHandler(this.pagarFacturasToolStripMenuItem_Click);
             // 
             // devolverPagoToolStripMenuItem
             // 
             this.devolverPagoToolStripMenuItem.Name = "devolverPagoToolStripMenuItem";
-            this.devolverPagoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.devolverPagoToolStripMenuItem.Text = "Devolver Pago";
+            this.devolverPagoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.devolverPagoToolStripMenuItem.Text = "Devolver Facturas";
+            this.devolverPagoToolStripMenuItem.Click += new System.EventHandler(this.devolverPagoToolStripMenuItem_Click);
             // 
             // FormPrincipal
             // 

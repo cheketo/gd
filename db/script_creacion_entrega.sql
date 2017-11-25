@@ -67,12 +67,12 @@ IF OBJECT_ID ( 'SQL_86.rel_roles_funcionalidades', 'U') IS NOT NULL
 DROP TABLE SQL_86.rel_roles_funcionalidades
 GO
 
-IF OBJECT_ID ( 'SQL_86.pagos_devoluciones', 'U' ) IS NOT NULL
-DROP TABLE SQL_86.pagos_devoluciones
+IF OBJECT_ID ( 'SQL_86.devoluciones_items', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.devoluciones_items
 GO
 
-IF OBJECT_ID ( 'SQL_86.pagos_detalles', 'U' ) IS NOT NULL
-DROP TABLE SQL_86.pagos_detalles
+IF OBJECT_ID ( 'SQL_86.devoluciones', 'U' ) IS NOT NULL
+DROP TABLE SQL_86.devoluciones
 GO
 
 IF OBJECT_ID ( 'SQL_86.facturas_items', 'U') IS NOT NULL
@@ -290,7 +290,6 @@ CREATE TABLE SQL_86.pagos (
   importe DECIMAL(10,2) NOT NULL,
   fecha DATETIME NOT NULL,
   estado CHAR(1) NOT NULL,
-  motivo NVARCHAR(255),
   id_medio INT NOT NULL,
   id_cliente INT NOT NULL
 )
@@ -308,6 +307,54 @@ REFERENCES SQL_86.clientes (id)
 GO
 
 ALTER TABLE SQL_86.pagos CHECK CONSTRAINT FK_id_cliente_pago
+GO
+
+-- Table SQL_86.devoluciones
+CREATE TABLE SQL_86.devoluciones (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  id_cliente INT NOT NULL,
+  importe DECIMAL(10,2) NOT NULL,
+  motivo NVARCHAR(255),
+  fecha DATETIME NOT NULL
+)
+GO
+
+ALTER TABLE SQL_86.devoluciones WITH CHECK ADD CONSTRAINT FK_id_devolucion_cliente FOREIGN KEY( id_cliente )
+REFERENCES SQL_86.clientes (id)
+GO
+
+ALTER TABLE SQL_86.devoluciones CHECK CONSTRAINT FK_id_devolucion_cliente
+GO
+
+-- Table SQL_86.devoluciones_items
+CREATE TABLE SQL_86.devoluciones_items (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  id_devolucion INT NOT NULL,
+  id_factura INT NOT NULL,
+  id_pago INT NOT NULL,
+  importe DECIMAL(10,2) NOT NULL
+)
+GO
+
+ALTER TABLE SQL_86.devoluciones_items WITH CHECK ADD CONSTRAINT FK_id_devolucion_devolucion_item FOREIGN KEY( id_devolucion )
+REFERENCES SQL_86.devoluciones (id)
+GO
+
+ALTER TABLE SQL_86.devoluciones_items CHECK CONSTRAINT FK_id_devolucion_devolucion_item
+GO
+
+ALTER TABLE SQL_86.devoluciones_items WITH CHECK ADD CONSTRAINT FK_id_factura_devolucion_item FOREIGN KEY( id_factura )
+REFERENCES SQL_86.facturas (id)
+GO
+
+ALTER TABLE SQL_86.devoluciones_items CHECK CONSTRAINT FK_id_factura_devolucion_item
+GO
+
+ALTER TABLE SQL_86.devoluciones_items WITH CHECK ADD CONSTRAINT FK_id_pago_devolucion_item FOREIGN KEY( id_pago )
+REFERENCES SQL_86.pagos (id)
+GO
+
+ALTER TABLE SQL_86.devoluciones_items CHECK CONSTRAINT FK_id_pago_devolucion_item
 GO
 
 --Crea FK para la tabla facturas relacionando el id de pago
@@ -430,6 +477,43 @@ AS
 
 	UPDATE SQL_86.usuarios SET password = @password, estado=@estado WHERE id=@id;
 	PRINT 'Se ejecuto el trigger tr_claves_usuarios.';
+GO
+
+-- Trigger SQL_86.tr_devolver_factura
+CREATE TRIGGER SQL_86.tr_devolver_factura ON SQL_86.devoluciones_items 
+AFTER INSERT
+AS
+	DECLARE @idFactura INT,@idPago INT;
+	DECLARE @importeFactura DECIMAL(10,2);
+	DECLARE CR CURSOR FAST_FORWARD FOR SELECT id_factura FROM INSERTED;
+	
+	OPEN CR 
+	FETCH NEXT FROM CR INTO @idFactura
+
+	WHILE @@FETCH_STATUS = 0 
+	BEGIN 
+		SELECT @idPago=i.id_pago,@importeFactura=i.importe FROM INSERTED i WHERE id_factura=@idFactura;
+		UPDATE SQL_86.facturas SET estado='D', id_pago=NULL WHERE id=@idFactura;
+		UPDATE SQL_86.pagos SET importe=importe-@importeFactura WHERE id=@idPago;
+		FETCH NEXT FROM CR into @idFactura
+	END
+
+	CLOSE CR
+	DEALLOCATE CR
+
+
+GO
+
+-- Trigger SQL_86.tr_modificar_estado_pago
+CREATE TRIGGER SQL_86.tr_modificar_estado_pago ON SQL_86.pagos
+AFTER UPDATE
+AS
+	DECLARE @idPago INT;
+	DECLARE @importe DECIMAL(10,2);
+
+	SELECT @idPago = i.id, @importe = i.importe FROM INSERTED i;
+	IF(NOT @importe>0)
+		UPDATE SQL_86.pagos SET estado='I' WHERE id=@idPago;
 GO
 
 -----------------------------------------------
