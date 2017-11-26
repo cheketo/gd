@@ -39,17 +39,17 @@ namespace PagoAgilFrba
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-            GuardarFactura();
-            padre.MostrarCargarFactura();
+            if(GuardarFactura())
+                padre.MostrarCargarFactura();
         }
 
         private void buttonPagar_Click(object sender, EventArgs e)
         {
-            GuardarFactura();
-            padre.MostrarCargarPago();
+            if (GuardarFactura())
+                padre.MostrarCargarPago();
         }
 
-        private void GuardarFactura()
+        private bool GuardarFactura()
         {
             Boolean validaciones =
             ValidadorHelper.ValidarTextBox(textBoxNumero);
@@ -71,6 +71,7 @@ namespace PagoAgilFrba
                         padre.usuario.TempId = obj.IdCliente;
                         obj.Guardar();
                         this.Dispose();
+                        return true;
                     }
                 }
                 else
@@ -82,6 +83,7 @@ namespace PagoAgilFrba
             {
                 MensajeHelper.MostrarWarning("Complete todos los campos.", "Error");
             }
+            return false;
         }
 
         private void dataGridViewItems_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)

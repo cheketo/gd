@@ -109,7 +109,6 @@ namespace PagoAgilFrba
                     }
                 }
                 string query = "INSERT INTO SQL_86.devoluciones_items (id_devolucion,id_factura,id_pago,importe)VALUES" + String.Join(", ", registros.ToArray());
-                MessageBox.Show(query);
                 ConexionDB.ModificarRegistros(query);
             }
         }

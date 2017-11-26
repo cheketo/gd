@@ -28,15 +28,71 @@ namespace PagoAgilFrba
 
         private void AltaRendicion_Load(object sender, EventArgs e)
         {
-            
+            OcultarDatosRendicion();
         }
 
-        public void BuscarFacturas()
+        public void BuscarDatos()
         {
             if (comboBoxEmpresa.SelectedValue != null)
             {
-                obj.IdEmpresa = Convert.ToInt32(comboBoxEmpresa.SelectedValue.ToString());
+                obj.SetEmpresa(Convert.ToInt32(comboBoxEmpresa.SelectedValue.ToString()));
+                obj.ObtenerFacturas();
+                /*if(obj.FacturasARendir.Rows !=null && obj.FacturasARendir.Rows.Count>0)
+                {*/
+                    if (!obj.ExisteRendicion())
+                    {
+                        MostrarDatosRendicion();
+                        maskedTextBoxComision.Text = obj.ObtenerPorcentajeComision();
+                        labelFacturas.Text = obj.FacturasARendir.Rows.Count.ToString();
+                        labelTotal.Text = obj.ObtenerTotal();
+                        labelComision.Text = obj.ObtenerComision(maskedTextBoxComision.Text);
+                    }
+                    else
+                    {
+                        OcultarDatosRendicion();
+                        MensajeHelper.MostrarAviso("Ya se ha realizado una rendición sobre esta empresa en el mes actual.", "Aviso - Pago Agil FRBA App");
+                    }
+                /*}
+                else
+                {
+                    OcultarDatosRendicion();
+                    MensajeHelper.MostrarAviso("No hay facturas para realizar la rendición de esta empresa.","Aviso - Pago Agil FRBA App");
+                }*/
             }
+        }
+
+        public void MostrarDatosRendicion()
+        {
+
+            labelComision.Show();
+            labelTotal.Show();
+            labelFacturas.Show();
+            maskedTextBoxComision.Show();
+            buttonRendir.Show();
+            buttonBuscar.Hide();
+            label1.Show();
+            label2.Show();
+            label3.Show();
+            label4.Show();
+            label5.Show();
+            label6.Show();
+            
+        }
+
+        public void OcultarDatosRendicion()
+        {
+            label1.Hide();
+            label2.Hide();
+            label3.Hide();
+            label4.Hide();
+            label5.Hide();
+            label6.Hide();
+            labelComision.Hide();
+            labelTotal.Hide();
+            labelFacturas.Hide();
+            maskedTextBoxComision.Hide();
+            buttonRendir.Hide();
+            buttonBuscar.Show();
         }
 
         private void buttonGuardar_Click(object sender, EventArgs e)
@@ -46,8 +102,6 @@ namespace PagoAgilFrba
                 if (MensajeHelper.MostrarConfirmacion("¿Desea realizar la rendición mensual para la empresa "+comboBoxEmpresa.SelectedText+"?", "Confirmación - Rendicion Agil FRBA App") == DialogResult.Yes)
                 {
                     obj.Fecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    obj.IdEmpresa = Convert.ToInt32(comboBoxEmpresa.SelectedValue.ToString());
-                    obj.Importe = Convert.ToDecimal(labelTotal.Text);
                     obj.Guardar();
                     this.Dispose();
                 }
@@ -73,8 +127,17 @@ namespace PagoAgilFrba
 
         private void comboBoxCliente_SelectedValueChanged(object sender, EventArgs e)
         {
-            BuscarFacturas();
-            CalcularImporte();
+            OcultarDatosRendicion();
+        }
+
+        private void buttonBuscar_Click(object sender, EventArgs e)
+        {
+            BuscarDatos();
+        }
+
+        private void maskedTextBoxComision_TextChanged(object sender, EventArgs e)
+        {
+            labelComision.Text = obj.ObtenerComision(maskedTextBoxComision.Text);
         }
     }
 }

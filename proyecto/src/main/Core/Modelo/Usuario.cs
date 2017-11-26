@@ -150,7 +150,7 @@ namespace PagoAgilFrba
         }
 
         public void ChequearPermisos(FormPrincipal form)
-        {            
+        {
             // Comprobar permisos para Empresas
             if (!this.ChequearPermiso("Empresas"))
             {
@@ -170,6 +170,26 @@ namespace PagoAgilFrba
             if (!this.ChequearPermiso("Roles"))
             {
                 form.rolesToolStripMenuItem.Dispose();
+            }
+            // Comprobar permisos para Facturas
+            if (!this.ChequearPermiso("Facturas"))
+            {
+                form.cargarFacturaToolStripMenuItem.Dispose();
+            }
+            // Comprobar permisos para Pagos
+            if (!this.ChequearPermiso("Pagos"))
+            {
+                form.pagarFacturasToolStripMenuItem.Dispose();
+            }
+            // Comprobar permisos para Devoluciones
+            if (!this.ChequearPermiso("Devoluciones"))
+            {
+                form.devolverPagoToolStripMenuItem.Dispose();
+            }
+            // Comprobar permisos para Rendiciones
+            if (!this.ChequearPermiso("Rendiciones"))
+            {
+                form.rendirFacturasToolStripMenuItem.Dispose();
             }
         }
 

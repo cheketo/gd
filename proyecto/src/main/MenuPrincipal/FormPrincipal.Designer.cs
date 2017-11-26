@@ -268,10 +268,10 @@
         public System.Windows.Forms.ToolStripMenuItem rolesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem verRolesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem cargarRolToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pagosYFacturasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cargarFacturaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pagarFacturasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem devolverPagoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rendirFacturasToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem pagosYFacturasToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem cargarFacturaToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem pagarFacturasToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem devolverPagoToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem rendirFacturasToolStripMenuItem;
     }
 }

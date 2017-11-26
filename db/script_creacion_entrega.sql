@@ -173,8 +173,7 @@ CREATE TABLE SQL_86.empresas (
   direccion NVARCHAR(255) NOT NULL,
   id_rubro INT NOT NULL,
   estado CHAR(1) NOT NULL,
-  porcentaje_rendicion DECIMAL(4,2) NOT NULL,
-  dia_rendicion INT NOT NULL
+  porcentaje_rendicion DECIMAL(4,2) NOT NULL
 )
 GO
 
@@ -531,7 +530,6 @@ GO
 BEGIN
 	DECLARE @dia INT,@mes INT, @anio INT,@hoy DATETIME,@fecha DATETIME;
 	SET @hoy=GETDATE();
-	SELECT @dia=dia_rendicion FROM SQL_86.empresas WHERE id = @idEmpresa;
 	SELECT @mes = DATEPART(mm,fecha)+1,@anio=DATEPART(yyyy,fecha) FROM SQL_86.rendiciones WHERE id_empresa = @idEmpresa ORDER BY fecha DESC;
 
 	
@@ -568,7 +566,7 @@ GO*/
 
 -- Vista SQL_86.vw_listado_empresas
 CREATE VIEW SQL_86.vw_listado_empresas AS
-SELECT a.id,a.nombre,a.cuit,a.direccion,b.descripcion as rubro,a.estado,a.porcentaje_rendicion,a.dia_rendicion FROM SQL_86.empresas a
+SELECT a.id,a.nombre,a.cuit,a.direccion,b.descripcion as rubro,a.estado,a.porcentaje_rendicion FROM SQL_86.empresas a
 JOIN SQL_86.rubros b ON (b.id=a.id_rubro)
 GO
 
@@ -632,14 +630,14 @@ SET IDENTITY_INSERT SQL_86.rubros OFF
 
 
 --Inserta datos en la tabla empresas.
-INSERT INTO SQL_86.empresas ( nombre, cuit, direccion, id_rubro, estado, porcentaje_rendicion, dia_rendicion )
+INSERT INTO SQL_86.empresas ( nombre, cuit, direccion, id_rubro, estado, porcentaje_rendicion )
 SELECT DISTINCT Empresa_Nombre
 	,Empresa_Cuit
 	,Empresa_Direccion
 	,Empresa_Rubro
 	,'A'
 	,(SELECT TOP 1 (([ItemRendicion_Importe]*100)/[Factura_Total]) AS porcentaje FROM gd_esquema.Maestra WHERE [ItemRendicion_Importe]>0 ORDER BY Rendicion_Fecha DESC)
-	,(SELECT TOP 1 DATEPART(dd,Rendicion_Fecha) AS dia FROM gd_esquema.Maestra WHERE [ItemRendicion_Importe]>0 ORDER BY Rendicion_Fecha DESC)
+	--,(SELECT TOP 1 DATEPART(dd,Rendicion_Fecha) AS dia FROM gd_esquema.Maestra WHERE [ItemRendicion_Importe]>0 ORDER BY Rendicion_Fecha DESC)
 FROM gd_esquema.Maestra
 
 
@@ -833,13 +831,13 @@ INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES
 	(2,@@IDENTITY)
 GO
 
-/*INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Devoluciones')
+INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Devoluciones')
 GO
 
 INSERT INTO SQL_86.rel_roles_funcionalidades (id_rol,id_funcionalidad) VALUES 
 	(1,@@IDENTITY),
 	(2,@@IDENTITY)
-GO*/
+GO
 
 INSERT INTO SQL_86.funcionalidades (nombre) VALUES ('Rendiciones')
 GO

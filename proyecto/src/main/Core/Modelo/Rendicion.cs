@@ -12,14 +12,13 @@ namespace PagoAgilFrba
     {
         public int Id { set; get; }
         public int IdEmpresa { set; get; }
-        public int IdMedio { set; get; }
-        public Int64 Numero { set; get; }
+        public Decimal Porcentaje { set; get; }
+        public Decimal Comision { set; get; }
         public Decimal Importe { set; get; }
         public string Fecha { set; get; }
-        public string Estado { set; get; }
-        public string Motivo { set; get; }
         public DataTable Facturas { set; get; }
-        public DataGridView FacturasAPagar { set; get; }
+        public DataTable FacturasARendir { set; get; }
+        public DataRow Empresa { set; get; }
 
 
         public Rendicion(int id = 0)
@@ -47,13 +46,6 @@ namespace PagoAgilFrba
             if (data.Rows.Count > 0)
             {
                 this.Id = Convert.ToInt32(data.Rows[0][0].ToString());
-                this.Fecha = data.Rows[0][2].ToString();
-                this.Importe = Convert.ToDecimal(data.Rows[0][1].ToString());
-                this.IdEmpresa = Convert.ToInt32(data.Rows[0][5].ToString());
-                this.IdMedio = Convert.ToInt32(data.Rows[0][4].ToString());
-                this.Estado = data.Rows[0][3].ToString();
-                this.Motivo = data.Rows[0][4].ToString();
-                this.Facturas = ConexionDB.SeleccionRegistros("SELECT * FROM SQL_86.facturas WHERE id_pago = "+this.Id.ToString());
                 return true;
             }
             else
@@ -62,69 +54,83 @@ namespace PagoAgilFrba
             }
         }
 
-        public void LlenarDataGridView(DataGridView listado)
+        public void SetEmpresa(int ID)
         {
-            this.Facturas = ConexionDB.SeleccionRegistros("SELECT * FROM SQL_86.vw_listado_facturas WHERE fecha_vencimiento >= DATEADD(d,DATEDIFF(d,0,GETDATE()),0) AND (estado='P' OR estado='D') AND id_cliente = " + this.IdEmpresa.ToString());
-            listado.Rows.Clear();
-            int indice = 0;
-            foreach (DataRow row in this.Facturas.Rows)
-            {
-                listado.Rows.Add();
-                listado.Rows[indice].Cells["Id"].Value = row[0].ToString();
-                listado.Rows[indice].Cells["IdEmpresa"].Value = row[5].ToString();
-                listado.Rows[indice].Cells["IdEmpresa"].Value = row[6].ToString();
-                listado.Rows[indice].Cells["Numero"].Value = row[1].ToString();
-                listado.Rows[indice].Cells["Importe"].Value = row[3].ToString();
-                listado.Rows[indice].Cells["ImporteTexto"].Value = "$ "+row[3].ToString();
-                listado.Rows[indice].Cells["Vencimiento"].Value = row[4].ToString();
-                listado.Rows[indice].Cells["NombreEmpresa"].Value = row[12].ToString();
-                listado.Rows[indice].Cells["NombreCliente"].Value = row[13].ToString();
-                indice++;
-            }
+            this.IdEmpresa = ID;
+            DataTable empresa = ConexionDB.SeleccionRegistros("SELECT * FROM SQL_86.empresas WHERE id = " + this.IdEmpresa.ToString());
+            this.Empresa = empresa.Rows[0];
         }
 
-        public void CambiarEstado(string estado)
+        public void ObtenerFacturas()
         {
-            ConexionDB.ModificarRegistros("UPDATE SQL_86.pago SET estado='"+estado+"' WHERE id="+Id);
+            this.FacturasARendir = ConexionDB.SeleccionRegistros("SELECT * FROM SQL_86.vw_listado_facturas WHERE estado='A' AND id_empresa = " + this.IdEmpresa.ToString());
+        }
+
+        public string ObtenerPorcentajeComision()
+        {
+            ObtenerComision(this.Empresa[6].ToString());
+            return this.Porcentaje.ToString();
+        }
+
+        public string ObtenerComision(string porcentaje = "0")
+        {
+            if (decimal.TryParse(porcentaje, out var n) && porcentaje !="" && Convert.ToDouble(porcentaje)>0)
+            {
+                this.Porcentaje = Convert.ToDecimal(porcentaje);
+                this.Comision = (this.Importe * this.Porcentaje) / 100;
+                return this.Comision.ToString("#.##");
+            }
+            else
+            {
+                this.Porcentaje = 0;
+                this.Comision = 0;
+                return "0";
+            }
+
+        }
+
+        public string ObtenerTotal()
+        {
+            decimal importe = 0;
+            foreach (DataRow row in this.FacturasARendir.Rows)
+            {
+                importe = importe + Convert.ToDecimal(row[3].ToString());
+            }
+            this.Importe = importe;
+            return this.Importe.ToString();
+        }
+
+        public bool ExisteRendicion()
+        {
+            int mes = DateTime.Now.Month;
+            int anio = DateTime.Now.Year;
+            string query = "SELECT * FROM SQL_86.rendiciones WHERE id_empresa="+this.IdEmpresa+" AND DATEPART(yyyy,fecha)=" + anio.ToString() + " AND DATEPART(mm,fecha) = " + mes.ToString();
+            DataTable verificar = ConexionDB.SeleccionRegistros(query);
+            return verificar.Rows.Count>0;
         }
 
         public void Guardar()
         {
-            ConexionDB.ModificarRegistros("INSERT INTO SQL_86.pagos " +
-                "(fecha,importe,id_cliente,id_medio,estado)VALUES(" +
+            ConexionDB.ModificarRegistros("INSERT INTO SQL_86.rendiciones " +
+                "(fecha,id_empresa,total,importe)VALUES(" +
                  "'"+Fecha+"'" +
-                 ","+Importe+
                  "," + IdEmpresa +
-                 "," + IdMedio +
-                ",'P')");
-            ObtenerDatosDB("SELECT * FROM SQL_86.pagos WHERE fecha='" + Fecha + "' AND id_cliente="+IdEmpresa+" AND id_medio="+IdMedio+" ORDER BY id DESC");
+                 "," +Importe+
+                 "," + Comision +
+                ")");
+            ObtenerDatosDB("SELECT * FROM SQL_86.rendiciones WHERE fecha='" + Fecha + "' AND id_empresa="+IdEmpresa+" ORDER BY id DESC");
             AsociarFacturas();
+            string query = "UPDATE SQL_86.empresas SET porcentaje_rendicion = "+Porcentaje+" WHERE id = " + this.IdEmpresa;
+            ConexionDB.ModificarRegistros(query);
         }
 
         public void AsociarFacturas()
-        {
-            if (this.FacturasAPagar.RowCount > 0)
-            {
-                List<string> registros = new List<string>();
-                foreach (DataGridViewRow row in this.FacturasAPagar.Rows)
-                {
-                    if(row.Cells["Id"].Value !=null && row.Cells["Seleccionar"].Value != null && row.Cells["Seleccionar"].Value.ToString() == "1")
-                        registros.Add(row.Cells["Id"].Value.ToString());
-                }
-                string query = "UPDATE SQL_86.facturas SET id_pago = "+this.Id + ", estado='A' WHERE id IN (" + String.Join(", ", registros.ToArray())+")";
-                ConexionDB.ModificarRegistros(query);
-            }
+        {  
+            string query = "UPDATE SQL_86.facturas SET estado = 'F', id_rendicion = "+this.Id + " WHERE estado = 'A' AND id_empresa="+this.IdEmpresa;
+            ConexionDB.ModificarRegistros(query);
+            
         }
-        
-        /*
-        public void EliminarRelacionesFuncionalidades()
-        {
-            ConexionDB.ModificarRegistros("DELETE FROM SQL_86.rel_roles_funcionalidades WHERE id_rol="+Id.ToString());
-        }*/
 
-        public bool Validar(DataGridView items )
-        {
-            return items.RowCount>1;
-        }
+        
     }
 }
