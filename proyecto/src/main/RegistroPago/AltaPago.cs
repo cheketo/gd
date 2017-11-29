@@ -98,5 +98,10 @@ namespace PagoAgilFrba
             BuscarFacturas();
             CalcularImporte();
         }
+
+        private void comboBoxCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

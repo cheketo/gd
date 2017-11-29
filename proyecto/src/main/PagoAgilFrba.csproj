@@ -222,6 +222,9 @@
     <EmbeddedResource Include="IncioSesion\FormInicioSesion.resx">
       <DependentUpon>FormInicioSesion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ListadoEstadistico\FormReporte.resx">
+      <DependentUpon>FormReporte.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal\FormRoles.resx">
       <DependentUpon>FormRoles.cs</DependentUpon>
     </EmbeddedResource>
