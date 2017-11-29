@@ -145,11 +145,11 @@
     <Compile Include="IncioSesion\FormInicioSesion.Designer.cs">
       <DependentUpon>FormInicioSesion.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\FormReporte.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\FormReporte.Designer.cs">
+      <DependentUpon>FormReporte.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuPrincipal\FormRoles.cs">
       <SubType>Form</SubType>

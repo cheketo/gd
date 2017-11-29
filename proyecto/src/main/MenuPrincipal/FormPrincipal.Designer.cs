@@ -50,6 +50,7 @@
             this.pagarFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devolverPagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rendirFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +63,8 @@
             this.clientesToolStripMenuItem,
             this.sucursalesToolStripMenuItem,
             this.rolesToolStripMenuItem,
-            this.pagosYFacturasToolStripMenuItem});
+            this.pagosYFacturasToolStripMenuItem,
+            this.reportesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(685, 24);
@@ -224,6 +226,13 @@
             this.rendirFacturasToolStripMenuItem.Text = "Rendir Facturas";
             this.rendirFacturasToolStripMenuItem.Click += new System.EventHandler(this.rendirFacturasToolStripMenuItem_Click);
             // 
+            // reportesToolStripMenuItem
+            // 
+            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.reportesToolStripMenuItem.Text = "Reportes";
+            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -273,5 +282,6 @@
         public System.Windows.Forms.ToolStripMenuItem pagarFacturasToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem devolverPagoToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem rendirFacturasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
     }
 }

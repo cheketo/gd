@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PagoAgilFrba.Core.Helpers;
 using PagoAgilFrba.AbmCliente;
+using PagoAgilFrba.ListadoEstadistico;
 
 namespace PagoAgilFrba
 {
@@ -27,13 +28,14 @@ namespace PagoAgilFrba
         public AltaPago altaPago;
         public BajaPago bajaPago;
         public AltaRendicion formRendicion;
+        private FormReporte formReportes;
 
         public FormPrincipal(Usuario usuario)
         {
             
             this.usuario = usuario;
-            //MessageBox.Show("Usuario: " + usuario.User + " - Rol: " + usuario.NombreRol);
             InitializeComponent();
+
             //Chequeo de Permisos
             usuario.ChequearPermisos(this);
         }
@@ -170,6 +172,15 @@ namespace PagoAgilFrba
             MostrarRendirFacturas();
         }
 
+        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(formReportes == null)
+            {
+                FormReporte formReporte = new FormReporte();
+                formReporte.Show();
+            }
+        }
+
         public void MostrarCargarPago()
         {
             if (altaPago == null)
@@ -209,5 +220,6 @@ namespace PagoAgilFrba
             else
                 formRendicion.Activate();
         }
+
     }
 }
