@@ -14,16 +14,12 @@ namespace PagoAgilFrba
     public partial class BajaPago : Form
     {
         public Devolucion obj;
-        //public Usuario usuario;
 
         public BajaPago()
         {
-            //this.usuario = usuario;
             obj = new Devolucion();
             InitializeComponent();
             Cliente.LlenarComboBox(comboBoxCliente);
-            //if (usuario.TempId > 0)
-                //comboBoxCliente.SelectedValue = usuario.TempId;
         }
 
         private void BajaPago_Load(object sender, EventArgs e)
