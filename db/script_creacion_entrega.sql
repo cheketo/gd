@@ -59,6 +59,20 @@ GO
 
 
 -----------------------------------------------
+-- ELIMINACION STOREPROCEDURE - INICIO
+-- Elimina storeprocedure si existen.
+-----------------------------------------------
+
+IF OBJECT_ID('SQL_86.ClientesConMasPagos', 'P') IS NOT NULL
+DROP PROC SQL_86.ClientesConMasPagos
+GO
+
+-----------------------------------------------
+-- ELIMINACION STOREPROCEDURE - FIN
+-----------------------------------------------
+
+
+-----------------------------------------------
 -- ELIMINACION DE TABLAS - INICIO
 -- Elimina las tablas si existen.
 -----------------------------------------------
@@ -521,43 +535,28 @@ GO
 -----------------------------------------------
 
 
+
 -----------------------------------------------
--- CREACION DE PROCEDIMIENTOS - INICIO
+-- CREACION PROCEDIMIENTOS - INICIO
 -----------------------------------------------
 
--- Procedimiento SQL_86.pr_rendiciones_pasadas
-/*CREATE PROCEDURE SQL_86.pr_rendiciones_pasadas (@idEmpresa INT) AS
-BEGIN
-	DECLARE @dia INT,@mes INT, @anio INT,@hoy DATETIME,@fecha DATETIME;
-	SET @hoy=GETDATE();
-	SELECT @mes = DATEPART(mm,fecha)+1,@anio=DATEPART(yyyy,fecha) FROM SQL_86.rendiciones WHERE id_empresa = @idEmpresa ORDER BY fecha DESC;
-
-	
-	
-	SET @fecha = CONVERT(varchar(30),@dia+'/'+@mes+'/'+@anio,103);
-	--CAST(@dia+'/7/2011' AS DATETIME)
-	WHILE  @fecha<= @hoy
-		
-		INSERT INTO SQL_86.rendiciones (fecha,id_empresa,total,importe)VALUES()
-
-		SET @mes = @mes +1;
-		IF @mes = 13
-		BEGIN
-			SET @mes =1;
-			SET @anio = @anio+1;
-		END
-		SET @fecha = CONVERT(varchar(30),@dia+'/'+@mes+'/'+@anio,103);
-	BEGIN 
-		
-		
-		FETCH NEXT FROM CR into @idFactura
-	END
-
+-- Procedimiento Clientes con mas pagos.
+CREATE PROCEDURE SQL_86.ClientesConMasPagos(@Anio int, @Trimestre int)
+AS BEGIN
+	SELECT TOP 5 c.Nombre, c.Apellido, ISNULL(count(*),0) "cantidadPagos" 
+	FROM SQL_86.Pagos p, SQL_86.Clientes c
+	WHERE YEAR(fecha) = @Anio
+		AND p.id = c.id
+		AND MONTH(fecha) BETWEEN ((3 * @Trimestre) - 2) and (3 * @Trimestre)
+	GROUP BY c.id, c.Nombre, c.Apellido
+	ORDER BY "cantidadPagos" DESC
 END
-GO*/
+GO
+
 -----------------------------------------------
--- CREACION DE PROCEDIMIENTOS - FIN
+-- CREACION PROCEDIMIENTOS - FIN
 -----------------------------------------------
+
 
 
 -----------------------------------------------
@@ -874,3 +873,5 @@ GO
 ------------------------------------
 -- INSERCION DE DATOS - FIN
 ------------------------------------
+
+
