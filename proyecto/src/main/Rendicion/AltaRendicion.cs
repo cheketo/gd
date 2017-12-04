@@ -37,27 +37,20 @@ namespace PagoAgilFrba
             {
                 obj.SetEmpresa(Convert.ToInt32(comboBoxEmpresa.SelectedValue.ToString()));
                 obj.ObtenerFacturas();
-                /*if(obj.FacturasARendir.Rows !=null && obj.FacturasARendir.Rows.Count>0)
-                {*/
-                    if (!obj.ExisteRendicion())
-                    {
-                        MostrarDatosRendicion();
-                        maskedTextBoxComision.Text = obj.ObtenerPorcentajeComision();
-                        labelFacturas.Text = obj.FacturasARendir.Rows.Count.ToString();
-                        labelTotal.Text = obj.ObtenerTotal();
-                        labelComision.Text = obj.ObtenerComision(maskedTextBoxComision.Text);
-                    }
-                    else
-                    {
-                        OcultarDatosRendicion();
-                        MensajeHelper.MostrarAviso("Ya se ha realizado una rendición sobre esta empresa en el mes actual.", "Aviso - Pago Agil FRBA App");
-                    }
-                /*}
+
+                if (!obj.ExisteRendicion())
+                {
+                    MostrarDatosRendicion();
+                    maskedTextBoxComision.Text = obj.ObtenerPorcentajeComision();
+                    labelFacturas.Text = obj.FacturasARendir.Rows.Count.ToString();
+                    labelTotal.Text = obj.ObtenerTotal();
+                    labelComision.Text = obj.ObtenerComision(maskedTextBoxComision.Text);
+                }
                 else
                 {
                     OcultarDatosRendicion();
-                    MensajeHelper.MostrarAviso("No hay facturas para realizar la rendición de esta empresa.","Aviso - Pago Agil FRBA App");
-                }*/
+                    MensajeHelper.MostrarAviso("Ya se ha realizado una rendición sobre esta empresa en el mes actual.", "Aviso - Pago Agil FRBA App");
+                }
             }
         }
 
@@ -97,31 +90,18 @@ namespace PagoAgilFrba
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-            //if ()
-            //{
-                if (MensajeHelper.MostrarConfirmacion("¿Desea realizar la rendición mensual para la empresa "+comboBoxEmpresa.SelectedText+"?", "Confirmación - Rendicion Agil FRBA App") == DialogResult.Yes)
-                {
-                    obj.Fecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    obj.Guardar();
-                    this.Dispose();
-                }
-            /*}else{
-                MensajeHelper.MostrarError("Seleccione al menos una factura para pagar.", "Error");
-            }*/
-
+            
+            if (MensajeHelper.MostrarConfirmacion("¿Desea realizar la rendición mensual para la empresa "+comboBoxEmpresa.SelectedText+"?", "Confirmación - Rendicion Agil FRBA App") == DialogResult.Yes)
+            {
+                obj.Fecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                obj.Guardar();
+                this.Dispose();
+            }
         }        
 
         public void CalcularImporte()
         {
             decimal importe = 0;
-            /*foreach (DataGridViewRow row in dataGridViewFacturas.Rows)
-            {
-                if (row.Cells["Seleccionar"].Value != null && row.Cells["Seleccionar"].Value.ToString() == "1")
-                {
-
-                    importe = importe + Convert.ToDecimal(row.Cells["Importe"].FormattedValue.ToString());
-                }
-            }*/
             labelTotal.Text = importe.ToString();
         }
 
