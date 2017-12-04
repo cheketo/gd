@@ -23,12 +23,6 @@ namespace PagoAgilFrba
             
             Rol.CargarFuncionalidades(checkedListBoxFuncionalidades, obj);
             textBoxNombre.Text = obj.Nombre;
-            
-            
-            
-            //comboBoxRubro.SelectedValue = obj.IdRubro;
-            //textBoxPorcentaje.Text = obsj.Porcentaje.ToString();
-            //MessageBox.Show(empresa.Id.ToString());
         }
 
         private void EditarRol_Load(object sender, EventArgs e)

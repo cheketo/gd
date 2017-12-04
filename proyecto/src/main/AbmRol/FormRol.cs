@@ -110,16 +110,7 @@ namespace PagoAgilFrba
         private void buttonCargar_Click(object sender, EventArgs e)
         {
             AltaRol nuevo = new AltaRol(this);
-            //nuevo.MdiParent = this;
             nuevo.Show();
         }
-        
-
-
-
-        //private void dataGridViewEmpresa_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //dataGridViewEmpresa.DataSource = ((FormPrincipal)MdiParent).usuario.ObtenerRoles();
-        //}
     }
 }
