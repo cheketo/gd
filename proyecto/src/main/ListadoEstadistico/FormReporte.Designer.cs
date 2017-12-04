@@ -34,6 +34,9 @@
             this.cBTrimestre = new System.Windows.Forms.ComboBox();
             this.labelTipoReporte = new System.Windows.Forms.Label();
             this.cBReporte = new System.Windows.Forms.ComboBox();
+            this.dGVReporte = new System.Windows.Forms.DataGridView();
+            this.buttonVerReporte = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dGVReporte)).BeginInit();
             this.SuspendLayout();
             // 
             // labelAnio
@@ -61,7 +64,6 @@
             this.cBAnio.Name = "cBAnio";
             this.cBAnio.Size = new System.Drawing.Size(160, 23);
             this.cBAnio.TabIndex = 21;
-            this.cBAnio.SelectedIndexChanged += new System.EventHandler(this.cBAnio_SelectedIndexChanged);
             // 
             // labelTrimestre
             // 
@@ -115,12 +117,37 @@
             this.cBReporte.Size = new System.Drawing.Size(326, 23);
             this.cBReporte.TabIndex = 25;
             // 
+            // dGVReporte
+            // 
+            this.dGVReporte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGVReporte.Location = new System.Drawing.Point(42, 258);
+            this.dGVReporte.Name = "dGVReporte";
+            this.dGVReporte.Size = new System.Drawing.Size(667, 321);
+            this.dGVReporte.TabIndex = 26;
+            // 
+            // buttonVerReporte
+            // 
+            this.buttonVerReporte.BackColor = System.Drawing.Color.AliceBlue;
+            this.buttonVerReporte.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonVerReporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonVerReporte.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.buttonVerReporte.Location = new System.Drawing.Point(44, 193);
+            this.buttonVerReporte.Name = "buttonVerReporte";
+            this.buttonVerReporte.Size = new System.Drawing.Size(109, 40);
+            this.buttonVerReporte.TabIndex = 27;
+            this.buttonVerReporte.Tag = "";
+            this.buttonVerReporte.Text = "Ver reporte";
+            this.buttonVerReporte.UseVisualStyleBackColor = false;
+            this.buttonVerReporte.Click += new System.EventHandler(this.buttonVerReporte_Click);
+            // 
             // FormReporte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(744, 611);
+            this.Controls.Add(this.buttonVerReporte);
+            this.Controls.Add(this.dGVReporte);
             this.Controls.Add(this.cBReporte);
             this.Controls.Add(this.labelTipoReporte);
             this.Controls.Add(this.cBTrimestre);
@@ -134,6 +161,7 @@
             this.MinimizeBox = false;
             this.Name = "FormReporte";
             this.Text = "Reportes - Pago Agil FRBA App";
+            ((System.ComponentModel.ISupportInitialize)(this.dGVReporte)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,5 +175,7 @@
         private System.Windows.Forms.ComboBox cBTrimestre;
         private System.Windows.Forms.Label labelTipoReporte;
         private System.Windows.Forms.ComboBox cBReporte;
+        private System.Windows.Forms.DataGridView dGVReporte;
+        private System.Windows.Forms.Button buttonVerReporte;
     }
 }

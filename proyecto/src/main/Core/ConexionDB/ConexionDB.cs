@@ -47,6 +47,28 @@ namespace PagoAgilFrba
             return dataTable;
         }
 
+        public static DataTable SeleccionRegistrosSPReportes(int anio, int trimestre, string storeprocedure)
+        {
+
+            DataTable dataTable = new DataTable();
+
+            SqlCommand cmd = new SqlCommand(storeprocedure, conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Anio", anio);
+            cmd.Parameters.AddWithValue("@trimestre", trimestre);
+            conexion.Open();
+
+            SqlDataReader lector = cmd.ExecuteReader();
+
+
+            dataTable.Load(lector);
+
+            lector.Close();
+            conexion.Close();
+
+            return dataTable;
+        }
+
         /*public static DataGridView SeleccionRegistros2(string queryString)
         {
             SqlDataAdapter adaptador = new SqlDataAdapter();

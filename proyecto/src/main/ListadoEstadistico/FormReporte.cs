@@ -39,6 +39,7 @@ namespace PagoAgilFrba.ListadoEstadistico
             opcionesSelectorTrimestre.Add("1er Trimestre", 1);
             opcionesSelectorTrimestre.Add("2do Trimestre", 2);
             opcionesSelectorTrimestre.Add("3er Trimestre", 3);
+            opcionesSelectorTrimestre.Add("4to Trimestre", 4);
 
             cBTrimestre.DisplayMember = "Key";
             cBTrimestre.ValueMember = "Value";
@@ -48,11 +49,11 @@ namespace PagoAgilFrba.ListadoEstadistico
 
         private void CargarOpcionesSelectorReportes()
         {
-            Dictionary<string, string> opcionesSelectorReportes = new Dictionary<string, string>();
-            opcionesSelectorReportes.Add("Porcentaje de facturas cobradas por empresa", "A");
-            opcionesSelectorReportes.Add("Empresas con mayor monto rendido", "B");
-            opcionesSelectorReportes.Add("Clientes con mas pagos", "C");
-            opcionesSelectorReportes.Add("Clientes con mayor porcentaje de facturas pagadas", "C");
+            Dictionary<string, int> opcionesSelectorReportes = new Dictionary<string, int>();
+            opcionesSelectorReportes.Add("Porcentaje de facturas cobradas por empresa", 1);
+            opcionesSelectorReportes.Add("Empresas con mayor monto rendido", 2);
+            opcionesSelectorReportes.Add("Clientes con mas pagos", 3);
+            opcionesSelectorReportes.Add("Clientes con mayor porcentaje de facturas pagadas", 4);
 
             cBReporte.DisplayMember = "Key";
             cBReporte.ValueMember = "Value";
@@ -60,9 +61,29 @@ namespace PagoAgilFrba.ListadoEstadistico
             cBReporte.DataSource = opcionesSelectorReportes.ToArray();
         }
 
-        private void cBAnio_SelectedIndexChanged(object sender, EventArgs e)
+        private void buttonVerReporte_Click(object sender, EventArgs e)
         {
+            Estadisticas estadistica = new Estadisticas();
+            int anio = (int)cBAnio.SelectedValue;
+            int trimestre = (int)cBTrimestre.SelectedValue;
+            int reporte = (int)cBReporte.SelectedValue;
 
+            try
+            {
+                DataTable dataTable = estadistica.consultar_estadisticas(anio, trimestre, reporte);
+
+                if (dataTable.Rows.Count != 0)
+                    dGVReporte.DataSource = dataTable;
+                else
+                {
+                    dGVReporte.DataSource = new DataTable();
+                    MessageBox.Show("No se han encontrado registros.", "Listado Estadistico", MessageBoxButtons.OK);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error en Listado Estadisco", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

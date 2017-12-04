@@ -128,6 +128,7 @@
     <Compile Include="Core\Helpers\ControlHelper.cs" />
     <Compile Include="Core\Helpers\MensajeHelper.cs" />
     <Compile Include="Core\Helpers\ValidadorHelper.cs" />
+    <Compile Include="Core\Modelo\Estadistica.cs" />
     <Compile Include="Core\Modelo\MedioPago.cs" />
     <Compile Include="Core\Modelo\Cliente.cs" />
     <Compile Include="Core\Modelo\Devolucion.cs" />
