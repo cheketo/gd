@@ -16,18 +16,6 @@ namespace PagoAgilFrba
         const string rutaConexion = "Data Source=.\\SQLSERVER2012;Initial Catalog=GD2C2017;Persist Security Info=True;User ID=gd;Password=gd2017";
         static SqlConnection conexion = new SqlConnection(rutaConexion);
 
-        /*
-        public static SqlConnection getInstanciaConexionDB()
-        {
-            if(conexion == null) {
-
-                conexion = new SqlConnection(rutaConexion);
-                conexion.Open();
-
-            }
-            return conexion;
-        }*/
-
         public static void Open()
         {
             conexion.Open();
@@ -68,15 +56,6 @@ namespace PagoAgilFrba
 
             return dataTable;
         }
-
-        /*public static DataGridView SeleccionRegistros2(string queryString)
-        {
-            SqlDataAdapter adaptador = new SqlDataAdapter();
-            adaptador.SelectCommand = new SqlCommand(queryString, conexion);
-            DataGridView dataTable = new DataGridView();
-            adaptador.Fill(dataTable);
-            return dataTable;
-        }*/
 
         public static void ModificarRegistros(string query)
         {
