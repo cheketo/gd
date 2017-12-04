@@ -71,6 +71,10 @@ IF OBJECT_ID('SQL_86.EmpresasConMayorMontoRendido', 'P') IS NOT NULL
 DROP PROC SQL_86.EmpresasConMayorMontoRendido
 GO
 
+IF OBJECT_ID('SQL_86.PorcentajeFacturasCobradasEmpresas', 'P') IS NOT NULL
+DROP PROC SQL_86.PorcentajeFacturasCobradasEmpresas
+GO
+
 -----------------------------------------------
 -- ELIMINACION STOREPROCEDURE - FIN
 -----------------------------------------------
@@ -544,7 +548,7 @@ GO
 -- CREACION PROCEDIMIENTOS - INICIO
 -----------------------------------------------
 
--- Procedimiento para listado de estadisticos Clientes con mas pagos.
+--Procedimiento para listado de estadisticos Clientes con mas pagos.
 CREATE PROCEDURE SQL_86.ClientesConMasPagos(@Anio int, @Trimestre int)
 AS BEGIN
 	SELECT TOP 5 c.Nombre, c.Apellido, ISNULL(count(*),0) AS "Cantidad de Pagos" 
@@ -552,13 +556,13 @@ AS BEGIN
 		 SQL_86.Clientes c
 	WHERE YEAR(fecha) = @Anio
 		AND p.id = c.id
-		AND MONTH(fecha) BETWEEN ((3 * @Trimestre) - 2) and (3 * @Trimestre)
+		AND MONTH(fecha) BETWEEN ((3 * @Trimestre) - 2) AND (3 * @Trimestre)
 	GROUP BY c.id, c.Nombre, c.Apellido
 	ORDER BY "Cantidad de Pagos" DESC
 END
 GO
 
--- Procedimiento para listado de estadisticos Empresas con mayor monto rendido.
+--Procedimiento para listado de estadisticos Empresas con mayor monto rendido.
 CREATE PROCEDURE SQL_86.EmpresasConMayorMontoRendido(@Anio int, @Trimestre int)
 AS BEGIN
 	SELECT TOP 5 emp.nombre Empresa, ISNULL(SUM(total),0) AS "Monto Rendido"
@@ -566,9 +570,33 @@ AS BEGIN
 		 SQL_86.rendiciones rend
 	WHERE YEAR(rend.Fecha) = @Anio
 		  AND emp.id = rend.id_empresa
-		  AND MONTH(rend.Fecha) between ((3 * @Trimestre) - 2) and (3 * @Trimestre)
+		  AND MONTH(rend.Fecha) BETWEEN ((3 * @Trimestre) - 2) and (3 * @Trimestre)
 	GROUP by emp.id, emp.nombre
 	ORDER by "Monto Rendido" desc
+END
+GO
+
+--Procedimiento para listado de estadisticos porcentaje facturas cobradas empresas.
+CREATE PROCEDURE SQL_86.PorcentajeFacturasCobradasEmpresas(@Anio int, @Trimestre int)
+AS BEGIN
+	SELECT TOP 5 emp.nombre Empresa , CONVERT(decimal(5,2),((COUNT(f.id) * 100) / cast((
+							  SELECT COUNT(*)
+							  FROM SQL_86.facturas f2,
+								   SQL_86.pagos p2
+							  WHERE  YEAR(p2.fecha) = @Anio
+							  AND f2.id_pago = p2.id
+							  AND (f2.estado = 'A' OR f2.estado = 'F')
+							  AND MONTH(p2.fecha) BETWEEN ((3 * @Trimestre) - 2) AND (3 * @Trimestre)) as float))) AS "Porcentaje Facturas"
+	FROM SQL_86.empresas emp,
+		 SQL_86.facturas f,
+		 SQL_86.pagos p
+	WHERE YEAR(p.fecha) = @Anio
+	AND MONTH(p.fecha) BETWEEN (3 * @Trimestre - 2) AND (3 * @Trimestre)
+	AND emp.id = f.id
+	AND f.id_pago = p.id
+	AND (f.estado = 'A' OR f.estado = 'F')
+	GROUP BY emp.id, emp.nombre
+	ORDER BY "Porcentaje Facturas" DESC
 END
 GO
 

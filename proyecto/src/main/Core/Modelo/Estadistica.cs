@@ -37,7 +37,7 @@ namespace PagoAgilFrba
             switch (reporteId)
             {
                 case 1:
-                    storeprocedure = "SQL_86.ClientesConMasPagos";
+                    storeprocedure = "SQL_86.PorcentajeFacturasCobradasEmpresas";
                     break;
                 case 2:
                     storeprocedure = "SQL_86.EmpresasConMayorMontoRendido";
