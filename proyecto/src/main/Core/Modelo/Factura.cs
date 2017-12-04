@@ -71,57 +71,6 @@ namespace PagoAgilFrba
             }
         }
 
-
-        /*public void ObtenerListado(DataGridView result ,string where = "",string campos = "*",bool edit = true,bool delete=true,bool activate=false)
-        {
-            //result.Columns.Clear();
-            result.DataSource = null;
-            result.ColumnCount = 0;
-            //Columna Boton Inactivar
-            DataGridViewButtonColumn colBorrar = new DataGridViewButtonColumn();
-            {
-                colBorrar.HeaderText = "";
-                colBorrar.Text = "Inactivar";
-                colBorrar.UseColumnTextForButtonValue = true;
-                colBorrar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                colBorrar.FlatStyle = FlatStyle.Standard;
-                colBorrar.DisplayIndex = result.ColumnCount;
-                colBorrar.Visible = delete;
-            }
-            result.Columns.Add(colBorrar);
-
-            //Columna Boton Activar
-            DataGridViewButtonColumn colActivar = new DataGridViewButtonColumn();
-            {
-                colActivar.HeaderText = "";
-                colActivar.Text = "Activar";
-                colActivar.UseColumnTextForButtonValue = true;
-                colActivar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                colActivar.FlatStyle = FlatStyle.Standard;
-                colActivar.DisplayIndex = result.ColumnCount;
-                colActivar.Visible = activate;
-            }
-            result.Columns.Add(colActivar);
-
-            //Columna Boton Editar
-            DataGridViewButtonColumn colEditar = new DataGridViewButtonColumn();
-            {
-                colEditar.HeaderText = "";
-                colEditar.Text = "Editar";
-                colEditar.Tag = Id;
-                colEditar.UseColumnTextForButtonValue = true;
-                colEditar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                colEditar.FlatStyle = FlatStyle.Standard;
-                colEditar.DisplayIndex = result.ColumnCount;
-                colEditar.Visible = edit;
-            }
-            result.Columns.Add(colEditar);
-
-            result.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            string query = "SELECT " + campos + " FROM SQL_86.vw_listado_roles WHERE 1=1 " + where;
-            result.DataSource = ConexionDB.SeleccionRegistros(query);
-        }*/
-
         public void CambiarEstado(string estado)
         {
             ConexionDB.ModificarRegistros("UPDATE SQL_86.facturas SET estado='"+estado+"' WHERE id="+Id);
@@ -132,8 +81,6 @@ namespace PagoAgilFrba
             ConexionDB.ModificarRegistros("UPDATE SQL_86.roles SET " +
                 "numero='"+Numero+"'" +
                 " WHERE id=" + Id);
-            //EliminarRelacionesFuncionalidades();
-            //InsertarRelacionesFuncionalidades();
         }
 
         public void Guardar()
@@ -166,73 +113,12 @@ namespace PagoAgilFrba
                 ConexionDB.ModificarRegistros(query);
             }
         }
-        /*
-        public void EliminarRelacionesFuncionalidades()
-        {
-            ConexionDB.ModificarRegistros("DELETE FROM SQL_86.rel_roles_funcionalidades WHERE id_rol="+Id.ToString());
-        }*/
 
         public bool Validar(DataGridView items, Decimal importe )
         {
 
             return items.RowCount > 1 && importe > 0;
         }
-
-        /*public static void CargarComboEstado(ComboBox comboBox)
-        {
-            Dictionary<int, string> valoresCombo = new Dictionary<int, string>();
-            valoresCombo.Add(1, "Activo");
-            valoresCombo.Add(2, "Inactivo");
-            comboBox.DisplayMember = "Value";
-            comboBox.ValueMember = "Key";
-            comboBox.DataSource = valoresCombo.ToArray();
-        }*/
-
-        /*public static void CargarFuncionalidades(CheckedListBox lista,Factura rol=null)
-        {
-            DataTable funcionalidades = Factura.ObtenerFuncionalidades();
-            foreach (DataRow row in funcionalidades.Rows)
-            {
-                lista.Items.Add(row["nombre"].ToString());
-                if (rol.funcionalidades != null)
-                {
-                    int index = lista.Items.IndexOf(row["nombre"].ToString());
-                    foreach(DataRow funcionalidad in rol.funcionalidades.Rows)
-                    {
-                        if(funcionalidad["nombre"].ToString() == row["nombre"].ToString())
-                            lista.SetItemChecked(index, true);
-                    }
-                    
-                }
-            }
-            
-        }
-
-        public static DataTable ObtenerFuncionalidades()
-        {
-            string query ="SELECT * FROM SQL_86.funcionalidades ";
-            return ConexionDB.SeleccionRegistros(query);
-        }
-
-        public static List<string> ObtenerFuncionalidadesSeleccionadas(CheckedListBox lista)
-        {
-            List<string> seleccionadas = new List<string>();
-            foreach (int indice in lista.CheckedIndices)
-            {
-                seleccionadas.Add("'"+lista.Items[indice].ToString()+"'");
-            }
-            List<string> ids = new List<string>();
-            if (seleccionadas.Count>0)
-            {
-                string query = "SELECT * FROM SQL_86.funcionalidades WHERE nombre IN (" + String.Join(", ", seleccionadas.ToArray()) + ") ";
-                DataTable funcionalidades = ConexionDB.SeleccionRegistros(query);
-                foreach (DataRow funcionalidad in funcionalidades.Rows)
-                {
-                    ids.Add(funcionalidad["id"].ToString());
-                }
-            }
-            return ids;
-        }*/
 
     }
 }

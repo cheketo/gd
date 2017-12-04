@@ -56,7 +56,6 @@ namespace PagoAgilFrba
 
         public void ObtenerListado(DataGridView result ,string where = "",string campos = "*",bool edit = true,bool delete=true,bool activate=false)
         {
-            //result.Columns.Clear();
             result.DataSource = null;
             result.ColumnCount = 0;
             //Columna Boton Inactivar
@@ -135,7 +134,7 @@ namespace PagoAgilFrba
             if (FuncionalidadesSeleccionadas.Count > 0)
             {
                 List<string> registros = new List<string>();
-                //var funcionalidades = String.Join(", ", FuncionalidadesSeleccionadas.ToArray());
+
                 foreach (string id in FuncionalidadesSeleccionadas)
                 {
                     registros.Add("(" + Id.ToString() + ", " + id + ")");

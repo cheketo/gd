@@ -16,7 +16,6 @@ namespace PagoAgilFrba
         public string Direccion { set; get; }
         public int IdRubro { set; get; }
         public string Estado { set; get; }
-        //public string Rubro { set; get; }
         public decimal Porcentaje { set; get; }
 
         public Empresa(int id = 0)
@@ -47,7 +46,6 @@ namespace PagoAgilFrba
                 this.Nombre = data.Rows[0][1].ToString();
                 this.Cuit = data.Rows[0][2].ToString();
                 this.Direccion = data.Rows[0][3].ToString();
-                //this.Rubro = data.Rows[0][6].ToString();
                 this.IdRubro = Convert.ToInt32(data.Rows[0][4].ToString());
                 this.Estado = data.Rows[0][5].ToString();
                 this.Porcentaje = Convert.ToDecimal(data.Rows[0][6].ToString());

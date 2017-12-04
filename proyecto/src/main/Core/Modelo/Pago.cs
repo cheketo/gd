@@ -115,12 +115,6 @@ namespace PagoAgilFrba
                 ConexionDB.ModificarRegistros(query);
             }
         }
-        
-        /*
-        public void EliminarRelacionesFuncionalidades()
-        {
-            ConexionDB.ModificarRegistros("DELETE FROM SQL_86.rel_roles_funcionalidades WHERE id_rol="+Id.ToString());
-        }*/
 
         public bool Validar(DataGridView items )
         {

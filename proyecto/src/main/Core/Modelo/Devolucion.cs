@@ -78,11 +78,6 @@ namespace PagoAgilFrba
             }
         }
 
-        /*public void CambiarEstado(string estado)
-        {
-            ConexionDB.ModificarRegistros("UPDATE SQL_86.pago SET estado='"+estado+"' WHERE id="+Id);
-        }*/
-
         public void Guardar()
         {
             ConexionDB.ModificarRegistros("INSERT INTO SQL_86.devoluciones " +
@@ -113,12 +108,6 @@ namespace PagoAgilFrba
             }
         }
         
-        /*
-        public void EliminarRelacionesFuncionalidades()
-        {
-            ConexionDB.ModificarRegistros("DELETE FROM SQL_86.rel_roles_funcionalidades WHERE id_rol="+Id.ToString());
-        }*/
-
         public bool Validar(DataGridView items )
         {
             return items.RowCount>1;

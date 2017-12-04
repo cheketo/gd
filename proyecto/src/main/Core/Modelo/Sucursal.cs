@@ -56,7 +56,6 @@ namespace PagoAgilFrba
 
         public void ObtenerListado(DataGridView result ,string where = "",string campos = "*",bool edit = true,bool delete=true,bool activate=false)
         {
-            //result.Columns.Clear();
             result.DataSource = null;
             result.ColumnCount = 0;
             //Columna Boton Inactivar
