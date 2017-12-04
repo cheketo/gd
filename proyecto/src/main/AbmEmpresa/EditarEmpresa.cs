@@ -27,7 +27,6 @@ namespace PagoAgilFrba
             textBoxDireccion.Text = empresa.Direccion;
             comboBoxRubro.SelectedValue = empresa.IdRubro;
             textBoxPorcentaje.Text = empresa.Porcentaje.ToString();
-            //MessageBox.Show(empresa.Id.ToString());
         }
 
         private void EditarEmpresa_Load(object sender, EventArgs e)

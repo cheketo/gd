@@ -101,11 +101,5 @@ namespace PagoAgilFrba
             nuevo.Show();
         }
 
-
-
-        //private void dataGridViewEmpresa_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //dataGridViewEmpresa.DataSource = ((FormPrincipal)MdiParent).usuario.ObtenerRoles();
-        //}
     }
 }
