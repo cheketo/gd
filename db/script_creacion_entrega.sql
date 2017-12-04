@@ -75,6 +75,11 @@ IF OBJECT_ID('SQL_86.PorcentajeFacturasCobradasEmpresas', 'P') IS NOT NULL
 DROP PROC SQL_86.PorcentajeFacturasCobradasEmpresas
 GO
 
+IF OBJECT_ID('SQL_86.ClientesConMayorPorcentajeFacturasPagadas', 'P') IS NOT NULL
+DROP PROC SQL_86.ClientesConMayorPorcentajeFacturasPagadas
+GO
+
+
 -----------------------------------------------
 -- ELIMINACION STOREPROCEDURE - FIN
 -----------------------------------------------
@@ -562,6 +567,7 @@ AS BEGIN
 END
 GO
 
+
 --Procedimiento para listado de estadisticos Empresas con mayor monto rendido.
 CREATE PROCEDURE SQL_86.EmpresasConMayorMontoRendido(@Anio int, @Trimestre int)
 AS BEGIN
@@ -575,6 +581,7 @@ AS BEGIN
 	ORDER by "Monto Rendido" desc
 END
 GO
+
 
 --Procedimiento para listado de estadisticos porcentaje facturas cobradas empresas.
 CREATE PROCEDURE SQL_86.PorcentajeFacturasCobradasEmpresas(@Anio int, @Trimestre int)
@@ -596,6 +603,32 @@ AS BEGIN
 	AND f.id_pago = p.id
 	AND (f.estado = 'A' OR f.estado = 'F')
 	GROUP BY emp.id, emp.nombre
+	ORDER BY "Porcentaje Facturas" DESC
+END
+GO
+
+
+--Procedimiento para listado de estadisticos clientes con mayor porcentaje facturas pagadas.
+CREATE PROCEDURE SQL_86.ClientesConMayorPorcentajeFacturasPagadas(@Anio int, @Trimestre int)
+AS BEGIN
+	SELECT TOP 5 c.nombre Nombre, c.apellido Apellido, CONVERT(decimal(7,2),((COUNT(f.id) * 100) / CAST((
+							  SELECT COUNT(*) 
+							  FROM SQL_86.pagos p2,
+								   SQL_86.facturas f2
+							  WHERE f2.id_pago = p2.id
+								AND ( f2.estado = 'A' or f2.estado = 'F')
+								AND YEAR(p2.fecha) = @Anio
+								AND MONTH(p2.fecha) BETWEEN (3 * @Trimestre - 2) AND (3 * @Trimestre)) as float))) AS "Porcentaje Facturas"
+	FROM SQL_86.clientes c,
+		 SQL_86.facturas f,
+		 SQL_86.pagos p
+	WHERE c.id = f.id_cliente
+		AND  p.id = f.id_pago
+		AND c.id = p.id_cliente
+		AND YEAR(p.fecha) = @Anio
+		AND MONTH(p.fecha) BETWEEN ((3 * @Trimestre) - 2) AND (3 * @Trimestre)
+		AND ( f.estado = 'A' or f.estado = 'F')
+	GROUP BY c.id, c.nombre, c.apellido
 	ORDER BY "Porcentaje Facturas" DESC
 END
 GO
