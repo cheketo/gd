@@ -29,9 +29,6 @@ namespace PagoAgilFrba
             if(obj.Estado == "I")
                 comboIndex = 2;
             comboBoxEstado.SelectedValue = comboIndex;
-            //comboBoxRubro.SelectedValue = obj.IdRubro;
-            //textBoxPorcentaje.Text = obsj.Porcentaje.ToString();
-            //MessageBox.Show(empresa.Id.ToString());
         }
 
         private void EditarSucursal_Load(object sender, EventArgs e)

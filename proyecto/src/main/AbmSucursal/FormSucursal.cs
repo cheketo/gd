@@ -77,7 +77,6 @@ namespace PagoAgilFrba
         
         public void dataGridView_CellClick(object sender,DataGridViewCellEventArgs e)
         {
-            //MessageBox.Show(e.ColumnIndex.ToString());
             if (e.RowIndex > -1)
             {
                 int id = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString());
@@ -124,15 +123,7 @@ namespace PagoAgilFrba
         private void buttonCargar_Click(object sender, EventArgs e)
         {
             AltaSucursal nuevo = new AltaSucursal(this);
-            //nuevo.MdiParent = this;
             nuevo.Show();
         }
-
-
-
-        //private void dataGridViewEmpresa_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //dataGridViewEmpresa.DataSource = ((FormPrincipal)MdiParent).usuario.ObtenerRoles();
-        //}
     }
 }
