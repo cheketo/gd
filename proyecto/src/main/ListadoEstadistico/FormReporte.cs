@@ -77,7 +77,7 @@ namespace PagoAgilFrba.ListadoEstadistico
                 else
                 {
                     dGVReporte.DataSource = new DataTable();
-                    MessageBox.Show("No se han encontrado registros.", "Listado Estadistico", MessageBoxButtons.OK);
+                    MessageBox.Show("No hay registros para la fecha ingresada.", "Listado Estadistico", MessageBoxButtons.OK);
                 }
             }
             catch (Exception ex)

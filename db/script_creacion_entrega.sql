@@ -67,6 +67,10 @@ IF OBJECT_ID('SQL_86.ClientesConMasPagos', 'P') IS NOT NULL
 DROP PROC SQL_86.ClientesConMasPagos
 GO
 
+IF OBJECT_ID('SQL_86.EmpresasConMayorMontoRendido', 'P') IS NOT NULL
+DROP PROC SQL_86.EmpresasConMayorMontoRendido
+GO
+
 -----------------------------------------------
 -- ELIMINACION STOREPROCEDURE - FIN
 -----------------------------------------------
@@ -540,16 +544,31 @@ GO
 -- CREACION PROCEDIMIENTOS - INICIO
 -----------------------------------------------
 
--- Procedimiento Clientes con mas pagos.
+-- Procedimiento para listado de estadisticos Clientes con mas pagos.
 CREATE PROCEDURE SQL_86.ClientesConMasPagos(@Anio int, @Trimestre int)
 AS BEGIN
-	SELECT TOP 5 c.Nombre, c.Apellido, ISNULL(count(*),0) "cantidadPagos" 
-	FROM SQL_86.Pagos p, SQL_86.Clientes c
+	SELECT TOP 5 c.Nombre, c.Apellido, ISNULL(count(*),0) AS "Cantidad de Pagos" 
+	FROM SQL_86.Pagos p, 
+		 SQL_86.Clientes c
 	WHERE YEAR(fecha) = @Anio
 		AND p.id = c.id
 		AND MONTH(fecha) BETWEEN ((3 * @Trimestre) - 2) and (3 * @Trimestre)
 	GROUP BY c.id, c.Nombre, c.Apellido
-	ORDER BY "cantidadPagos" DESC
+	ORDER BY "Cantidad de Pagos" DESC
+END
+GO
+
+-- Procedimiento para listado de estadisticos Empresas con mayor monto rendido.
+CREATE PROCEDURE SQL_86.EmpresasConMayorMontoRendido(@Anio int, @Trimestre int)
+AS BEGIN
+	SELECT TOP 5 emp.nombre Empresa, ISNULL(SUM(total),0) AS "Monto Rendido"
+	FROM SQL_86.empresas emp,
+		 SQL_86.rendiciones rend
+	WHERE YEAR(rend.Fecha) = @Anio
+		  AND emp.id = rend.id_empresa
+		  AND MONTH(rend.Fecha) between ((3 * @Trimestre) - 2) and (3 * @Trimestre)
+	GROUP by emp.id, emp.nombre
+	ORDER by "Monto Rendido" desc
 END
 GO
 
