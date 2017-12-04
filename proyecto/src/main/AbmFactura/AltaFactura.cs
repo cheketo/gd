@@ -34,7 +34,6 @@ namespace PagoAgilFrba
         private void AltaFactura_Load(object sender, EventArgs e)
         {
             dataGridViewItems.Rows[0].Cells["Nro"].Value = "1";
-            //dataGridViewItems.Columns["Eliminar"].Visible = false;
         }
 
         private void buttonGuardar_Click(object sender, EventArgs e)
@@ -90,7 +89,6 @@ namespace PagoAgilFrba
         {
             int fila = dataGridViewItems.RowCount;
             dataGridViewItems.Rows[e.RowIndex].Cells["Nro"].Value = fila;
-            //dataGridViewItems.Columns["Eliminar"].Visible = true;
         }
 
         public void CalcularImporte()
