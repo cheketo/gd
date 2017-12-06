@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PagoAgilFrba.Core.Helpers;
 using PagoAgilFrba.AbmCliente;
-using PagoAgilFrba.ListadoEstadistico;
 
 namespace PagoAgilFrba
 {

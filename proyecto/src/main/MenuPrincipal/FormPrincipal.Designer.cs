@@ -282,6 +282,6 @@
         public System.Windows.Forms.ToolStripMenuItem pagarFacturasToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem devolverPagoToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem rendirFacturasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
     }
 }

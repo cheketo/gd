@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Windows.Forms;
 
-
 namespace PagoAgilFrba
 {
     public class Usuario
@@ -190,6 +189,11 @@ namespace PagoAgilFrba
             if (!this.ChequearPermiso("Rendiciones"))
             {
                 form.rendirFacturasToolStripMenuItem.Dispose();
+            }
+            // Comprobar permisos para Reportes
+            if (!this.ChequearPermiso("Reportes"))
+            {
+                form.reportesToolStripMenuItem.Dispose();
             }
         }
 

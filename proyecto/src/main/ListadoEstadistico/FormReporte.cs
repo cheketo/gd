@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PagoAgilFrba.ListadoEstadistico
+namespace PagoAgilFrba
 {
     public partial class FormReporte : Form
     {
@@ -20,7 +20,7 @@ namespace PagoAgilFrba.ListadoEstadistico
             CargarOpcionesSelectorReportes();
         }
 
-        private void CargarOpcionesSelectorAnio()
+        public void CargarOpcionesSelectorAnio()
         {
             List<int> opcionesSelectorAnio = new List<int>();
             int actualAnio = DateTime.Now.Year;
@@ -33,7 +33,7 @@ namespace PagoAgilFrba.ListadoEstadistico
             cBAnio.DataSource = opcionesSelectorAnio.ToArray();
         }
 
-        private void CargarOpcionesSelectorTrimestre()
+        public void CargarOpcionesSelectorTrimestre()
         {
             Dictionary<string, int> opcionesSelectorTrimestre = new Dictionary<string, int>();
             opcionesSelectorTrimestre.Add("1er Trimestre", 1);
@@ -47,7 +47,7 @@ namespace PagoAgilFrba.ListadoEstadistico
             cBTrimestre.DataSource = opcionesSelectorTrimestre.ToArray();
         }
 
-        private void CargarOpcionesSelectorReportes()
+        public void CargarOpcionesSelectorReportes()
         {
             Dictionary<string, int> opcionesSelectorReportes = new Dictionary<string, int>();
             opcionesSelectorReportes.Add("Porcentaje de facturas cobradas por empresa", 1);
@@ -61,7 +61,7 @@ namespace PagoAgilFrba.ListadoEstadistico
             cBReporte.DataSource = opcionesSelectorReportes.ToArray();
         }
 
-        private void buttonVerReporte_Click(object sender, EventArgs e)
+        public void buttonVerReporte_Click(object sender, EventArgs e)
         {
             Estadisticas estadistica = new Estadisticas();
             int anio = (int)cBAnio.SelectedValue;
@@ -85,5 +85,6 @@ namespace PagoAgilFrba.ListadoEstadistico
                 MessageBox.Show(ex.Message, "Error en Listado Estadisco", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
